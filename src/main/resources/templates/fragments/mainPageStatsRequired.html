@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="mainpage__stats">
+    <div class="stats__info" th:if="${topScore}">
+        <div class="stats__title">
+            Danh sách ghi bàn <i class="fas fa-bullseye"></i>
+        </div>
+        <div class="stats__tableBlock">
+            <table>
+                <thead>
+                <tr>
+                    <th>Cầu thủ</th>
+                    <th>Bàn thắng</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="player,i : ${topScore}">
+                    <td>
+                        <div class="stats__infoPlayer">
+                            <span th:text="${i.index + 1}"></span>
+                            <a th:href="@{{year}/user/{userID}(userID=${player.studentID},year=${year})}">
+                                <img
+                                        th:if="${player.avatar != null}"
+                                        th:src="@{/avatars/{filename}(filename=${player.avatar})}"
+                                        alt=""
+                                        srcset=""
+                                        width="50"
+                                />
+                                <img
+                                        th:unless="${player.avatar != null}"
+                                        th:src="@{/images/avatar-normal.png}"
+                                        alt=""
+                                        srcset=""
+                                        width="50"
+                                />
+                            </a>
+                            <div>
+                                <a th:href="@{{year}/user/{userID}(userID=${player.studentID},year=${year})}">
+                                    <span class="stats__infoPlayer--name" th:text="${player.name}"></span>
+                                </a>
+                                <a th:href="@{{year}/team/{userID}(userID=${player.teamID},year=${year})}">
+                                    <span th:text="${player.teamTitle}"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <th th:text="${player.number}"></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="stats__info" th:if="${topAssist}">
+        <div class="stats__title">
+            Danh sách kiến tạo <i class="fas fa-handshake"></i>
+        </div>
+        <div class="stats__tableBlock">
+            <table>
+                <thead>
+                <tr>
+                    <th>Cầu thủ</th>
+                    <th>Kiến tạo</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="player,i : ${topAssist}">
+                    <td>
+                        <div class="stats__infoPlayer">
+                            <span th:text="${i.index + 1}"></span>
+                            <a th:href="@{{year}/user/{userID}(userID=${player.studentID},year=${year})}">
+                                <img
+                                        th:if="${player.avatar != null}"
+                                        th:src="@{/avatars/{filename}(filename=${player.avatar})}"
+                                        alt=""
+                                        srcset=""
+                                        width="50"
+                                />
+                                <img
+                                        th:unless="${player.avatar != null}"
+                                        th:src="@{/images/avatar-normal.png}"
+                                        alt=""
+                                        srcset=""
+                                        width="50"
+                                />
+                            </a>
+
+                            <div>
+                                <a th:href="@{{year}/user/{userID}(userID=${player.studentID},year=${year})}">
+                                    <span class="stats__infoPlayer--name" th:text="${player.name}"></span>
+                                </a>
+                                <a th:href="@{{year}/team/{userID}(userID=${player.teamID},year=${year})}">
+                                    <span th:text="${player.teamTitle}"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <th th:text="${player.number}"></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="stats__info" th:if="${topRedCard}">
+        <div class="stats__title">
+            Danh sách thẻ đỏ <i class="redCard bi bi-file-fill"></i>
+        </div>
+        <div class="stats__tableBlock">
+            <table>
+                <thead>
+                <tr>
+                    <th>Cầu thủ</th>
+                    <th>Số thẻ</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="player,i : ${topRedCard}">
+                    <td>
+                        <div class="stats__infoPlayer">
+                            <span th:text="${i.index + 1}"></span>
+                            <a th:href="@{{year}/user/{userID}(userID=${player.studentID},year=${year})}">
+                                <img
+                                        th:if="${player.avatar != null}"
+                                        th:src="@{/avatars/{filename}(filename=${player.avatar})}"
+                                        alt=""
+                                        srcset=""
+                                        width="50"
+                                />
+                                <img
+                                        th:unless="${player.avatar != null}"
+                                        th:src="@{/images/avatar-normal.png}"
+                                        alt=""
+                                        srcset=""
+                                        width="50"
+                                />
+                            </a>
+                            <div>
+                                <a th:href="@{{year}/user/{userID}(userID=${player.studentID},year=${year})}">
+                                    <span class="stats__infoPlayer--name" th:text="${player.name}"></span>
+                                </a>
+                                <a th:href="@{{year}/team/{userID}(userID=${player.teamID},year=${year})}">
+                                    <span th:text="${player.teamTitle}"></span>
+                                </a>
+
+                            </div>
+                        </div>
+                    </td>
+                    <th th:text="${player.number}"></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="stats__info" th:if="${topYellowCard}">
+        <div class="stats__title">
+            Danh sách thẻ vàng <i class="yellowCard bi bi-file-fill"></i>
+        </div>
+        <div class="stats__tableBlock">
+            <table>
+                <thead>
+                <tr>
+                    <th>Cầu thủ</th>
+                    <th>Số thẻ</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="player,i : ${topYellowCard}">
+                    <td>
+                        <div class="stats__infoPlayer">
+                            <span th:text="${i.index + 1}"></span>
+                            <a th:href="@{{year}/user/{userID}(userID=${player.studentID},year=${year})}">
+                                <img
+                                        th:if="${player.avatar != null}"
+                                        th:src="@{/avatars/{filename}(filename=${player.avatar})}"
+                                        alt=""
+                                        srcset=""
+                                        width="50"
+                                />
+                                <img
+                                        th:unless="${player.avatar != null}"
+                                        th:src="@{/images/avatar-normal.png}"
+                                        alt=""
+                                        srcset=""
+                                        width="50"
+                                />
+                            </a>
+                            <div>
+                                <a th:href="@{{year}/user/{userID}(userID=${player.studentID},year=${year})}">
+                                    <span class="stats__infoPlayer--name" th:text="${player.name}"></span>
+                                </a>
+                                <a th:href="@{{year}/team/{userID}(userID=${player.teamID},year=${year})}">
+                                    <span th:text="${player.teamTitle}"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <th th:text="${player.number}"></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</html>

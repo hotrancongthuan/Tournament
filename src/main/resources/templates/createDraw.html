@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head}" />
+<body>
+<header th:replace="~{fragments/header :: header}" />
+<nav th:replace="~{fragments/navbar :: nav}" />
+<main class="dataTournament">
+    <div>
+        <div th:replace="~{fragments/createScheduleSidebar :: div}" />
+
+        <div class="dataTournament_dataBlock">
+            <div class="dataTournament__title">Bốc thăm vòng đấu</div>
+            <div class="dataTournament__form">
+                <div class="dataTournament__formBlock draw">
+                    <div>
+                        <label>Số đội:</label>
+                        <input type="text" th:value="${teamSize}" disabled />
+                    </div>
+                    <div class="btn--draw" th:if="${tournament_current.status == 'schedule'}">
+                        <form id="createDrawForm" th:action="@{/create_draw}" method="post">
+                            <button
+                                    class="btn btn-primary"
+                                    type="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#createDrawSubmit"
+                            >Bốc thăm</button>
+                        </form>
+                    </div>
+                    <div><span class="createDrawError" th:text="${createDrawError}"></span></div>
+                    <div th:each="roundSchedule : ${roundSchedules}">
+                        <label th:if="${#strings.contains(roundSchedule.roundTitle,'playoff')}">Vòng playoff:</label>
+                        <label th:if="${#strings.contains(roundSchedule.roundTitle,'group-stage')}">Vòng bảng:</label>
+                        <label th:if="${#strings.contains(roundSchedule.roundTitle,'round-of-16')}">Vòng 1/16:</label>
+                        <label th:if="${roundSchedule.roundTitle == 'quarterfinals'}">Tứ kết:</label>
+                        <label th:if="${roundSchedule.roundTitle == 'semi-final'}">Bán kết:</label>
+                        <label th:if="${roundSchedule.roundTitle == 'final'}">Chung kết:</label>
+                        <input type="text" th:value="${roundSchedule.numberMatch}+' trận'" disabled />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <table class="dataTournament__table schedule table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div
+    class="modal fade"
+    id="createDrawSubmit"
+    tabindex="-1"
+    aria-labelledby="createDrawSubmit__Label"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" method="post">
+                <div class="modal-header">
+                    <h5
+                        class="changeSchedule__modal--title modal-title"
+                        id="createDrawSubmit__Label"
+                    >Xác nhận bốc thăm giải đấu
+                    </h5>
+                    <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-footer changeSchedule__modal--button">
+                    <button type="button" class="btn btn-primary" onclick="confirmCreateDrawSubmit()">Xác nhận</button>
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                    >Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragments/footer :: footer}" />
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <header class="mainpage__header">
+        <div>
+            <div class="header__info">
+                <div>
+                    <a class="header__info--logo" href="/">
+                        <img
+                            th:src="@{/images/TDT_logo.png}"
+                            alt=""
+                            height="66px"
+                            width="120px"
+                        />
+                    </a>
+                </div>
+            </div>
+            <div class="header__user">
+                <div sec:authorize="isAuthenticated()" class="header__user--block">
+                    <a href="/personal_information">
+                        <img
+                            class="header__user--avatar"
+                            th:if="${user_current.avatar != null}"
+                            th:src="@{/avatars/{filename}(filename=${user_current.avatar})}"
+                            alt="User Avatar"
+                        />
+                        <img
+                            class="header__user--avatar"
+                            th:unless="${user_current.avatar != null}"
+                            th:src="@{/images/avatar-normal.png}"
+                            alt="User Avatar"
+                        />
+                    </a>
+
+                    <a class="header__user--name" href="/personal_information" th:text="${user_current.name}"></a>
+                </div>
+
+                <div sec:authorize="isAuthenticated()" class="header__user--logout">
+                    <form action="#" th:action="@{/logout}" method="post">
+                        <input type="submit" value="Đăng xuất" />
+                    </form>
+                </div>
+
+                <a sec:authorize="!isAuthenticated()" class="header__user--login" href="/login">Đăng nhập</a>
+            </div>
+        </div>
+    </header>
+</html>

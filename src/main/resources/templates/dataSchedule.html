@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head}" />
+<body>
+<header th:replace="~{fragments/header :: header}" />
+<main class="dataTournament">
+    <div>
+        <div th:replace="~{fragments/dataSidebar :: div}" />
+        <div class="dataTournament_dataBlock">
+            <div class="dataTournament__title">Danh sách môn học <span th:if="${schoolYear}" th:text="${schoolYear.year1}+'-'+${schoolYear.year2}">2023-2024</span></div>
+            <div class="dataTournament__form">
+                <form id="formSearch__dataSchedule" class="" action="" method="get">
+                    <input type="hidden" name="page" id="dataSchedule__page" value="1" />
+                    <div class="dataTournament__formBlock">
+                        <div>
+                            <label for="dataSchedule__subject">Môn học</label>
+                            <input type="text" name="subject" id="dataSchedule__subject" />
+                        </div>
+                        <div>
+                            <label>Ca</label>
+                            <select type="text" name="shift" id="dataSchedule__shift">
+                                <option value="">--</option>
+                                <option value="1">Ca 1</option>
+                                <option value="2">Ca 2</option>
+                                <option value="3">Ca 3</option>
+                                <option value="4">Ca 4</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Thứ</label>
+                            <select type="text" name="weekday" id="dataSchedule__weekday">
+                                <option value="">--</option>
+                                <option value="2">Thứ 2</option>
+                                <option value="3">Thứ 3</option>
+                                <option value="4">Thứ 4</option>
+                                <option value="5">Thứ 5</option>
+                                <option value="6">Thứ 6</option>
+                                <option value="7">Thứ 7</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Học kỳ</label>
+                            <select type="text" name="semester" id="dataSchedule__semester">
+                                <option value="">--</option>
+                                <option value="1">HK1</option>
+                                <option value="2">HK2</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="dataTournament__formBtn">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                        <button type="button" onclick="prevPage()" ><i class="fas fa-angle-double-left"></i></button>
+                        <button type="button" onclick="nextPage()" ><i class="fas fa-angle-double-right"></i></button>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <table
+                        class="dataTournament__table table table-striped table-hover"
+                    id="dataTournament__tableSchedule"
+                >
+                    <thead>
+                        <tr>
+                            <th>Tên môn học</th>
+                            <th>Ca</th>
+                            <th>Thứ</th>
+                            <th>Học kỳ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${schedules}" th:each="schedule: ${schedules}">
+                            <td><a th:href="'/schedule/'+${schedule.ID}" th:text="${schedule.name}"></a></td>
+                            <td><a th:href="'/schedule/'+${schedule.ID}" th:text="'Ca '+${schedule.shift}"></a></td>
+                            <td><a th:href="'/schedule/'+${schedule.ID}" th:text="'Thứ '+${schedule.weekday}"></a></td>
+                            <td><a th:href="'/schedule/'+${schedule.ID}" th:text="${schedule.semester}"></a></td>
+                        </tr>
+                        <tr th:if="${schedules != null and #lists.size(schedules) < 15}" th:each="tr : ${#numbers.sequence(#lists.size(schedules), 15)}">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}" />
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

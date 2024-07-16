@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head}" />
+  <body>
+    <header th:replace="~{fragments/header :: header}" />
+    <nav th:replace="~{fragments/navbar :: nav}" />
+    <main class="signupTeam__main">
+        <div class="signupTeam">
+            <div class="signupTeam__title" >Đăng ký tham gia giải đấu </div>
+            <div class="signupTeam__errorAlow" th:if="${allow == 'false'}"><span>Niên khóa của bạn không được tham gia giải đâu</span></div>
+            <div class="signupTeam__errorAlow" th:if="${gender == 'female'}"><span>Hiện tại giải đấu chỉ dành cho nam</span></div>
+          <div class="signupTeam__info">
+            <div class="signupTeam__class">
+              <label>Lớp</label>
+              <button type="button" class="btn btn-secondary" th:if="${classID_}" th:text="${classID_}" th:disabled="${allow == 'false' or gender == 'female'}">
+              </button>
+            </div>
+            <div class="signupTeam__class2">
+              <label for="addClass2">Lớp thứ 2</label>
+              <input type="text" name="addClass2" id="addClass2" th:value="${signUpTeamInfo != null ? signUpTeamInfo.class2 : ''}" th:disabled="${allow == 'false' or gender == 'female'}"/>
+              <button type="button" onclick="addClass2Btn()" class="addClass2Btn btn btn-primary" th:disabled="${allow == 'false' or gender == 'female'}">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </div>
+          <div>
+            <form action="" th:action="${#authorization.expression('hasRole(''PLAYER'')') ? '/change_information_team' : '/sign_up_team'}" method="post">
+              <meta th:name="_csrf" th:content="${_csrf.token}"/>
+              <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+              <input type="hidden" id="class1" name="class1" th:value="${classID_}" />
+              <input type="hidden" id="class2" name="class2" th:value="${signUpTeamInfo != null ? signUpTeamInfo.class2 : ''}" />
+              <input class="signupTeam__infohidden" type="text" name="captain" id="captainTeam"  th:value="${signUpTeamInfo != null ? signUpTeamInfo.captain : ''}"/>
+              <div class="signupTeam__table--submit">
+                <button
+                  type="button"
+                  class="signup__status--acept btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#signup__addPlayer"
+                  id="signupTeam__table"
+                  th:disabled="${allow == 'false' or gender == 'female'}"
+                >Chọn thành viên
+                </button>
+                <input type="submit" class="btn btn-primary" value="Đăng ký" th:disabled="${allow == 'false' or gender == 'female'}"/>
+              </div>
+                <div th:if="${error}"  class="signup__errorForm">
+                    <span th:text="${error}"></span>
+                </div>
+              <div class="signupTeam__players">
+                <table class="signupTeam__table table table-striped table-hover">
+                  <thead>
+                    <th>Số áo</th>
+                    <th>Vai trò</th>
+                    <th>Tên thành viên</th>
+                    <th>MSSV</th>
+                    <th>Lớp</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    <tr  th:if="${signUpTeamInfo != null && signUpTeamInfo.captain != null}" th:each="player : ${signUpTeamInfo.players}">
+                        <td>
+                            <a th:text="${player.playerNumber}"></a>
+                            <input class="signupTeam__infohidden" type="checkbox" name="players" th:value="${player.studentID}" checked/>
+                            <input class="signupTeam__infohidden" type="number" name="playerNumbers" th:value="${player.playerNumber}" />
+                        </td>
+                        <td>
+                            <a th:text="${player.ID == signUpTeamInfo.captain ? 'Đội trưởng' : 'Thành viên'}"></a>
+                        </td>
+                        <td>
+                            <a th:text="${player.name}"></a>
+                        </td>
+                        <td><a th:text="${player.studentID}"></a></td>
+                        <td><a th:text="${player.classID}"></a></td>
+                        <td><a>Không hợp lệ</a></td>
+                        <td class="signupTeam__table--button">
+                            <button type="button" class="btn btn-danger">Xóa</button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+        </div>
+    </main>
+    <div
+      class="modal fade"
+      id="signup__addPlayer"
+      tabindex="-1"
+      aria-labelledby="signup__addPlayerLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                class="confirmTeamInfo__modal--title modal-title"
+                id="signup__addPlayerLabel"
+              >
+                Chọn thành viên
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div id="studentsSignUpCheckbox" class="modal-body">
+              <div class="confirmTeamInfo__changePlayer">
+                <ul>
+                </ul>
+              </div>
+            </div>
+            <div class="modal-footer confirmTeamInfo__modal--button">
+              <span class="confirmTeamInfo__modal--error"></span>
+              <input id="aceptAddStudent" type="button" class="btn btn-primary"  value="Xác nhận" />
+              <input id="aceptAddStudentHidden" type="hidden" data-bs-dismiss="modal" value="Xác nhận" />
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Hủy
+              </button>
+            </div>
+        </div>
+      </div>
+    </div>
+    <footer th:replace="~{fragments/footer :: footer}" />
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+
+</html>

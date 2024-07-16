@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head}" />
+<body>
+<header th:replace="~{fragments/header :: header}" />
+<main class="dataTournament">
+    <div>
+        <div th:replace="~{fragments/dataSidebar :: div}" />
+        <div class="dataTournament_dataBlock">
+            <div class="dataTournament__title">Danh sách tuần học</div>
+            <div>
+                <table
+                        class="dataTournament__table table table-striped table-hover"
+                        id="dataTournament__tableWeek"
+                >
+                    <thead>
+                    <tr>
+                        <th>Tuần</th>
+                        <th>Ngày</th>
+                        <th>Học kỳ</th>
+                        <th>Ngày nghỉ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${semesterWeeks}" th:each="semesterWeek :${semesterWeeks}">
+                        <td th:text="${semesterWeek.numWeek}"></td>
+                        <td th:text="${#temporals.format(semesterWeek.startDate, 'dd/MM/yyyy')} + ' - ' + ${#temporals.format(semesterWeek.endDate, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${semesterWeek.semester}"></td>
+                        <td>
+                            <span th:if="${planYears}">
+                                <span th:each="planYear : ${planYears}" th:if="${planYear.week == semesterWeek.numWeek}" th:text="${planYear.name}+' - '+${#temporals.format(planYear.date, 'dd/MM/yyyy')}"></span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr th:if="${semesterWeeks != null and #lists.size(semesterWeeks) < 15}" th:each="tr : ${#numbers.sequence(1, 15 - #lists.size(#objects.nullSafe(semesterWeeks, new java.util.ArrayList())))}">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}" />
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

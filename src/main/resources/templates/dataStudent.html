@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head}" />
+<body>
+<header th:replace="~{fragments/header :: header}" />
+<main class="dataTournament">
+    <div>
+        <div th:replace="~{fragments/dataSidebar :: div}" />
+        <div class="dataTournament_dataBlock">
+            <div class="dataTournament__title">Danh sách sinh viên</div>
+            <div class="dataTournament__form">
+                <form id="formSearch__dataStudent" class="" action="" method="get">
+                    <div class="dataTournament__formBlock">
+                        <input type="hidden" name="page" id="dataStudent__page" value="1"/>
+                        <div>
+                            <label for="dataStudent__ID">Mã sinh viên</label>
+                            <input type="text" name="studentID" id="dataStudent__ID"  />
+                        </div>
+                        <div>
+                            <meta th:name="_csrf" th:content="${_csrf.token}"/>
+                            <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+                            <label>Khóa</label>
+                            <select id="dataStudent_option__takeIn" name="takeIn" type="text" onchange="getClassByTakeIn(this)">
+                                <option value="">--</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Lớp</label>
+                            <select id="dataStudent_option__class" name="class" type="text">
+                                <option value="">--</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="dataTournament__formBtn">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                        <button type="button" onclick="prevPage()"><i class="fas fa-angle-double-left"></i></button>
+                        <button type="button" onclick="nextPage()"><i class="fas fa-angle-double-right"></i></button>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <table
+                        class="dataTournament__table table table-striped table-hover"
+                >
+                    <thead>
+                    <tr>
+                        <th>MSSV</th>
+                        <th>Tên</th>
+                        <th>Lớp</th>
+                        <th>Khóa</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${students}" th:each="student: ${students}">
+                        <td th:text="${student.ID}"></td>
+                        <td th:text="${student.name}"></td>
+                        <td th:text="${student.classID}"></td>
+                        <td th:text="${student.takeIn.ID}"></td>
+                    </tr>
+                    <tr th:if="${students != null and #lists.size(students) < 15}" th:each="tr : ${#numbers.sequence(#lists.size(students), 15)}">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}" />
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head}" />
+<body>
+  <header th:replace="~{fragments/header :: header}" />
+  <nav th:replace="~{fragments/navbar :: nav}" />
+
+  <input
+      class="mainpage__inputTab"
+      type="radio"
+      name="mainpage"
+      id="mainpage__standings"
+      checked
+  />
+  <input
+      class="mainpage__inputTab"
+      type="radio"
+      name="mainpage"
+      id="mainpage__stats"
+  />
+
+  <article class="mainpage__tab">
+      <ul>
+          <li data-input="mainpage__standings">
+              <label for="mainpage__standings">
+                  <i class="fas fa-calendar"></i><span>Lịch thi đấu</span>
+              </label>
+          </li>
+          <li data-input="mainpage__stats">
+              <label for="mainpage__stats">
+                  <i class="fas fa-chart-bar"></i><span>Thông số</span>
+              </label>
+          </li>
+      </ul>
+  </article>
+
+  <main id="mainpage_tour" class="mainpage__main">
+      <div th:replace="~{fragments/mainPageStanding :: div}" />
+      <div th:replace="~{fragments/mainPageStats :: div}" />
+  </main>
+  <footer th:replace="~{fragments/footer :: footer}" />
+  <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

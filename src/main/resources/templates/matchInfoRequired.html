@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="~{fragments/head :: head}" />
+<body>
+<header th:replace="~{fragments/header :: header}" />
+<nav th:replace="~{fragments/navbar :: nav}" />
+
+<main id="matchInfo" class="matchDetail">
+    <div>
+        <div
+                class="matchDetail__title"
+                th:if="${#strings.contains(roundSchedule.roundTitle,'playoff')}"
+        >
+            Vòng playoff
+        </div>
+        <div
+                class="matchDetail__title"
+                th:if="${#strings.contains(roundSchedule.roundTitle,'group-stage')}"
+        >
+            Vòng bảng
+        </div>
+        <div
+                class="matchDetail__groupStageTitle"
+                th:if="${#strings.contains(roundSchedule.roundTitle,'group-stage')}"
+                th:text="'Bảng '+${#strings.substring(match.type, #strings.length(match.type) - 1)}"
+        ></div>
+        <div
+                class="matchDetail__title"
+                th:if="${#strings.contains(roundSchedule.roundTitle,'round-of-16')}"
+        >
+            Vòng 1/16
+        </div>
+        <div
+                class="matchDetail__title"
+                th:if="${roundSchedule.roundTitle == 'quarterfinals'}"
+        >
+            Tứ kết
+        </div>
+        <div
+                class="matchDetail__title"
+                th:if="${roundSchedule.roundTitle == 'semi-final'}"
+        >
+            Bán kết
+        </div>
+        <div
+                class="matchDetail__title"
+                th:if="${roundSchedule.roundTitle == 'final' and third_place != null}"
+        >
+            Tranh hạng ba
+        </div>
+        <div
+                class="matchDetail__title"
+                th:if="${roundSchedule.roundTitle == 'final' and third_place == null}"
+        >
+            Chung kết
+        </div>
+        <!-- info -->
+        <div class="matchDetail__info">
+            <div
+                    class="matchDetail__date"
+                    th:text="${#temporals.format(match.date, 'dd/MM/yyyy')}"
+            ></div>
+            <div
+                    class="matchDetail__field"
+                    th:text="${#temporals.format(match.time, 'HH:mm')}"
+            ></div>
+            <div class="matchDetail__status">
+            <span class="inprogress" th:if="${match.status == 'playing'}"
+            >Đang diễn ra</span
+            >
+                <span class="cancel" th:if="${match.status == 'cancel'}"
+                >Trận đấu bị hủy</span
+                >
+            </div>
+        </div>
+
+        <!-- team -->
+        <div class="matchDetail__team">
+            <div
+                    class="matchDetail__team1 kick"
+                    th:attr="data-goal=${match.scoreTeam1}, data-messenger=${match.reasonTeam1}"
+            >
+                <a th:href="@{/{year}/team/{matchID}(matchID=${match.team1.ID},year=${year})}">
+                    <span th:text="${match.team1.class1}"></span>
+                </a>
+                <a
+                        th:if="${match.team1.class2 != ''}"
+                        th:href="@{/{year}/team/{matchID}(matchID=${match.team1.ID},year=${year})}"
+                >
+              <span
+                      th:text="${match.team1.class2 != '' ? match.team1.class2 : ''}"
+              ></span>
+                </a>
+            </div>
+            <span class="matchDetail__devide">-</span>
+            <div th:if="${match.status == 'playing' or match.status == 'done'}">
+                <div class="matchDetail__result">
+                    <div
+                            class="result__team1"
+                            th:if="${match.status == 'done' or match.status == 'cancel'}"
+                            th:text="${match.scoreTeam1}"
+                    ></div>
+                    <div
+                            class="result__team1"
+                            th:unless="${match.status == 'done' or match.status == 'cancel'}"
+                    >
+                        0
+                    </div>
+                    <span>-</span>
+                    <div
+                            class="result__team2"
+                            th:if="${match.status == 'done' or match.status == 'cancel'}"
+                            th:text="${match.scoreTeam2}"
+                    ></div>
+                    <div
+                            class="result__team2"
+                            th:unless="${match.status == 'done' or match.status == 'cancel'}"
+                    >
+                        0
+                    </div>
+                </div>
+                <div
+                        class="matchDetail__penaltyResult"
+                        th:if="${(match.status == 'done' or match.status == 'cancel') and match.penaltyCheck == 1}"
+                >
+                    <div
+                            class="result__team1"
+                            th:text="${match.penaltyScoreTeam1}"
+                    ></div>
+                    <span>PK</span>
+                    <div
+                            class="result__team2"
+                            th:text="${match.penaltyScoreTeam2}"
+                    ></div>
+                </div>
+            </div>
+            <div
+                    class="matchDetail__team2 kick"
+                    th:attr="data-goal=${match.scoreTeam2}, data-messenger=${match.reasonTeam2}"
+            >
+                <a th:href="@{/{year}/team/{matchID}(matchID=${match.team2.ID},year=${year})}">
+                    <span th:text="${match.team2.class1}"></span>
+                </a>
+                <a
+                        th:if="${match.team2.class2 != ''}"
+                        th:href="@{/{year}/team/{matchID}(matchID=${match.team2.ID},year=${year})}"
+                >
+              <span
+                      th:text="${match.team2.class2 != '' ? match.team2.class2 : ''}"
+              ></span>
+                </a>
+            </div>
+        </div>
+        <!--  livescore -->
+        <div
+                class="matchDetail__livescore"
+                th:if="${livescoresTeam1.size() > 0 or livescoresTeam2.size() > 0}"
+        >
+            <div class="livescore__goal">
+                <div class="livescore__icon">
+                    <i class="fas fa-futbol"></i>
+                </div>
+                <div class="livescore__player team1">
+                    <div th:each="livescore : ${livescoresTeam1}">
+                        <span th:text="${livescore.minutes}+'\''"></span>
+                        <span th:text="${livescore.playerScore.name}"></span>
+                        <span th:if="${livescore.type == 'OwnGoal'}">(OG)</span>
+                    </div>
+                </div>
+                <div class="livescore__player team2">
+                    <div th:each="livescore : ${livescoresTeam2}">
+                        <span th:text="${livescore.minutes}+'\''"></span>
+                        <span th:text="${livescore.playerScore.name}"></span>
+                        <span th:if="${livescore.type == 'OwnGoal'}">(OG)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="livescore__goal" th:if="${livePenaltiesTeam1.size() > 0}">
+                <div class="livescore__icon">Luân lưu</div>
+                <div class="livescore__player team1">
+                    <div th:each="livePenalty : ${livePenaltiesTeam1}">
+                <span th:if="${livePenalty.result == 1}"
+                ><i class="text-success fas fa-check-circle"></i
+                ></span>
+                        <span th:unless="${livePenalty.result == 1}"
+                        ><i class="text-danger fas fa-times-circle"></i
+                        ></span>
+                        <span th:text="${livePenalty.player.name}"></span>
+                    </div>
+                </div>
+                <div class="livescore__player team2">
+                    <div th:each="livePenalty : ${livePenaltiesTeam2}">
+                <span th:if="${livePenalty.result == 1}"
+                ><i class="text-success fas fa-check-circle"></i
+                ></span>
+                        <span th:unless="${livePenalty.result == 1}"
+                        ><i class="text-danger fas fa-times-circle"></i
+                        ></span>
+                        <span th:text="${livePenalty.player.name}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                    class="livescore__card"
+                    th:if="${liveCardsTeam1.size() > 0 or liveCardsTeam2.size() > 0 }"
+            >
+                <div class="livescore__icon">
+                    <i class="yellowCard bi bi-file-fill"></i
+                    ><i class="redCard bi bi-file-fill"></i>
+                </div>
+                <div class="livescore__player team1">
+                    <div th:each="liveCard : ${liveCardsTeam1}">
+                        <span th:text="${liveCard.minutes}+'\''"></span>
+                        <span th:if="${liveCard.type == 'yellowCard'}"
+                        ><i class="yellowCard bi bi-file-fill"></i
+                        ></span>
+                        <span th:if="${liveCard.type == 'redCard'}"
+                        ><i class="redCard bi bi-file-fill"></i
+                        ></span>
+                        <span th:text="${liveCard.player.name}"></span>
+                    </div>
+                </div>
+                <div class="livescore__player team2">
+                    <div th:each="liveCard : ${liveCardsTeam2}">
+                        <span th:text="${liveCard.minutes}+'\''"></span>
+                        <span th:if="${liveCard.type == 'yellowCard'}"
+                        ><i class="yellowCard bi bi-file-fill"></i
+                        ></span>
+                        <span th:if="${liveCard.type == 'redCard'}"
+                        ><i class="redCard bi bi-file-fill"></i
+                        ></span>
+                        <span th:text="${liveCard.player.name}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="attendance" class="matchDetail__lineup">
+            <div class="lineup__team team1" th:if="${playersMainTeam1}">
+                <div class="lineup__team--lineup">
+              <span
+                      class="lineup__team--title t1"
+                      th:attr="data-team=${team1Title}"
+              >Đội hình chính</span
+              >
+                    <ul th:if="${playersMainTeam1  != null}">
+                        <li
+                                th:if="${playersMainTeam1}"
+                                th:each="playerT1 : ${playersMainTeam1}"
+                        >
+                            <input
+                                    type="hidden"
+                                    class="playerTeam1"
+                                    th:value="${playerT1.ID}"
+                            />
+                            <i class="lineup__team--number fas fa-tshirt"
+                            ><p th:text="${playerT1.playerNumber}"></p
+                            ></i>
+                            <span
+                                    class="lineup__team--iconBlock"
+                                    th:if="${playerT1.captain == 1}"
+                            >
+                    <i class="lineup__team--captain bi bi-c-circle-fill"></i>
+                    <span th:text="${playerT1.name}"></span>
+                  </span>
+                            <span
+                                    th:if="${playerT1.captain == 0}"
+                                    th:text="${playerT1.name}"
+                            ></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lineup__team team2" th:if="${playersMainTeam2}">
+                <div class="lineup__team--lineup">
+              <span
+                      class="lineup__team--title t2"
+                      th:attr="data-team=${team2Title}"
+              >Đội hình chính</span
+              >
+                    <ul th:if="${playersMainTeam2  != null}">
+                        <li
+                                th:if="${playersMainTeam2}"
+                                th:each="playerT1 : ${playersMainTeam2}"
+                        >
+                            <input
+                                    type="hidden"
+                                    class="playerTeam2"
+                                    th:value="${playerT1.ID}"
+                            />
+                            <i class="lineup__team--number fas fa-tshirt"
+                            ><p th:text="${playerT1.playerNumber}"></p
+                            ></i>
+                            <span
+                                    class="lineup__team--iconBlock"
+                                    th:if="${playerT1.captain == 1}"
+                            >
+                    <i class="lineup__team--captain bi bi-c-circle-fill"></i>
+                    <span th:text="${playerT1.name}"></span>
+                  </span>
+                            <span
+                                    th:if="${playerT1.captain == 0}"
+                                    th:text="${playerT1.name}"
+                            ></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="matchDetail__lineup">
+            <div class="lineup__team team1" th:if="${playersSubTeam1}">
+                <div class="lineup__team--sub">
+              <span
+                      class="lineup__team--title"
+                      th:attr="data-team=${team1Title}"
+              >Dự bị</span
+              >
+                    <ul th:if="${playersSubTeam1  != null}">
+                        <li
+                                th:if="${playersSubTeam1}"
+                                th:each="playerT1 : ${playersSubTeam1}"
+                        >
+                            <input
+                                    type="hidden"
+                                    class="playerTeam1"
+                                    th:value="${playerT1.ID}"
+                            />
+                            <i class="lineup__team--number fas fa-tshirt"
+                            ><p th:text="${playerT1.playerNumber}"></p
+                            ></i>
+                            <span
+                                    class="lineup__team--iconBlock"
+                                    th:if="${playerT1.captain == 1}"
+                            >
+                    <i class="lineup__team--captain bi bi-c-circle-fill"></i>
+                    <span th:text="${playerT1.name}"></span>
+                  </span>
+                            <span
+                                    th:if="${playerT1.captain == 0}"
+                                    th:text="${playerT1.name}"
+                            ></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lineup__team team2" th:if="${playersSubTeam2}">
+                <div class="lineup__team--sub">
+              <span
+                      class="lineup__team--title"
+                      th:attr="data-team=${team2Title}"
+              >Dự bị</span
+              >
+                    <ul th:if="${playersSubTeam2  != null}">
+                        <li
+                                th:if="${playersSubTeam2}"
+                                th:each="playerT1 : ${playersSubTeam2}"
+                        >
+                            <input
+                                    type="hidden"
+                                    class="playerTeam2"
+                                    th:value="${playerT1.ID}"
+                            />
+                            <i class="lineup__team--number fas fa-tshirt"
+                            ><p th:text="${playerT1.playerNumber}"></p
+                            ></i>
+                            <span
+                                    class="lineup__team--iconBlock"
+                                    th:if="${playerT1.captain == 1}"
+                            >
+                    <i class="lineup__team--captain bi bi-c-circle-fill"></i>
+                    <span th:text="${playerT1.name}"></span>
+                  </span>
+                            <span
+                                    th:if="${playerT1.captain == 0}"
+                                    th:text="${playerT1.name}"
+                            ></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="matchDetail__lineup">
+            <div class="lineup__team team1">
+                <div class="lineup__team--sub">
+              <span
+                      class="lineup__team--title"
+                      th:attr="data-team=${team1Title}"
+              >Vắng</span
+              >
+                    <ul>
+                        <li th:each="playerT1,i : ${playersBannedTeam1}">
+                            <i class="lineup__team--number fas fa-tshirt"
+                            ><p th:text="${playerT1.playerNumber}"></p
+                            ></i>
+                            <span
+                                    class="lineup__team--iconBlock"
+                                    th:if="${playerT1.captain == 1}"
+                            >
+                    <i class="lineup__team--captain bi bi-c-circle-fill"></i>
+                    <span th:text="${playerT1.name}"></span>
+                    <i
+                            th:if="${reasonBannedTeam1[i.index] == 'doubleYellowCard'}"
+                            class="yellowCard bi bi-file-fill"
+                    ></i>
+                    <i
+                            th:if="${reasonBannedTeam1[i.index] == 'doubleYellowCard'}"
+                            class="yellowCard bi bi-file-fill"
+                    ></i>
+                    <i
+                            th:if="${reasonBannedTeam1[i.index] == 'redCard'}"
+                            class="redCard bi bi-file-fill"
+                    ></i>
+                  </span>
+                            <span th:if="${playerT1.captain == 0}">
+                    <span th:text="${playerT1.name}"></span>
+                    <i
+                            th:if="${reasonBannedTeam1[i.index] == 'doubleYellowCard'}"
+                            class="yellowCard bi bi-file-fill"
+                    ></i>
+                    <i
+                            th:if="${reasonBannedTeam1[i.index] == 'doubleYellowCard'}"
+                            class="yellowCard bi bi-file-fill"
+                    ></i>
+                    <i
+                            th:if="${reasonBannedTeam1[i.index] == 'redCard'}"
+                            class="redCard bi bi-file-fill"
+                    ></i>
+                  </span>
+                        </li>
+                        <li th:each="playerT1 : ${playerAbsentTeam1}">
+                            <i class="lineup__team--number fas fa-tshirt"
+                            ><p th:text="${playerT1.playerNumber}"></p
+                            ></i>
+                            <span
+                                    class="lineup__team--iconBlock"
+                                    th:if="${playerT1.captain == 1}"
+                            >
+                    <i class="lineup__team--captain bi bi-c-circle-fill"></i>
+                    <span th:text="${playerT1.name}"></span>
+                  </span>
+                            <span th:if="${playerT1.captain == 0}">
+                    <span th:text="${playerT1.name}"></span>
+                  </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lineup__team team2">
+                <div class="lineup__team--sub">
+              <span
+                      class="lineup__team--title"
+                      th:attr="data-team=${team2Title}"
+              >Vắng</span
+              >
+                    <ul>
+                        <li th:each="playerT1,i : ${playersBannedTeam2}">
+                            <i class="lineup__team--number fas fa-tshirt"
+                            ><p th:text="${playerT1.playerNumber}"></p
+                            ></i>
+                            <span
+                                    class="lineup__team--iconBlock"
+                                    th:if="${playerT1.captain == 1}"
+                            >
+                    <i class="lineup__team--captain bi bi-c-circle-fill"></i>
+                    <span th:text="${playerT1.name}"></span>
+                    <i
+                            th:if="${reasonBannedTeam2[i.index] == 'doubleYellowCard'}"
+                            class="yellowCard bi bi-file-fill"
+                    ></i>
+                    <i
+                            th:if="${reasonBannedTeam2[i.index] == 'doubleYellowCard'}"
+                            class="yellowCard bi bi-file-fill"
+                    ></i>
+                    <i
+                            th:if="${reasonBannedTeam2[i.index] == 'redCard'}"
+                            class="redCard bi bi-file-fill"
+                    ></i>
+                  </span>
+                            <span th:if="${playerT1.captain == 0}">
+                    <span th:text="${playerT1.name}"></span>
+                    <i
+                            th:if="${reasonBannedTeam2[i.index] == 'doubleYellowCard'}"
+                            class="yellowCard bi bi-file-fill"
+                    ></i>
+                    <i
+                            th:if="${reasonBannedTeam2[i.index] == 'doubleYellowCard'}"
+                            class="yellowCard bi bi-file-fill"
+                    ></i>
+                    <i
+                            th:if="${reasonBannedTeam2[i.index] == 'redCard'}"
+                            class="redCard bi bi-file-fill"
+                    ></i>
+                  </span>
+                        </li>
+                        <li th:each="playerT1 : ${playerAbsentTeam2}">
+                            <i class="lineup__team--number fas fa-tshirt"
+                            ><p th:text="${playerT1.playerNumber}"></p
+                            ></i>
+                            <span
+                                    class="lineup__team--iconBlock"
+                                    th:if="${playerT1.captain == 1}"
+                            >
+                    <i class="lineup__team--captain bi bi-c-circle-fill"></i>
+                    <span th:text="${playerT1.name}"></span>
+                  </span>
+                            <span th:if="${playerT1.captain == 0}">
+                    <span th:text="${playerT1.name}"></span>
+                  </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}" />
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

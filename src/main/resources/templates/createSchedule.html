@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html
+      lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head}" />
+  <body>
+    <header th:replace="~{fragments/header :: header}" />
+
+    <nav th:replace="~{fragments/navbar :: nav}" />
+
+    <div class="crateSchedule">
+      <div class="crateSchedule__title">Tạo lịch thi đấu</div>
+      <div class="crateSchedule__info">
+        <form method="post" th:action="@{/create_schedule}" onsubmit="return submitSchedule()">
+          <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+          <div class="scheduleRound">
+            <div class="round__label">Thông tin trận đấu</div>
+            <div class="round__input">
+              <div>
+                <label>Thời gian 1 hiệp</label>
+                <select name="timeHalf" id="timeHalf">
+                  <option value="">--</option>
+                  <option value="15">15 phút</option>
+                  <option value="20">20 phút</option>
+                  <option value="30">30 phút</option>
+                  <option value="45">45 phút</option>
+                </select>
+              </div>
+              <div>
+                <label for="breakTime">Thời gian nghỉ giữa hiệp</label>
+                <select name="breakTime" id="breakTime">
+                  <option value="">--</option>
+                  <option value="5">5 phút</option>
+                  <option value="10">10 phút</option>
+                  <option value="15">15 phút</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="scheduleRound">
+            <div class="round__label">Thông tin giải đấu</div>
+            <div class="round__input">
+              <div>
+                <label for="openday">Ngày khai mạc</label>
+                <input type="date" name="fStageStartDate"  id="openday" />
+              </div>
+              <div>
+                <label for="closeday">Ngày bế mạc</label>
+                <input type="date" name="fStageEndDate" id="closeday"/>
+              </div>
+              <div>
+                <label>Sáng</label>
+                <select name="morningStart" id="morningStart">
+                  <option value="">--</option>
+                  <option value="7:00">7:00</option>
+                  <option value="7:30">7:30</option>
+                  <option value="8:00">8:00</option>
+                  <option value="8:30">8:30</option>
+                </select>
+                <label class="center">Đến</label>
+                <select name="morningEnd" id="morningEnd">
+                  <option value="">--</option>
+                  <option value="9:30">9:30</option>
+                  <option value="10:00">10:00</option>
+                  <option value="10:30">10:30</option>
+                  <option value="11:00">11:00</option>
+                </select>
+              </div>
+              <div>
+                <label>Chiều</label>
+                <select name="eveningStart" id="eveningStart">
+                  <option value="">--</option>
+                  <option value="13:00">13:00</option>
+                  <option value="13:30">13:30</option>
+                  <option value="14:00">14:00</option>
+                  <option value="14:30">14:30</option>
+                  <option value="15:00">15:00</option>
+                </select>
+                <label class="center">Đến</label>
+                <select name="eveningEnd" id="eveningEnd">
+                  <option value="">--</option>
+                  <option value="16:00">16:00</option>
+                  <option value="16:30">16:30</option>
+                  <option value="17:00">17:00</option>
+                  <option value="17:30">17:30</option>
+                  <option value="18:00">18:00</option>
+                </select>
+              </div>
+              <div>
+                <label for="sameTime">Số trận cùng diễn ra</label>
+                <input type="number" name="fStageMatchSameTime"  id="sameTime" />
+              </div>
+              <div>
+                <label for="breakTimeTeam">Thời gian nghỉ của 1 đội</label>
+                <input type="number" name="breakTimeTeam"  id="breakTimeTeam" />
+              </div>
+              <div>
+                <label>Thời gian giữa 2 trận</label>
+                <select name="break2Match" id="break2Match">
+                  <option value="">--</option>
+                  <option value="5">5 phút</option>
+                  <option value="10">10 phút</option>
+                  <option value="15">15 phút</option>
+                  <option value="20">20 phút</option>
+                  <option value="30">30 phút</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div>
+            <span class="createSchedule__error" th:text="${error}"></span>
+          </div>
+          <div class="scheduleRound__button">
+            <input
+              class="btn btn-primary"
+              type="submit"
+              value="Tạo lịch thi đấu"
+            />
+          </div>
+        </form>
+        <div><span class="threadError" th:text="${threadError}"></span></div>
+      </div>
+    </div>
+    <footer th:replace="~{fragments/footer :: footer}" />
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+</html>

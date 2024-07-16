@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="dataTournament_dataLink">
+    <ul>
+        <li><a href="/create_draw">Bốc thăm</a></li>
+        <li th:each="roundSchedule : ${roundSchedules}" th:if="${roundSchedule.scheduleStatus != 'notyet'}">
+            <a th:href="@{/create_schedule/{type}(type=${roundSchedule.roundTitle})}" th:if="${roundSchedule.scheduleStatus != 'notyet' and #strings.contains(roundSchedule.roundTitle,'playoff')}">Vòng playoff</a>
+            <a th:href="@{/create_schedule/{type}(type=${roundSchedule.roundTitle})}" th:if="${roundSchedule.scheduleStatus != 'notyet' and #strings.contains(roundSchedule.roundTitle,'group-stage')}">Vòng bảng</a>
+            <a th:href="@{/create_schedule/{type}(type=${roundSchedule.roundTitle})}" th:if="${roundSchedule.scheduleStatus != 'notyet' and #strings.contains(roundSchedule.roundTitle,'round-of-16')}">Vòng 1/16</a>
+            <a th:href="@{/create_schedule/{type}(type=${roundSchedule.roundTitle})}" th:if="${roundSchedule.scheduleStatus != 'notyet' and roundSchedule.roundTitle == 'quarterfinals'}">Tứ kết</a>
+            <a th:href="@{/create_schedule/{type}(type=${roundSchedule.roundTitle})}" th:if="${roundSchedule.scheduleStatus != 'notyet' and roundSchedule.roundTitle == 'semi-final'}">Bán kết</a>
+            <a th:href="@{/create_schedule/{type}(type=${roundSchedule.roundTitle})}" th:if="${roundSchedule.scheduleStatus != 'notyet' and roundSchedule.roundTitle == 'final'}">Chung kết</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

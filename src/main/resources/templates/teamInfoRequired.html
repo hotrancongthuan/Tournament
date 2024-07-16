@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head}" />
+<body>
+<header th:replace="~{fragments/header :: header}" />
+<nav th:replace="~{fragments/navbar :: nav}" />
+<main class="confirmTeamInfo__container">
+    <div class="confirmTeamInfo">
+        <div class="confirmTeamInfo__title">Thông tin đội bóng</div>
+        <div class="confirmTeamInfo__team">
+            <button type="button" class="btn btn-secondary" th:if="${team != null and team.class2 != ''}" th:text="${team.class1}+' - '+${team.class2}" disabled>
+            </button>
+            <button type="button" class="btn btn-secondary" th:unless="${team != null and team.class2 != ''}" th:text="${team.class1}" disabled>
+            </button>
+        </div>
+        <input type="radio" name="content" id="teamInfoPlayers" checked />
+        <input type="radio" name="content" id="teamInfoMatchs" />
+        <input type="radio" name="content" id="teamInfoAchieve" />
+        <div class="confirmTeamInfo__tab">
+            <nav>
+                <ul>
+                    <li data-input="teamInfoPlayers">
+                        <label for="teamInfoPlayers">
+                            <i class="bi bi-people-fill"></i><span>Thành viên</span>
+                        </label>
+                    </li>
+                    <li data-input="teamInfoMatchs">
+                        <label for="teamInfoMatchs">
+                            <i class="bi bi-calendar-fill"></i>
+                            <span>Lịch thi đấu</span>
+                        </label>
+                    </li>
+                    <li data-input="teamInfoAchieve">
+                        <label for="teamInfoAchieve">
+                            <i class="bi bi-calendar-fill"></i>
+                            <span>Thành tích</span>
+                        </label>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="confirmTeamInfo__main">
+            <div th:replace="~{fragments/teamInfoPlayerRequired :: div}" />
+            <div th:replace="~{fragments/teamInfoMatchRequired :: div}" />
+            <div th:replace="~{fragments/teamInfoAchieveRequired :: div}" />
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}" />
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

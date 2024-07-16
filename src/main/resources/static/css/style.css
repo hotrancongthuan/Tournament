@@ -1,0 +1,4819 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ---------------------------- start code ---------------------------- */
+
+:root {
+  --side: 20%;
+  --side1200px: 15%;
+  --side900px: 10%;
+  --side600px: 5%;
+  --sideBoxShadow: 0px 8px 20px rgba(149, 157, 165, 0.3);
+  --mainColor: ghostwhite;
+  --backgroundColor: rgb(237, 241, 246);
+  --headerColor: rgba(0, 103, 172, 0.8);
+  --hoverColor: rgba(15, 136, 218, 0.2);
+  --mainColor2: rgba(0, 103, 172, 0.6);
+  --widthMain1200px: 80vw;
+  --widthMain900px: 85vw;
+  --widthMain600px: 90vw;
+  --widthMain: 75vw;
+  --yellowCard: #d3ad02;
+  --redCard: #c7361f;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: var(--backgroundColor);
+  display: flex;
+  flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1; /* Cho phép nội dung chính (main content) mở rộng để lấp đầy không gian trống */
+}
+
+footer {
+    flex-shrink: 0; /* Ngăn chặn footer từ việc co lại */
+}
+
+/* ----------------------------------------- login page ----------------------------------------- */
+
+.login__block {
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 600px;
+  width: 100%;
+  height: 300px;
+  margin: auto;
+  text-align: center;
+}
+
+.login__block--left,
+.login__block--right {
+  display: inline-block;
+  width: 49%;
+  height: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  box-shadow: var(--sideBoxShadow);
+  vertical-align: middle;
+  position: relative;
+}
+
+.login__block--left {
+  border-radius: 10px 0 0 10px;
+}
+
+.login__block--right {
+  border-radius: 0 10px 10px 0;
+}
+
+.login__block--left > div,
+.login__block--right > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 200px;
+  width: 100%;
+  height: fit-content;
+  margin: auto;
+}
+
+.login__title {
+  font-size: 3rem;
+  color: white;
+  line-height: 1.3;
+}
+
+.login__block--left {
+  background-color: rgba(0, 103, 172, 0.5);
+}
+
+.login__block--right {
+  background-color: white;
+}
+
+.login__form {
+  font-size: 1.8rem;
+  text-align: left;
+}
+
+.login__form--id,
+.login__form--password {
+  margin: 10px 5px;
+}
+
+.login__form--id input,
+.login__form--password input {
+  height: 30px;
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.login__form--id input:focus,
+.login__form--password input:focus {
+  outline: 1px solid red;
+  box-shadow: 0 0 10px #719ece;
+}
+
+.login__form--submit {
+  text-align: center;
+}
+
+.login__form--submit input {
+  background-color: #c7361f;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.login__form--forgetPass {
+  margin-top: 1.5rem;
+}
+
+.login__form--forgetPass a:hover {
+  border-bottom: 1px solid #ccc;
+  color: black;
+}
+
+.login__error {
+  padding: 1rem 0;
+  color: red;
+}
+
+
+/* ----------------------------------------- create Tournament ----------------------------------------- */
+.createTour__main {
+    display:flex;
+    align-items: center;
+}
+
+.createTour__form {
+  margin: 20px auto;
+  max-width: 600px;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.createTour__error {
+  color: red;
+  font-size: 1.2rem;
+}
+.createTour__error::before {
+  content: "*";
+}
+
+.form_numberTeam--max input,
+.form_numberTeam--min input {
+  margin-bottom: 1rem;
+}
+
+.createTour__form > div {
+  font-size: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.form__studentYear {
+  padding: 0;
+  max-width: 100%;
+}
+
+.createTour__form input {
+  text-align: center;
+}
+
+.createTour__form input[type="checkbox"] {
+  width: 2rem;
+}
+
+.form__studentYear {
+  padding-top: 1rem;
+}
+
+.form__studentYear--checkbox label {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.form__studentYear {
+  flex-basis: 100%;
+}
+
+.form__studentYear--checkbox {
+  margin: auto;
+  display: flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.form__studentYear--checkbox > div {
+  width: calc(100% / 2 - 2rem);
+  text-align: center;
+}
+
+.block_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  gap: 1rem;
+}
+
+.block_form input {
+  padding: 1rem;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: 1px solid black;
+}
+
+.createTour__form > div:last-child {
+  text-align: center;
+}
+
+.form_numberTeam {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+.form_numberTeam--min, .form_numberTeam--max{
+    width: 50%;
+}
+
+.form_numberTeam input {
+  margin-top: 1rem;
+}
+
+.form_submit {
+  font-size: 1.5rem;
+  background-color: var(--headerColor);
+  border-radius: 1rem;
+  padding: 1rem 3rem;
+  color: white;
+  border: none;
+}
+
+/* ----------------------------------------- Personal Infomation ----------------------------------------- */
+
+
+.personalInfo__main {
+  min-height: calc(100vh - 10rem - 10rem);
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+#changeAvatar {
+  display: none;
+}
+
+.personalInfo {
+  background-color: var(--mainColor);
+  box-shadow: var(--sideBoxShadow);
+  padding: 2rem;
+}
+
+.personalInfo__block {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.personalInfo__block > div:first-child {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.personalInfo__submit input{
+  background-color: var(--headerColor);
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  width: fit-content;
+  color: #ffffff;
+  border: none;
+}
+
+.personalInfo__avatar {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.personalInfo__avatar img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 1px solid black;
+  object-fit: cover;
+}
+
+.personalInfo__avatar label {
+  background-color: var(--headerColor);
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  width: fit-content;
+  color: #ffffff;
+}
+
+.personalInfo__avatar label:hover {
+  cursor: pointer;
+}
+
+.personalInfo__info ul li {
+  padding: 0.5rem;
+}
+
+.personalInfo__height input[type='number']{
+    width: 5ch;
+}
+
+.personalInfo__info span {
+  font-size: 1.7rem;
+}
+
+.personalInfo__info li:last-child {
+  text-align: center;
+}
+
+.personalInfo__stats {
+  margin: auto;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.personalInfo__stats > div {
+  padding: 1rem;
+}
+
+.personalInfo__stats > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.personalInfo__stats > div span {
+  text-align: left;
+}
+
+.personalInfo__stats > div span:first-child {
+  display: flex;
+  gap: 1rem;
+  width: 150px;
+}
+
+.personalInfo__stats > div span:first-child span {
+  text-align: left;
+}
+
+.personalInfo__stats > div span:first-child i {
+  text-align: left;
+  width: 3rem;
+}
+
+.personalInfo__stats > div span:last-child {
+  background-color: var(--headerColor);
+  padding: 1rem;
+  text-align: center;
+  color: #ffffff;
+  border-radius: 1rem;
+  flex: 1;
+  width: 200px;
+}
+
+.personalInfo__infoPlayer {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.personalInfo__captain i {
+  font-size: 3rem;
+}
+
+/* ----------------------------------------- main page ----------------------------------------- */
+/* ----------------------------------------- header ----------------------------------------- */
+.mainpage__header {
+  background-color: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mainpage__header > div {
+  display: flex;
+  justify-content: space-between;
+  width: var(--widthMain);
+  margin: auto;
+  padding: 1rem;
+}
+
+.mainpage__header a:hover {
+  color: black;
+}
+
+.header__user {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 10px;
+}
+
+.header__user--block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header__user--avatar {
+  height: 60px;
+  width: 60px;
+  background-color: transparent;
+  display: inline-block;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.header__user--name,
+.header__user--logout input,
+.header__user--login {
+  font-size: 1.6rem;
+  font-weight: 700;
+  padding: 1.5rem 0;
+}
+
+.header__user--logout input {
+  background-color: transparent;
+  border: none;
+}
+
+
+/* ------------------------------------- nav  ------------------------------------- */
+
+.mainpage__nav {
+  background-color: var(--headerColor);
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: var(--sideBoxShadow);
+}
+
+.mainpage__nav > div {
+  width: var(--widthMain);
+  margin: auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.mainpage__nav a:hover {
+  color: white;
+}
+
+.nav__name {
+  text-shadow: 5px 5px 7px rgba(0, 0, 0, 0.5);
+}
+
+.nav__name > div:first-child {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 15px;
+}
+.nav__name h4 {
+  display: inline-block;
+}
+.nav__year--select {
+  font-size: 1.8rem;
+  border-radius: 8px;
+  padding: 1rem;
+  outline: none;
+  background-color: var(--headerColor);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.nav__status {
+  margin: 1rem auto 0;
+  font-size: 1.3rem;
+  width: fit-content;
+}
+
+.nav__status--open,
+.nav__status--not,
+.nav__status--close {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav__status--createBtn,
+.nav__status--not > div,
+.nav__status--open > div,
+.nav__status--inprogress,
+.nav__status--close > div {
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.31);
+  text-shadow: none;
+  color: white;
+  font-weight: 700;
+  padding: 1rem;
+}
+
+.nav__status--createBtn,
+.nav__status--createBtn {
+  background-color: rgb(3, 34, 34);
+}
+
+.nav__status--not > div,
+.nav__status--close > div {
+  background-color: #ccc;
+  color: #031634;
+}
+.nav__status--close > div {
+  background-color: rgb(199, 54, 31);
+  color: white;
+}
+
+.nav__status--open > div,
+.nav__status--inprogress {
+  background-color: rgb(18, 180, 40);
+}
+
+/* ------------------------------------- main  ------------------------------------- */
+.mainpage__main {
+  margin: auto;
+  width: var(--widthMain);
+  padding: 2rem;
+  min-height: calc(100vh - 10rem - 29rem - 9rem - 8rem);;
+}
+
+.mainpage__main > div:first-child {
+    display: none;
+}
+
+.mainpage__main > div:nth-child(2) {
+  display: none;
+}
+
+.mainpage__main > div:nth-child(3) {
+  display: none;
+}
+
+.mainpage__main a:hover {
+  color: black;
+}
+
+.mainpage__main a.matchSchedule__header--more:hover,
+.mainpage__main a.resultMatch__header--more:hover {
+  color: white;
+}
+
+/* ------------------------------------- aside  ------------------------------------- */
+
+.aside__round {
+  background-color: var(--mainColor);
+  color: black;
+  border-radius: 10px;
+  box-shadow: var(--sideBoxShadow);
+  font-size: 1.5rem;
+  position: relative;
+}
+
+.aside__round--btnPrev {
+  position: absolute;
+  left: 0;
+  padding: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.aside__round--btnNext {
+  position: absolute;
+  right: 0;
+  padding: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.aside__round--btnPrev:hover,
+.aside__round--btnNext:hover {
+  cursor: pointer;
+}
+
+.aside__round ul li {
+  text-align: center;
+  vertical-align: middle;
+  padding: 2rem;
+}
+
+.aside__round ul li,
+.aside__round input {
+  display: none;
+}
+
+.aside__round ul li.round--show {
+  display: block;
+}
+
+.aside__date input {
+  background: var(--mainColor);
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  width: 100%;
+  padding: 1.5rem 1rem;
+  border-radius: 1rem;
+  outline: none;
+  text-align: center;
+  border: none;
+  box-shadow: var(--sideBoxShadow);
+}
+
+/* ------------------------------------- aside  ------------------------------------- */
+
+.mainpage__aside,
+.scheduleMatch__aside {
+  flex: 1;
+  gap: 2rem;
+  max-width: 25%;
+}
+
+.aside__bar {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.aside__bar li {
+  background-color: var(--headerColor);
+  box-shadow: 0 2px 5px black;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+}
+
+.aside__bar li a {
+  color: rgb(255, 255, 255);
+  transition: all 0.5s;
+  font-size: 1.2rem;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 1.2rem;
+  height: 100%;
+  width: 100%;
+}
+
+.aside__bar li:hover {
+  background-color: var(--mainColor);
+  cursor: pointer;
+  font-size: 1.8rem;
+}
+
+.aside__bar li:hover a {
+  color: black;
+}
+
+.aside__notiBlock {
+  display: inline-block;
+  position: relative;
+}
+
+.aside__bar li {
+  border-radius: 1rem 1rem 1rem 1rem;
+}
+
+/* --------------------------- match --------------------------- */
+
+.matchBlock {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  padding-bottom: 3rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid #aaa;
+  flex-wrap: wrap;
+}
+
+.resultInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 400px;
+  flex: 1;
+}
+
+.matchInfo {
+  max-width: 350px;
+  flex: 1;
+}
+
+.matchSchedule,
+.resultInfo__match {
+  background-color: var(--mainColor);
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 10px;
+  box-shadow: var(--sideBoxShadow);
+  overflow: hidden;
+}
+
+.matchSchedule__header,
+.resultMatch__header {
+  font-size: 1.5rem;
+  text-align: center;
+  background-color: var(--headerColor);
+  font-weight: 700;
+  padding: 2rem;
+  border-bottom: 1px solid gray;
+}
+
+.matchSchedule__header--more,
+.resultMatch__header--more {
+  color: #f8f7f5;
+}
+
+.matchSchedule__main {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 1rem;
+}
+
+.matchSchedule__main a:hover {
+  color: black;
+}
+
+.matchSchedule__main:not(:last-child),
+.resultMatch__info:not(:last-child),
+.resultInfo__player:not(:last-child) {
+  border-bottom: 1px solid black;
+}
+
+.matchSchedule__main:hover,
+.resultMatch__info:hover,
+.resultInfo__player:hover {
+  background-color: var(--hoverColor);
+}
+
+.matchSchedule__main .matchSchedule__team1,
+.matchSchedule__main .matchSchedule__team2,
+.matchSchedule__main .matchSchedule__info {
+  transition: all 0.3s;
+}
+
+.matchSchedule__team1,
+.matchSchedule__team2 {
+  padding: 2rem;
+}
+
+.matchSchedule__info div {
+  text-align: center;
+  margin: 5px;
+}
+
+/* --------------------------- result --------------------------- */
+
+.resultMatch__info {
+  display: flex;
+  align-items: center;
+}
+
+.resultMatch__info--left {
+  flex: 2;
+  border-right: 1px solid #ccc;
+  padding: 0 1rem;
+}
+
+.resultMatch__info--right {
+  flex: 1;
+}
+.resultMatch__info--right div {
+  margin: 10px;
+}
+
+.resultMatch__info--team1,
+.resultMatch__info--team2 {
+  display: flex;
+  gap: 6px;
+  margin: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.resultMatch__info--team1{
+    padding-bottom: 1rem;
+}
+
+.resultMatch__info--teamBlock{
+    display: flex;
+    flex-direction: column;
+}
+
+.resultMatch__info--goalT1,
+.resultMatch__info--goalT2 {
+  margin-left: 10px;
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.5;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.resultMatch__info--goalT1 span,
+.resultMatch__info--goalT2 span,
+.resultMatch__info--goalT1 i,
+.resultMatch__info--goalT2 i {
+  vertical-align: text-top;
+}
+
+.resultMatch__info--yellowCard,
+.resultMatch__info--redCard {
+  height: 25px;
+  width: 20px;
+  border-radius: 2px;
+  text-align: center;
+  color: var(--mainColor);
+  line-height: 25px;
+}
+
+.resultMatch__info--yellowCard {
+  background-color: #d3ad02;
+}
+
+.resultMatch__info--redCard {
+  background-color: #c7361f;
+}
+
+.resultInfo__player {
+  display: flex;
+  align-items: center;
+}
+
+.resultInfo__player--info {
+  padding: 1rem;
+  flex: 3;
+  border-right: 1px solid #ccc;
+  text-align: center;
+}
+
+.resultInfo__player--info div {
+  padding: 0.5rem;
+}
+
+.mainpage__roundTitle {
+  font-size: 1.8rem;
+  text-align: center;
+  font-weight: 700;
+  margin: 2rem;
+}
+
+.mainpage__groupStage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3rem 2rem;
+  position: relative;
+}
+
+#btn-prevGroup {
+  position: absolute;
+  top: 25%;
+  transform: translateY(-50%);
+  left: 0;
+  font-size: 5rem;
+  border: none;
+  background-color: transparent;
+}
+
+#btn-nextGroup {
+  position: absolute;
+  top: 25%;
+  transform: translateY(-50%);
+  right: 0;
+  font-size: 5rem;
+  border: none;
+  background-color: transparent;
+}
+
+.groupInfo {
+  display: none;
+}
+
+.groupInfo.show {
+  display: block;
+}
+
+.mainpage__groupStage > div {
+  min-width: 300px;
+  width: 100%;
+}
+
+.groupName {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: auto;
+}
+
+.groupName i {
+  font-size: 3rem;
+  vertical-align: middle;
+}
+
+.mainpage__groupStage table {
+  font-size: 1.5rem;
+  margin: auto;
+  min-width: 70%;
+  background-color: var(--mainColor);
+  box-shadow: var(--sideBoxShadow);
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.mainpage__groupStage table thead th,
+.mainpage__groupStage table tbody td {
+  width: 40px;
+
+  height: 50px;
+  line-height: 50px;
+  vertical-align: middle;
+}
+
+.mainpage__groupStage table thead tr,
+.mainpage__groupStage table tbody tr:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.mainpage__groupStage table thead th:nth-child(2),
+.mainpage__groupStage table tbody td:nth-child(2) {
+  width: 30%;
+}
+
+.mainpage__groupStage table thead th:last-child,
+.mainpage__groupStage table tbody td:last-child {
+  width: 10rem;
+}
+
+.mainpage__groupStage table thead th:first-child,
+.mainpage__groupStage table tbody td:first-child {
+  width: 3rem;
+  text-align: center;
+}
+
+.mainpage__groupStage table tbody tr:first-child td:first-child,
+.mainpage__groupStage table tbody tr:nth-child(2) td:first-child {
+  border-left: 3px solid #4285f4;
+}
+
+.groupStage__chance {
+  border-left: 3px solid #fa7b17;
+}
+
+.groupStage__notifi {
+  display: flex;
+  gap: 2rem;
+  font-size: 1.5rem;
+  justify-content: center;
+  margin: 2rem;
+}
+
+.groupStage__notifi--next div::before {
+  content: " ";
+  display: inline-block;
+  background-color: #4285f4;
+  height: 1rem;
+  width: 1rem;
+  margin-right: 0.5rem;
+}
+
+.groupStage__notifi--nextChance div::before {
+  content: " ";
+  display: inline-block;
+  background-color: #fa7b17;
+  height: 1rem;
+  width: 1rem;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.groupStage__notifi > div:last-child {
+  display: flex;
+  gap:1.5rem;
+}
+
+.notifi__last {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.last__matchs {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  height: 100%;
+}
+
+.last1,
+.last2,
+.last3 {
+  background-color: #ccc;
+  border-radius: 2px solid black;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+.last--win,
+.last--draw,
+.last--lose {
+  position: absolute;
+  width: 100%;
+}
+
+.mainpage__knockout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding-bottom: 2rem;
+    border-bottom: 1px solid #aaa;
+}
+
+.knockoutBlock,
+.confirmTeamInfo__scheduleBlock {
+  background-color: var(--mainColor);
+  box-shadow: var(--sideBoxShadow);
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.knockoutBlock {
+  width: calc(100% / 3 - 1rem);
+  font-size: 1.5rem;
+}
+
+.confirmTeamInfo__scheduleBlock {
+  width: calc(100% / 2 - 1rem);
+}
+
+
+
+.knockout__Info,
+.confirmTeamInfo__scheduleInfo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.knockout__time,
+.confirmTeamInfo__scheduleTime {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.knockout__result{
+    display: flex;
+    gap: 0.5rem;
+}
+
+.knockout__Team{
+    display:flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.knockout__Team a:hover{
+    color: black;
+}
+
+.knockout__time > div.text-success,.knockout__time > div.text-info{
+    font-weight: 700;
+}
+
+.mainpage__final {
+  display: flex;
+}
+
+.confirmTeamInfo__achieve {
+  padding: 2rem;
+}
+
+.confirmTeamInfo__achieve .stats__info {
+  width: 80%;
+}
+
+.stats__title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.stats__title i {
+  font-size: 2rem;
+}
+
+.yellowCard {
+  color: #d3ad02;
+}
+
+.redCard {
+  color: #c7361f;
+}
+
+.stats__info {
+  margin: auto;
+  width: 60%;
+  background-color: var(--mainColor);
+  box-shadow: var(--sideBoxShadow);
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stats__info table {
+  width: 100%;
+  font-size: 1.5rem;
+}
+
+.stats__info table thead tr {
+  border-bottom: 1px solid #ccc;
+  height: 50px;
+  line-height: 20px;
+}
+
+.stats__info table thead tr th {
+  vertical-align: middle;
+}
+
+.stats__info table tbody tr {
+  height: 80px;
+  line-height: 80px;
+}
+
+.stats__info table tbody tr:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.stats__info table thead th:first-child {
+  padding-left: 2rem;
+}
+
+.stats__info table th:last-child {
+  text-align: right;
+  padding-right: 2rem;
+}
+
+.stats__infoPlayer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stats__infoPlayer img {
+  border-radius: 50%;
+  border: 1px solid black;
+  line-height: 50px;
+  height: 50px;
+  display:block
+}
+
+.stats__infoPlayer a span:first-child {
+  padding-left: 1rem;
+}
+
+.stats__infoPlayer div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stats__infoPlayer div:last-child a:hover{
+    color:black
+}
+
+.stats__infoPlayer div:last-child a span {
+  display: block;
+  line-height: 20px;
+}
+
+.stats__infoPlayer div:last-child span{
+  font-size: 1.5rem;
+}
+.stats__infoPlayer div:last-child span.stats__infoPlayer--name{
+    font-size: 1.8rem;
+}
+
+.mainpage__footer {
+  padding: 1rem var(--side);
+  background-color: #031634;
+  box-shadow: var(--sideBoxShadow);
+}
+
+.mainpage__footer > div {
+  max-width: fit-content;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+.mainpage__footer > div > div {
+  display: inline-block;
+  color: white;
+  font-size: 1.2rem;
+  width: fit-content;
+  vertical-align: middle;
+
+  margin: auto;
+}
+
+/* ----------------------------------------- confirm team, confirm team info ----------------------------------------- */
+
+.confirmTeam__error span{
+    width: max-content;
+    font-size: 2rem;
+    color: red;
+    font-weight: 700;
+    display: block;
+    margin : 2rem auto;
+}
+
+.confirmTeam__main {
+  min-height:calc(100vh - 10rem);
+    display:flex;
+    justify-content: center;
+}
+
+.confirmTeamInfo__container {
+  display: flex;
+  justify-content: center;
+}
+
+.confirmTeam,
+.confirmTeamInfo,
+.signupTeam,
+.fee {
+  background-color: var(--mainColor);
+  box-shadow: var(--sideBoxShadow);
+  width: 1000px;
+  padding: 2rem;
+}
+
+.signupTeam{
+    min-width: 700px;
+    width: auto;
+}
+
+.signupTeam__main {
+  display: flex;
+  justify-content: center;
+}
+
+.confirmTeam__status,
+.confirmTeamInfo__info {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 1.3rem;
+  margin: 2rem auto;
+}
+
+.confirmTeam__title,
+.confirmTeamInfo__title,
+.signupTeam__title,
+.scheduleMatch__title,
+.matchDetail__title,
+.fee__title,
+.crateSchedule__title,
+.addData__title {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.matchDetail__groupStageTitle{
+    font-size: 2rem;
+    margin: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.confirmTeam__status button,.confirmTeam__status a {
+  font-size: 1.4rem;
+}
+
+.modal-backdrop.custom-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040; /* Dưới modal 2 nhưng trên modal 1 */
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Độ mờ tùy chỉnh */
+    display: none; /* Mặc định không hiển thị */
+}
+
+.confirmTeam__modal--title,
+.confirmTeamInfo__modal--title,
+.changeSchedule__modal--title {
+  font-size: 2.2rem;
+}
+
+#confirmChangeSchedule__error span{
+    font-size: 2.2rem;
+}
+
+.confirmTeam__modal--endDate {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+#endDate:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px red;
+}
+
+.confirmTeam__modal--button input,
+.confirmTeam__modal--button button,
+.confirmTeamInfo__modal--button button,
+.changeSchedule__modal--button button,
+.changeSchedule__modal--button input,
+.confirmTeamInfo__modal--button input {
+  font-size: 1.5rem;
+}
+
+.confirmTeamInfo__modal--error {
+    margin-right: auto;
+    color: red;
+    font-size: 1.5rem;
+    display: none;
+}
+
+.confirmTeamInfo__modal--error.show {
+    display: inline;
+}
+
+
+.confirmTeam__Teams,
+.signupTeam__players {
+  margin: 2rem;
+  margin-top: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  overflow: hidden;
+  height: 600px;
+  overflow: scroll;
+}
+
+
+.confirmTeamInfo__table,
+.fee__table {
+  margin: 0;
+  margin-top: 2rem;
+  border-top: 1px solid #ccc;
+  border-radius: 1rem;
+}
+
+.confirmTeamInfo__table tr input{
+    display:none;
+}
+
+.confirmTeam__table {
+  margin-bottom: 0;
+}
+
+.confirmTeam__table th,
+.confirmTeamInfo__table th,
+.signupTeam__table th,
+.fee__table th {
+  line-height: 25px;
+  font-size: 1.5rem;
+}
+
+.confirmTeam__table tr,
+.confirmTeamInfo__table tr,
+.signupTeam__table tr,
+.fee__table tr {
+  vertical-align: baseline;
+}
+
+.confirmTeam__table td,
+.confirmTeamInfo__table td,
+.signupTeam__table td,
+.fee__table td {
+  height: 50px;
+  font-size: 1.4rem;
+}
+
+.confirmTeamInfo__table td a{
+    font-size: 1.4rem;
+}
+
+.confirmTeamInfo__table td:first-child,
+.fee__table td:first-child {
+  text-align: center;
+}
+
+.modal-content {
+  width: max-content;
+  margin: auto;
+}
+
+.confirmTeamInfo__changePlayer {
+  height: 500px;
+  overflow: scroll;
+  text-align: center;
+}
+
+.confirmTeamInfo__changePlayer ul li {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  vertical-align: baseline;
+}
+
+.confirmTeamInfo__changePlayer ul li:first-child {
+  border-top: 1px solid #ccc;
+}
+
+.confirmTeamInfo__changePlayer ul li input[type="number"] {
+  width: 70px;
+}
+
+.modalAddPlayer__class {
+  margin-left: auto;
+}
+
+.confirmTeamInfo__changePlayer ul li span {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.confirmTeamInfo__changePlayer ul li.signup__errorInput span {
+  border-bottom: 2px solid red;
+}
+
+.confirmTeamInfo__changePlayer ul li.signup__errorInput > input {
+  border: 2px solid red;
+}
+
+.confirmTeamInfo__error {
+  width: 100%;
+}
+
+.confirmTeamInfo__error span {
+  width: fit-content;
+  display: block;
+  margin: 2rem auto;
+  font-size: 2rem;
+  color: red;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    min-width: max-content;
+    margin: 1.75rem auto;
+  }
+}
+
+.confirmTeam__table a,
+.confirmTeamInfo__table span,
+.signupTeam__table a,
+.fee__table a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 50px;
+  text-decoration: none;
+  color: black;
+}
+
+.confirmTeamInfo__team {
+  text-align: center;
+  margin: 2rem;
+}
+
+.confirmTeamInfo__tab,
+.mainpage__tab {
+  background-color: #f1f1f1;
+  box-shadow: var(--sideBoxShadow);
+  border-radius: 1rem 1rem 0 0;
+  overflow: hidden;
+}
+
+.confirmTeamInfo > input,
+.mainpage__inputTab {
+  display: none;
+}
+
+.mainpage__tab ul {
+  width: var(--widthMain);
+  margin: auto;
+}
+
+.confirmTeamInfo__tab ul,
+.mainpage__tab ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.confirmTeamInfo__tab ul li,
+.mainpage__tab ul li {
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #aaa;
+  padding: 2rem;
+}
+
+.confirmTeamInfo__tab ul li:hover label,
+.mainpage__tab ul li:hover label {
+  cursor: pointer;
+}
+
+.confirmTeamInfo__tab ul li label,
+.mainpage__tab ul li label {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.confirmTeamInfo__tab ul li label span,
+.mainpage__tab ul li label span {
+  color: #505050;
+}
+
+.confirmTeamInfo__main {
+  background-color: var(--mainColor);
+  box-shadow: var(--sideBoxShadow);
+  overflow: hidden;
+  border-radius: 0 0 1rem 1rem;
+  min-height: 80vh;
+}
+
+input#teamInfoPlayers:checked
+  ~ .confirmTeamInfo__tab
+  label[for="teamInfoPlayers"] {
+  color: black;
+}
+
+input#teamInfoMatchs:checked
+  ~ .confirmTeamInfo__tab
+  label[for="teamInfoMatchs"] {
+  color: black;
+}
+
+input#teamInfoAchieve:checked
+  ~ .confirmTeamInfo__tab
+  label[for="teamInfoAchieve"] {
+  color: black;
+}
+
+input#teamInfoPlayers:checked
+  ~ .confirmTeamInfo__main
+  .confirmTeamInfo__players {
+  display: block;
+}
+
+input#teamInfoMatchs:checked ~ .confirmTeamInfo__main .confirmTeamInfo__match {
+  display: block;
+}
+
+input#teamInfoAchieve:checked
+  ~ .confirmTeamInfo__main
+  .confirmTeamInfo__achieve {
+  display: block;
+}
+
+input#teamInfoPlayers:checked
+  ~ .confirmTeamInfo__tab
+  ul
+  li[data-input="teamInfoPlayers"] {
+  background-color: #ffffff;
+}
+input#teamInfoMatchs:checked
+  ~ .confirmTeamInfo__tab
+  ul
+  li[data-input="teamInfoMatchs"] {
+  background-color: #ffffff;
+}
+input#teamInfoAchieve:checked
+  ~ .confirmTeamInfo__tab
+  ul
+  li[data-input="teamInfoAchieve"] {
+  background-color: #ffffff;
+}
+
+.confirmTeamInfo__match {
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.confirmTeamInfo__match > div{
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #aaa;
+}
+
+.match__main {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.confirmTeamInfo__match--title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.changeCaptain ul {
+    width: fit-content;
+    margin: auto;
+}
+
+.changeCaptain ul li{
+    display: flex;
+    gap: 1rem;
+    font-size: 2rem;
+    margin: 1.5rem 1rem;
+    justify-content: start;
+}
+
+.changeCaptain ul li label{
+    padding: 1rem;
+}
+
+/* ------------------------- index round ------------------------------ */
+input#mainpage__standings:checked
+  ~ .mainpage__tab
+  label[for="mainpage__standings"] {
+  color: black;
+}
+
+input#mainpage__stats:checked ~ .mainpage__tab label[for="mainpage__stats"] i {
+  color: black;
+}
+
+input#mainpage__standings:checked ~ .mainpage__main > div:nth-child(1) {
+  display: block;
+}
+
+input#mainpage__stats:checked ~ .mainpage__main > div:nth-child(2) {
+  display: block;
+}
+
+input#mainpage__standings:checked
+  ~ .mainpage__tab
+  ul
+  [data-input="mainpage__standings"] {
+  background-color: #ffffff;
+}
+
+input#mainpage__stats:checked
+  ~ .mainpage__tab
+  ul
+  [data-input="mainpage__stats"] {
+  background-color: #ffffff;
+}
+
+/* ------------------------- confirm Team Info ------------------------------ */
+
+.confirmTeamInfo__main > div {
+  display: none;
+}
+
+.confirmTeamInfo__team button {
+  font-size: 2rem;
+}
+
+.confirmTeamInfo__players {
+  border: 1px solid #ccc;
+  border-radius: 0 0 1rem 1rem;
+  min-height: 80vh;
+}
+
+.confirmTeamInfo__table--number {
+  position: relative;
+  font-size: 4rem;
+  vertical-align: middle;
+  color: var(--headerColor);
+}
+
+.confirmTeamInfo__table--number p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+}
+
+.confirmTeamInfo__table span {
+  position: relative;
+}
+
+.confirmTeamInfo__table--captainIcon {
+  color: #d3ad02;
+  font-size: 1.5rem;
+}
+
+.confirmTeam__table th:nth-child(4) {
+  width: fit-content;
+}
+
+.confirmTeamInfo__table--button button,
+.signupTeam__table--button button {
+  font-size: 1.2rem;
+  width: 120px;
+}
+
+.confirmTeam__table tr:hover a,
+.confirmTeamInfo__table tr:hover span,
+.signupTeam__table tr:hover a,
+.fee__table tr:hover a {
+  cursor: pointer;
+  color: rgb(100, 36, 36) !important;
+}
+
+.confirmTeamInfo__info a,.confirmTeamInfo__info button {
+  font-size: 1.3rem;
+}
+
+.confirmTeamInfo__info > div {
+  width: calc(100% / 3 - 1rem);
+  text-align: center;
+}
+
+.confirmTeamInfo__info .confirmTeamInfo__button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.confirmTeamInfo__info > div label {
+  font-weight: 700;
+  vertical-align: middle;
+  font-size: 1.5rem;
+}
+
+.confirmTeamInfo__info > div:not(:last-child) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.confirmTeamInfo__personModal {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 600px;
+  height: fit-content;
+  margin: auto;
+  border: 1px solid black;
+  padding: 2rem;
+  background-color: var(--mainColor);
+  box-shadow: var(--sideBoxShadow);
+  z-index: 2;
+  display: none;
+}
+
+.confirmTeamInfo__backdrop {
+  /* display: none; */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: black;
+  opacity: 0.5;
+  z-index: 1;
+  display: none;
+}
+
+.confirmTeamInfo__closeModal {
+  font-size: 3rem;
+  position: absolute;
+  top: 0px;
+  right: 5px;
+}
+
+.confirmTeam__search {
+  margin: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmTeam__search button {
+  /* width: 15rem; */
+  font-size: 1.2rem;
+  padding: 0.5rem;
+}
+
+.confirmTeam__search input,
+.confirmTeam__search select,
+.confirmTeam__search option {
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.confirmTeam__search input:focus,
+.confirmTeam__search select:focus {
+  outline: 2px solid #4fa4ff;
+}
+
+.personModal__avatar {
+  text-align: center;
+}
+
+.personModal__avatar img {
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.personModal__block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.personModal__block > div {
+  width: calc(100% / 3 - 1rem);
+  font-size: 1.3rem;
+}
+
+.personModal__block > div input {
+  width: 100%;
+  font-weight: 600;
+}
+
+.confirmTeam__modal--error{
+    font-size: 2rem;
+}
+
+.modal-small{
+    width: 500px;
+}
+
+/* ---------------------------- signup team ----------------------------- */
+
+.signupTeam__info {
+  margin: auto;
+  margin-top: 3rem;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.signupTeam__addPlayer--button {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.signupTeam__info > div > label{
+    font-size: 1.5rem;
+}
+
+.addClass2Btn {
+  font-size: 1.2rem;
+}
+
+.signupTeam__class2 input,
+.signupTeam__class button {
+  width: 150px;
+  text-align: center;
+  font-size: 1.5rem;
+  border: 1px solid black;
+  line-height: 25px;
+  border-radius: 3px;
+}
+
+
+.signupTeam__class2 label,
+.signupTeam__class2 input{
+  vertical-align: middle;
+}
+
+.signupTeam__class {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.signupTeam__addPlayer {
+  position: relative;
+}
+
+.signupTeam__addClass2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.signupTeam__class2 {
+  position: relative;
+  display: flex;
+  gap:0.5rem;
+  align-items: center;
+}
+
+.addClass2__error {
+  position: absolute;
+  bottom: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  width: max-content;
+  color: red;
+  font-size: 1.2rem;
+}
+
+.signupTeam__addPlayer ul {
+  position: absolute;
+  border: 1px solid #ccc;
+  height: 300px;
+  overflow-y: scroll;
+  padding: 0;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  background-color: var(--backgroundColor);
+  z-index: 2;
+  text-align: center;
+  border-radius: 5px;
+  /* display: none; */
+}
+
+.signupTeam__addPlayer ul li {
+  border-bottom: 1px solid #ccc;
+  padding: 1rem;
+}
+
+.signupTeam__addPlayer ul li label,
+.signupTeam__addPlayer ul li input {
+  vertical-align: middle;
+  font-size: 1.5rem;
+}
+
+.signupTeam__addPlayer.show ul {
+  display: block;
+}
+
+.signupTeam__table--submit {
+  width: fit-content;
+  margin: 2rem auto;
+  display: flex;
+  gap: 2rem;
+}
+
+.signupTeam__table--submit input,
+.signupTeam__table--submit button {
+  padding: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.signupTeam__table{
+    margin: 0;
+    overflow: hidden;
+}
+
+.signupTeam__errorAlow{
+    font-size:2rem;
+    color: red;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.signupTeam__infohidden{
+    display:none;
+}
+
+.signup__errorForm {
+  color: red;
+  font-size: 1.8rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* ---------------------------------- Schedule Match ---------------------------------- */
+.scheduleMatch {
+  background-color: var(--mainColor2);
+  box-shadow: var(--sideBoxShadow);
+  width: 75vw;
+  margin: auto;
+  padding: 2rem 1rem;
+}
+
+.scheduleMatch__title {
+  color: white;
+  text-shadow: 2px 2px 10px black;
+  font-weight: 700;
+}
+
+.scheduleMatch__main {
+  display: flex;
+}
+
+.scheduleMatch__aside {
+  margin: 2rem 1rem 1rem 1rem;
+}
+
+.scheduleMatch__schedule {
+  margin: 2rem 1rem 1rem 1rem;
+  flex: 1;
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.scheduleMatch__scheduleBlock {
+  background-color: var(--mainColor);
+  box-shadow: var(--sideBoxShadow);
+  border-radius: 1rem;
+  width: calc(100% / 2 - 1rem);
+  font-size: 1.5rem;
+  font-weight: 700;
+
+  /* flex: 1; */
+}
+
+.scheduleMatch__scheduleInfo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.scheduleMatch__scheduleButton,
+.knockout__button,
+.confirmTeamInfo__scheduleButton {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.scheduleMatch__scheduleButton a,
+.knockout__button a,
+.confirmTeamInfo__scheduleButton a {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-size: 1.6rem;
+}
+
+.scheduleMatch__scheduleButton a:hover,
+.knockout__button a:hover,
+.confirmTeamInfo__scheduleButton a:hover {
+  color: white;
+  transform: scale(1.1);
+}
+
+.scheduleMatch__scheduleTime {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#changeSchedule .modal-content {
+  margin: auto;
+}
+
+.changeSchedule__modal--body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.changeSchedule__modal--body > div {
+  text-align: center;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.changeSchedule__modal--error span{
+    font-size: 1.5rem;
+    font-weight: 700;
+    flex: 1;
+    max-width: 400px;
+}
+
+.changeSchedule__modal--error span.error{
+    color: red;
+}
+
+.changeSchedule__modal--error span.success{
+    color: green;
+}
+
+.changeSchedule__modal--error span ul li{
+    margin-bottom: 1rem;
+}
+
+.changeSchedule__modal--body div label {
+  width: 15rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.changeSchedule__modal--body div button,
+.changeSchedule__modal--body div input,
+.changeSchedule__modal--body div select {
+  width: 60%;
+  font-size: 1.5rem;
+  line-height: 20px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.matchDetail {
+  background-color: var(--mainColor);
+  box-shadow: var(--sideBoxShadow);
+  width: var(--widthMain);
+  margin: auto;
+  padding: 2rem 3rem;
+  max-width: 800px;
+}
+
+.matchDetail__info {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.matchDetail__status {
+  font-size: 2rem;
+  margin: 2rem;
+}
+
+.matchDetail__status span.inprogress,
+.matchDetail__status span.cancel {
+  background-color: #4bbe1d;
+  padding: 1rem;
+  color: white;
+  border-radius: 1rem;
+  box-shadow: var(--sideBoxShadow);
+}
+
+.matchDetail__status span.cancel {
+  background-color: rgb(255, 39, 39);
+}
+
+.matchDetail__status span.preprogress {
+  background-color: #8d968a;
+  padding: 1rem;
+  color: white;
+  border-radius: 1rem;
+  box-shadow: var(--sideBoxShadow);
+}
+
+.matchDetail__date,
+.matchDetail__field {
+  margin: 1rem;
+}
+
+.matchDetail__team {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 2rem;
+}
+
+.matchDetail__team1,
+.matchDetail__team2 {
+  font-size: 2.5rem;
+  position: relative;
+  display:flex;
+  flex-direction: column;
+}
+
+.matchDetail__team1 a:hover,
+.matchDetail__team2 a:hover{
+    color: black;
+}
+
+.matchDetail__team1.kick,
+.matchDetail__team2.kick {
+  position: relative;
+}
+
+.matchDetail__team1.kick::before,
+.matchDetail__team2.kick::after {
+  content: attr(data-messenger);
+  position: absolute;
+  font-size: 1.2rem;
+  top: -1.5rem;
+  width: max-content;
+  left: 50%;
+  transform: translateX(-50%);
+  color: red;
+  font-weight: 700;
+}
+
+.matchDetail__devide {
+  display: none;
+}
+
+.matchDetail__date,
+.matchDetail__field {
+  font-size: 1.8rem;
+}
+
+.matchDetail__result {
+  /* display: flex;
+  align-items: center; */
+  font-size: 5rem;
+  /* margin: 2rem;
+  line-height: 1.5; */
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.matchDetail__penaltyResult {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  font-size: 2rem;
+}
+
+.matchDetail__result > div {
+  display: inline-block;
+}
+
+.matchDetail__result span {
+  line-height: 1;
+  display: inline-block;
+  vertical-align: text-top;
+}
+
+.matchDetail__button {
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.matchDetail__button button {
+  font-size: 1.5rem;
+}
+
+.matchDetail__lineup {
+  padding: 2rem 0;
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lineup__team {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lineup__team.team1 {
+  border-left: 1px solid black;
+}
+
+.lineup__team.team2 {
+  border-right: 1px solid black;
+}
+
+.lineup__team.team1 .lineup__team--lineup,
+.lineup__team.team1 .lineup__team--sub {
+  padding-left: 1rem;
+}
+
+.lineup__team.team2 .lineup__team--lineup,
+.lineup__team.team2 .lineup__team--sub {
+  padding-right: 1rem;
+}
+
+.lineup__team--lineup ul li,
+.lineup__team--sub ul li {
+      display: flex;
+      align-items: center;
+      gap:0.5rem;
+}
+
+.lineup__team--lineup ul,
+.lineup__team--sub ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.lineup__team--number {
+  color: var(--headerColor);
+  font-size: 4rem;
+  position: relative;
+}
+
+.lineup__team--number p {
+  position: absolute;
+  color: #ffffff;
+  top: 50%;
+  left: 50%;
+  font-size: 1.8rem;
+  transform: translate(-50%, -50%);
+}
+
+.lineup__team--iconBlock {
+  position: relative;
+}
+
+.lineup__team--captain,
+.lineup__team--gk {
+  position: absolute;
+  right: -1rem;
+  top: -1.5rem;
+}
+
+.lineup__team--gk {
+  color: brown;
+}
+
+.lineup__team--captain {
+  color: #d3ad02;
+}
+
+.lineup__team--title {
+  display: inline-block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  /* margin-top: 2rem; */
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
+
+.lineup__team--title.t2{
+    text-align: right;
+}
+
+.livescore__goal,
+.livescore__card {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 1.5rem 0;
+  font-size: 1.5rem;
+}
+
+.livescore__icon {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.livescore__icon .redCard {
+  position: absolute;
+  left: 0.5rem;
+  bottom: -0.5rem;
+}
+
+.livescore__player > div {
+  margin: 1rem;
+}
+
+.livescore__player.team1 {
+  border-left: 1px solid black;
+}
+
+.livescore__player.team2 {
+  border-right: 1px solid black;
+}
+
+.matchDetail__attendancePlayer {
+  padding: 2rem;
+  margin: auto;
+}
+
+.attendancePlayer__info {
+  font-size: 1.6rem;
+  width: fit-content;
+  margin: 1rem auto;
+}
+
+.attendancePlayer__info > div span:first-child {
+  display: inline-block;
+  width: 80px;
+  margin: 1rem;
+}
+
+.attendancePlayer__info > div span:last-child {
+  background-color: #aaa;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  color: white;
+}
+
+.attendancePlayer__form {
+  text-align: left;
+  font-size: 1.5rem;
+  margin: auto;
+}
+
+.attendancePlayer__formTitle,
+.prohibitedPlayer__player {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.attendancePlayer__formTitle{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.prohibitedPlayer__player {
+  margin-top: 2rem;
+}
+
+.attendancePlayer__player {
+  width: fit-content;
+  margin: auto;
+}
+
+.attendancePlayer__player li {
+  /* padding: 1rem; */
+  border-top: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+}
+
+.attendancePlayer__player li label {
+  padding: 1.3rem;
+}
+
+.changeSchedule__inputBlock {
+  margin: auto;
+  width: fit-content;
+}
+
+.changeSchedule__input {
+  margin: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.changeSchedule__input label {
+  font-size: 1.5rem;
+  width: 100px;
+  font-weight: 700;
+}
+
+.changeSchedule__input input,
+.changeSchedule__input select {
+  font-size: 1.5rem;
+  width: 250px;
+  padding: 0.5rem;
+}
+
+.matchInfo__result {
+  width: 100%;
+  margin: auto;
+  font-size: 1.5rem;
+}
+
+#attendancePlayer__player .modal-content,
+#matchDetail__startMatch .modal-content,
+#matchDetail__changeSchedule .modal-content,
+#matchDetail__cancelMatch .modal-content,
+#matchDetail__updateMatch .modal-content {
+  width: 100%;
+}
+
+.matchInfo__title {
+  font-weight: 700;
+  text-align: center;
+}
+
+.matchInfo__tab {
+  background-color: #f1f1f1;
+  color: #505050;
+  box-shadow: var(--sideBoxShadow);
+  font-size: 1.5rem;
+  display: flex;
+  margin-top: 2rem;
+}
+
+.result__button {
+  width: 50%;
+}
+
+.result__button label {
+  width: 100%;
+  text-align: center;
+  height: 100%;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.result__button.team1 {
+  border-right: 1px solid #ccc;
+}
+
+.matchInfo__result > input[type="radio"] {
+  display: none;
+}
+
+.result__info {
+  border: 1px solid #ccc;
+}
+
+.result__info.team1,
+.result__info.team2 {
+  display: none;
+}
+
+#result__buttonTeam1:checked ~ .matchInfo__tab .result__button.team1,
+#result__buttonTeam2:checked ~ .matchInfo__tab .result__button.team2 {
+  color: black;
+  font-weight: 700;
+  background-color: #ffffff;
+}
+
+#result__buttonTeam1:checked ~ .result__info.team1,
+#result__buttonTeam2:checked ~ .result__info.team2 {
+  display: block;
+}
+
+.cancelMatch--title{
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.cancelMatch{
+    font-size: 1.8rem;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.cancelMatch > div{
+    margin: 1rem;
+}
+
+.result__block {
+  padding: 1rem;
+  border-top: 1px solid #ccc;
+}
+
+.result__block > div {
+  padding: 1rem;
+  text-align: center;
+}
+
+.result__block > div:last-child {
+}
+
+.result__number span {
+  display: inline-block;
+  width: 120px;
+}
+
+.result__number input:not(input[type='checkbox']) {
+  width: 10rem;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.result__number button {
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
+.result__player ul li {
+  margin: 0.5rem;
+}
+
+.result__player ul li select,.result__player ul li input {
+  padding: 0.5rem;
+  border-radius: 1rem;
+  width: 10rem;
+}
+
+.result__player ul li select{
+    width: 25rem;
+}
+
+.resultPenalty__player ul li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom:1.5rem;
+  justify-content: center;
+}
+
+.resultPenalty__player ul li label.namePlayer{
+    width: 25rem;
+    text-align: left;
+}
+
+.messager__error,.penalty__error {
+  display: none;
+}
+
+.result__number ~ .messager__error.score,
+.result__number ~ .messager__error.cardd,
+.result__number ~ .penalty__error.penalty{
+  display: block;
+  color: red;
+  font-weight: 700;
+}
+
+.matchInfo__submitBtn {
+  text-align: center;
+}
+
+.matchInfo__submitBtn > input {
+  font-size: 1.5rem;
+  padding: 1rem;
+  margin: 1.5rem;
+}
+
+#numberScore__team1,
+#numberScore__team2,
+#numberCard__team1,
+#numberCard__team2 {
+  display: block;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  width: 100%;
+  margin: 1rem;
+}
+
+.fee__search {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.fee__search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.fee__search input,
+.fee__search select {
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  width: calc(100% / 2 - 1rem);
+  text-align: center;
+}
+
+.fee__search button {
+  border-radius: 1rem;
+  padding: 0.7rem;
+}
+
+.modal__fee {
+  font-size: 1.5rem;
+}
+
+.modal__fee > div {
+  width: fit-content;
+  margin: auto;
+}
+
+.modal__fee div > div {
+  margin-top: 1rem;
+}
+
+.modal__fee div > div span:first-child {
+  display: inline-block;
+  width: 100px;
+}
+
+.modal__fee div > div span:last-child,
+.modal__fee div > div select {
+  display: inline-block;
+  background-color: #dadada;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.modal__fee div > div:last-child span:first-child {
+  vertical-align: top;
+}
+
+.modal__fee div > div:last-child span:last-child {
+  width: 250px;
+  line-height: 1.5;
+}
+
+/* input:invalid ~ .validity:after {
+  content: "✖";
+}
+
+input:valid ~ .validity:after {
+  content: "✓";
+} */
+
+.crateSchedule__info {
+  width: fit-content;
+  margin: auto;
+}
+
+.createSchedule__error{
+    width: max-content;
+    font-size: 2rem;
+    color: red;
+    font-weight: 700;
+    display: block;
+    margin : 2rem auto;
+}
+
+.crateSchedule {
+  width: var(--widthMain);
+  background-color: var(--mainColor);
+  box-shadow: var(--sideBoxShadow);
+  margin: auto;
+  padding: 2rem;
+  font-size: 1.5rem;
+}
+
+.round__label {
+  font-weight: 700;
+  border-bottom: 1px solid #ccc;
+  padding: 1rem;
+}
+
+.round__input > div {
+  margin: 1rem;
+  align-items: center;
+  display: flex;
+}
+
+.round__input > div label {
+  width: 250px;
+}
+
+.round__input > div label.center {
+  text-align: center;
+  width: 100px;
+}
+
+.round__input > div input,
+.round__input > div select {
+  flex: 1;
+  padding: 1rem;
+}
+
+.round__input > div.round__inputCheckbox {
+  display: flex;
+  justify-content: left;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+input[type="checkbox"],
+input[type="checkbox"] + label {
+  vertical-align: middle;
+}
+
+.inputCheckbox__block {
+  margin-bottom: 1rem;
+}
+
+.scheduleRound__button {
+  text-align: center;
+  margin: 2rem;
+}
+
+.scheduleRound__button input {
+  padding: 0.5rem;
+  font-size: 1.8rem;
+}
+
+.threadError{
+    width: max-content;
+    margin: 2rem auto;
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: red;
+}
+
+.addData {
+  margin: auto;
+}
+
+.form__addData {
+  margin: 20px auto;
+  min-width: 300px;
+  width: 600px;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.addData__main {
+  display: flex;
+  align-items: center;
+}
+
+.addData__year {
+  font-size: 1.5rem;
+}
+
+.addData__title {
+  margin-bottom: 1.5rem;
+}
+
+.form__addData input[type="submit"] {
+  font-size: 1.5rem;
+  width: 50%;
+  margin: auto;
+}
+
+.form__addData input {
+  text-align: center;
+  padding: 1rem;
+  width: 100%;
+}
+
+.form__addData .text__addData {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: normal;
+}
+
+.form__addData > div.addData__title {
+  font-size: 2.2rem;
+}
+
+.form__addData > div:not(:first-child) {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__addData > div:not(:first-child) > div:first-child {
+  margin: 1rem;
+  margin-bottom: 0;
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.form__addData > div:last-child {
+  text-align: center;
+}
+
+.form__addData button {
+  padding: 1rem;
+  border: 1px solid black;
+  min-width: 200px;
+  border-radius: 5px;
+  background-color: var(--backgroundColor);
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.form__addData button:hover {
+  background-color: var(--hoverColor);
+}
+
+.form__addData div.addData__title {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.form__addData input[type="submit"] {
+  margin: 3rem auto;
+}
+
+.form__addData span.addData__error {
+  font-size: 1.5rem;
+  color: red;
+  padding: 0 2rem;
+}
+
+.dataTournament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  min-width: 750px;
+}
+
+.dataTournament > div {
+  background-color: var(--mainColor);
+  box-shadow: var(--sideBoxShadow);
+  min-width: 600px;
+  max-width: 1000px;
+  /* margin: auto; */
+  padding: 2rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.dataTournament_dataLink {
+  width: 20%;
+}
+
+.dataTournament_dataLink {
+  background-color: white;
+  height: fit-content;
+  border-radius: 1rem;
+  box-shadow: var(--sideBoxShadow);
+  overflow: hidden;
+}
+
+.dataTournament_dataLink ul li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+}
+
+.dataTournament_dataLink ul li a:hover {
+  color: black;
+}
+
+.dataTournament_dataLink ul li:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.dataTournament_dataLink ul li:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+.dataTournament_dataBlock {
+  width: 80%;
+}
+
+.dataTournament__title {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.dataTournament__form {
+  margin-bottom: 1rem;
+}
+
+.dataTournament__form form,
+.dataTournament__form .dataTournament__formBlock.draw{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn--draw {
+  border-bottom: 1px solid black;
+  width: 100%;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.createDrawError{
+    width: max-content;
+    font-size: 2rem;
+    color: red;
+    font-weight: 700;
+    display: block;
+    margin : 2rem auto;
+}
+
+button.hidden{
+    display: none;
+}
+
+.dataTournament__formBlock {
+  display: flex;
+  gap: 1rem;
+}
+
+.dataTournament__formBlock input,
+.dataTournament__formBlock select {
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 0.4rem;
+  border: 1px solid black;
+}
+
+.dataTournament__formBlock input {
+  width: 20rem;
+}
+
+.dataTournament__formBlock select {
+  width: 10rem;
+}
+
+.dataTournament__formBlock button,
+.dataTournament__form form .dataTournament__formBtn button {
+  border-radius: 1rem;
+  padding: 0.5rem;
+  width: 100px;
+  border: 1px solid black;
+}
+
+.dataTournament__formBlock.draw {
+  display: flex;
+  flex-direction: column;
+}
+
+.dataTournament__formBlock.schedule {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+}
+
+.dataTournament__formBlock.schedule > div {
+  width: calc(100% / 2 - 1.5rem);
+  display: flex;
+  align-items: center;
+}
+
+.dataTournament__formBlock.schedule > div > label {
+  width: 40%;
+}
+
+.dataTournament__formBlock.schedule > div > div {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dataTournament__formBlock.schedule > div.btn__submit {
+  width: 100%;
+}
+
+.dataTournament__formBlock.schedule input,
+.dataTournament__formBlock.schedule select {
+  width: 100%;
+}
+
+.dataTournament__formBlock.draw label {
+  width: 200px;
+}
+
+.dataTournament__formBlock.schedule button,
+.dataTournament__formBlock.draw button {
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  width: fit-content;
+  display: block;
+  margin: auto;
+}
+
+.createSchedule__formSearch {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #aaa;
+}
+
+.createSchedule__formSearch > div {
+  font-size: 1.7rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.createSchedule__formSearch > div input, .createSchedule__formSearch > div select {
+  padding: 0.3rem;
+  height: 3rem;
+  width: 15rem;
+  text-align:center;
+}
+
+.createSchedule__formSearch > div button {
+  font-size: 1.2rem;
+}
+
+.dataTournament__table td {
+  height: 40px;
+}
+
+.dataTournament__table tbody {
+  display: block;
+  max-height: 60vh;
+  overflow-y: scroll;
+}
+.dataTournament__table thead,
+.dataTournament__table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  line-height: 40px;
+  font-size: 1.4rem;
+}
+
+.dataTournament__table tbody tr td a {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.dataTournament__table tbody tr:hover td a {
+  color: black;
+  font-weight: 700;
+}
+
+.dataTournament__table th,
+.dataTournament__table td {
+  width: 25%;
+}
+
+.dataTournament__table.schedule tr th:nth-child(3),
+.dataTournament__table.schedule tr td:nth-child(3),
+.dataTournament__table.schedule tr th:nth-child(4),
+.dataTournament__table.schedule tr td:nth-child(4),
+.dataTournament__table.schedule tr th:nth-child(5),
+.dataTournament__table.schedule tr td:nth-child(5) {
+  width: 15%;
+}
+
+.dataTournament__table.schedule tr td button {
+  font-size: 1.4rem;
+}
+
+.dataSchedule__duplicate {
+  border-top: 1px solid black;
+  padding: 1rem;
+}
+
+.dataSchedule__duplicate > div{
+    border-bottom: 1px solid #aaa;
+    padding: 1.5rem;
+}
+
+.dataSchedule__duplicate .dataSchedule__duplicate--title{
+    font-size: 2rem;
+    font-weight: 700;
+    padding: 1.5rem 0;
+}
+
+.dataSchedule__duplicate > div span{
+    padding: 1rem 0;
+}
+
+.dataSchedule__duplicate > div ul li{
+    margin: 1rem 2rem;
+}
+
+.dataTournament__infoSubject {
+  padding: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.dataTournament__infoSubject > div {
+  display: flex;
+  gap: 1rem;
+}
+
+.dataTournament__infoSubject > div > span:first-child {
+  width: 20%;
+}
+
+.dataTournament__infoSubject > div > span:last-child {
+  width: 80%;
+}
+
+#dataTournament__tableSchedule tr th:nth-child(2), #dataTournament__tableSchedule tr th:nth-child(3),#dataTournament__tableSchedule tr th:nth-child(4),#dataTournament__tableSchedule tr td:nth-child(4),#dataTournament__tableSchedule tr td:nth-child(2),#dataTournament__tableSchedule tr td:nth-child(3){
+    width: 10%;
+}
+
+#dataTournament__tableWeek tr th:nth-child(1),#dataTournament__tableWeek tr th:nth-child(3),
+#dataTournament__tableWeek tr td:nth-child(1),#dataTournament__tableWeek tr td:nth-child(3){
+    width: 10%;
+}
+
+#dataTournament__tableWeek tr th:nth-child(2),#dataTournament__tableWeek tr td:nth-child(2){
+    width: 40%;
+}
+
+#dataTournament__tableWeek tr th:nth-child(4),#dataTournament__tableWeek tr td:nth-child(4){
+    width: 40%;
+}
+
+#formSearch__dataSchedule .dataTournament__formBlock {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+#formSearch__dataSchedule .dataTournament__formBlock > div {
+  width: calc(50% - 1rem);
+}
+
+#formSearch__dataSchedule .dataTournament__formBlock label {
+  width: 30%;
+}
+
+#formSearch__dataSchedule .dataTournament__formBlock input,
+#formSearch__dataSchedule .dataTournament__formBlock select {
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 0.4rem;
+  border: 1px solid black;
+  width: 60%;
+}
+#formSearch__dataSchedule .dataTournament__formBlock button,
+#formSearch__dataSchedule
+  .dataTournament__form
+  form
+  .dataTournament__formBtn
+  button {
+  border-radius: 1rem;
+  padding: 0.5rem;
+  width: 100px;
+  border: 1px solid black;
+}
+
+/* --------------------------- match info ------------------------------ */
+
+/* big-desktop */
+@media only screen and (min-width: 112.5em) {
+  html {
+    font-size: 75%;
+  }
+
+  .login__form {
+    font-size: 1.3rem;
+  }
+
+  .login__form--submit input {
+    padding: 1rem;
+  }
+
+  .login__block--left,
+  .login__block--right {
+    padding: 1rem;
+  }
+
+  .confirmTeamInfo__table--captainIcon {
+    right: 0rem;
+  }
+
+  .attendancePlayer__info > div span:first-child {
+    width: 100px;
+  }
+
+  .changeSchedule__input label {
+    font-size: 1.5rem;
+    width: 120px;
+  }
+
+  .changeSchedule__input input,
+  .changeSchedule__input select {
+    font-size: 1.5rem;
+    width: 300px;
+    padding: 0.5rem;
+    text-align: center;
+  }
+}
+
+/* tab-land */
+@media only screen and (max-width: 75em) {
+  html {
+    font-size: 56.25%;
+  }
+
+  .createTour__form > div {
+    font-size: 1.8rem;
+  }
+
+  .mainpage__header > div {
+    width: var(--widthMain1200px);
+  }
+
+  .mainpage__main {
+    width: var(--widthMain1200px);
+  }
+
+  .mainpage__nav > div {
+    width: var(--widthMain1200px);
+  }
+
+  .mainpage__tab ul {
+    width: var(--widthMain1200px);
+  }
+
+  .mainpage__aside,
+  .scheduleMatch__aside {
+    min-width: 30%;
+  }
+
+  .resultMatch__info--goalT1,
+  .resultMatch__info--goalT2 {
+    margin-left: 10px;
+    height: 20px;
+    line-height: 20px;
+  }
+
+  .resultMatch__info--yellowCard,
+  .resultMatch__info--redCard {
+    height: 20px;
+    width: 15px;
+    border-radius: 2px;
+    text-align: center;
+    color: var(--mainColor);
+    line-height: 20px;
+  }
+
+  .block_form input {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .confirmTeamInfo__info {
+    text-align: center;
+    column-gap: 0;
+    /* width: fit-content; */
+    row-gap: 2rem;
+  }
+
+  .confirmTeamInfo__info > div:not(:last-child) {
+    width: calc(100% / 3 - 1rem);
+    font-size: 1.8rem;
+  }
+
+  .confirmTeamInfo__info > div:not(:last-child) button {
+    width: fit-content;
+  }
+
+  .confirmTeamInfo__info > div:not(:last-child) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .confirmTeamInfo__info div label {
+    font-size: 1.8rem;
+  }
+
+  .confirmTeamInfo__info a,.confirmTeamInfo__info button {
+    font-size: 1.8rem;
+  }
+
+  .confirmTeam__table td,
+  .confirmTeamInfo__table td,
+  .confirmTeamInfo__table td a,
+  .confirmTeamInfo__table--button button,
+  .signupTeam__table td,
+  .signupTeam__table--button button,
+  .fee__table td {
+    font-size: 1.5rem;
+  }
+
+  .confirmTeamInfo__table--captainIcon {
+    font-size: 2rem;
+    right: 2rem;
+  }
+
+
+  .signupTeam {
+    min-width: auto;
+    width: 100vw;
+  }
+
+  .confirmTeamInfo{
+    min-width: auto;
+    width: 800px;
+  }
+
+  .confirmTeamInfo__tab ul li {
+    font-size: 1.8rem;
+  }
+
+  .signupTeam__info > div > label,
+  .addClass2Btn {
+    font-size: 1.8rem;
+  }
+
+  .scheduleMatch__scheduleButton a {
+    padding: 0.8rem;
+  }
+}
+
+/* tab-port */
+@media only screen and (max-width: 56.25em) {
+  html {
+    font-size: 50%;
+  }
+
+  .createTour__form {
+    max-width: 400px;
+  }
+
+
+  .createTour__form > div {
+    font-size: 2rem;
+  }
+
+  .form__studentYear--checkbox label {
+    font-size: 1.8rem;
+  }
+
+  .block_form input {
+    font-size: 1.8rem;
+    padding: 1rem;
+  }
+
+  .form_submit {
+    font-size: 2rem;
+    background-color: var(--headerColor);
+    border-radius: 1rem;
+    padding: 1rem 3rem;
+    color: white;
+    border: none;
+  }
+
+  .mainpage__header > div {
+    width: var(--widthMain900px);
+  }
+
+  .mainpage__nav {
+    font-size: 2.5rem;
+  }
+
+  .mainpage__nav > div {
+    width: var(--widthMain900px);
+  }
+
+  .mainpage__main {
+    width: var(--widthMain900px);
+  }
+
+  .mainpage__tab ul {
+    width: var(--widthMain900px);
+  }
+
+  .mainpage__tab ul li {
+    font-size: 1.8rem;
+  }
+
+  .mainpage__main > div:first-child {
+    flex-wrap: wrap;
+  }
+
+  .mainpage__aside {
+    min-width: 100%;
+  }
+
+  .mainpage__groupStage table {
+    font-size: 1.5rem;
+    min-width: 100%;
+  }
+
+  .knockoutBlock,
+  .confirmTeamInfo__scheduleBlock {
+    font-size: 1.7rem;
+  }
+
+  .nav__name h4 {
+    display: inline-block;
+  }
+
+  .nav__name h4::before {
+    content: "\a";
+    white-space: pre;
+  }
+  .nav__name > div:first-child {
+    line-height: 15px;
+    margin-bottom: 0;
+    margin-right: 0;
+  }
+
+  .nav__year--select {
+    margin: 1rem;
+  }
+
+  .nav__status {
+    font-size: 1.5rem;
+  }
+
+  .scheduleMatch__aside {
+    min-width: 40%;
+  }
+
+  .matchInfo {
+    min-width: 50%;
+  }
+
+  .matchSchedule,
+  .resultInfo__match {
+    font-size: 1.8rem;
+  }
+
+  .matchSchedule__header,
+  .resultMatch__header {
+    font-size: 2rem;
+  }
+
+  .resultInfo,
+  .matchInfo {
+    max-width: 100%;
+  }
+
+  .aside__bar li a {
+    font-size: 1.5rem;
+  }
+
+  .aside__bar li a .resultMatch__info--left {
+    padding: 0;
+  }
+
+  .aside__round,
+  .aside__date input {
+    font-size: 2rem;
+  }
+
+  .resultMatch__info--right div {
+    margin: 10px;
+  }
+
+  .confirmTeamInfo__changePlayer ul li {
+    padding: 1rem;
+    font-size: 1.8rem;
+  }
+
+  .confirmTeam__status button,.confirmTeam__status a {
+    font-size: 1.6rem;
+  }
+
+  .confirmTeam__modal--button input,
+  .confirmTeam__modal--button button,
+  .confirmTeamInfo__modal--button button,
+  .confirmTeamInfo__modal--button input,
+  .changeSchedule__modal--button button,
+  .changeSchedule__modal--button input {
+    font-size: 1.8rem;
+  }
+
+    .confirmTeamInfo__modal--error {
+      font-size: 1.8rem;
+    }
+
+  .confirmTeam__modal--endDate {
+    font-size: 1.8rem;
+  }
+
+  .confirmTeamInfo__table--button button,
+  .signupTeam__table button {
+    font-size: 1.5rem;
+  }
+
+  .personModal__block > div {
+    width: calc(100% / 2 - 1rem);
+    font-size: 1.5rem;
+  }
+
+  .confirmTeamInfo__personModal {
+    width: 70vw;
+  }
+
+  .confirmTeam__table a,
+  .confirmTeamInfo__table span,
+  .signupTeam__table a,
+  .fee__table a {
+    line-height: 60px;
+  }
+
+  .confirmTeamInfo__table--captainIcon {
+    right: 0.5rem;
+  }
+
+  .confirmTeamInfo__match {
+    flex-wrap: wrap;
+  }
+
+  .confirmTeam__search {
+    font-size: 2rem;
+  }
+
+  .confirmTeam__search button {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .signupTeam__info {
+    text-align: left;
+    flex-wrap: wrap;
+
+    gap: 2rem;
+    width: 80%;
+  }
+
+  .signupTeam__info span {
+    font-size: 1.5rem;
+  }
+
+  .signupTeam__addClass2,
+  .signupTeam__addPlayer--button {
+    justify-content: left;
+  }
+
+  .signupTeam__info {
+    margin: 3rem auto;
+    width: 300px;
+  }
+
+  .signupTeam__info > div {
+    width: 100%;
+  }
+
+  .signupTeam__info label {
+    font-size: 1.5rem;
+    width: 80px;
+  }
+
+  .signupTeam__addPlayer ul li {
+    padding: 1.5rem 0;
+  }
+
+  .signupTeam__addPlayer ul li label {
+    width: auto;
+  }
+
+  .signupTeam__addPlayer ul li label,
+  .signupTeam__addPlayer ul li input {
+    font-size: 2rem;
+  }
+
+  .signupTeam__info > div > label,
+  .addClass2Btn {
+    font-size: 2rem;
+  }
+
+  .personalInfo__stats {
+    font-size: 2rem;
+  }
+
+  .personalInfo__info span {
+    font-size: 2rem;
+  }
+
+  .personalInfo__submit input{
+    font-size: 2rem;
+  }
+
+  .confirmTeam__table td,
+  .confirmTeamInfo__table td,
+  .confirmTeamInfo__table td a,
+  .confirmTeamInfo__table--button button,
+  .signupTeam__table td,
+  .signupTeam__table--button button,
+  .fee__table td {
+    font-size: 1.7rem;
+  }
+
+  .confirmTeam__table th,
+  .confirmTeamInfo__table th,
+  .signupTeam__table th,
+  .fee__table th {
+    font-size: 2rem;
+  }
+
+  .signupTeam__table--submit input,
+  .signupTeam__table--submit button {
+    padding: 1rem;
+    font-size: 1.8rem;
+  }
+
+  .scheduleMatch {
+    width: var(--widthMain900px);
+  }
+
+  .changeSchedule__modal--body div label {
+    font-size: 2rem;
+  }
+
+  .changeSchedule__modal--body div button,
+  .changeSchedule__modal--body div input {
+    font-size: 2rem;
+  }
+
+  .scheduleMatch__scheduleBlock {
+    width: 100%;
+    font-size: 2rem;
+  }
+
+  .scheduleMatch__scheduleButton a {
+    padding: 1rem;
+  }
+
+  .matchDetail__button button {
+    font-size: 1.8rem;
+  }
+
+  .changeSchedule__input label {
+    font-size: 1.7rem;
+  }
+
+  .changeSchedule__input input,
+  .changeSchedule__input select {
+    font-size: 1.7rem;
+  }
+
+  .modal__fee {
+    font-size: 1.8rem;
+  }
+
+  .crateSchedule {
+    width: var(--widthMain900px);
+    font-size: 1.8rem;
+  }
+  .round__input > div label {
+    width: 200px;
+  }
+
+    .form__addData {
+      max-width: 400px;
+    }
+  .form__addData input[type="submit"] {
+    font-size: 2rem;
+  }
+
+  .knockoutBlock {
+      font-size: 1.5rem;
+      width: calc(100% / 2 - 1rem);
+    }
+
+}
+
+/*  phone */
+@media only screen and (max-width: 37.5em) {
+  /* ----- crate tournament ----- */
+
+  .nav__status--open,
+  .nav__status--close,
+  .nav__status--not {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1.8rem;
+  }
+
+  .form_numberTeam {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .createTour__form {
+    max-width: 300px;
+  }
+
+  .mainpage__nav {
+    font-size: 2rem;
+  }
+
+  .mainpage__nav > div {
+    width: var(--widthMain600px);
+  }
+
+  .mainpage__header > div {
+    background-color: white;
+    display: block;
+    text-align: center;
+    padding: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+  }
+
+  .mainpage__tab ul {
+    width: var(--widthMain600px);
+  }
+
+  .mainpage__tab ul {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .mainpage__tab ul li {
+    font-size: 2rem;
+  }
+
+  .header__info {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .header__user {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: right;
+    gap: 0;
+  }
+
+  .header__user--name {
+    font-size: 2rem;
+  }
+
+    .header__user--logout {
+      padding: 15px 10px;
+      width: 100%;
+      border-top: 1px solid #ccc;
+    }
+
+    .header__user--logout input {
+      font-size: 2rem;
+    }
+
+
+  .header__user--avatar {
+    height: 60px;
+    width: 60px;
+    background-color: blue;
+    display: inline-block;
+    border-radius: 50%;
+    margin: 10px;
+  }
+
+  .aside__bar {
+    flex-direction: column;
+    border-radius: 1rem;
+    border: 1px solid #ccc;
+    overflow: hidden;
+  }
+
+  .aside__bar li {
+    width: 100%;
+    box-shadow: none;
+    border-radius: 0 !important;
+  }
+
+  .aside__bar li:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .aside__bar li a {
+    padding: 2.5rem 2rem;
+    font-size: 1.8rem;
+  }
+
+  .mainpage__main {
+    width: var(--widthMain600px);
+    padding: 10px;
+  }
+
+  .matchBlock {
+    flex-direction: column;
+  }
+
+  .last1,
+  .last2,
+  .last3 {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .mainpage__groupStage table thead th,
+  .mainpage__groupStage table tbody td {
+    width: auto !important;
+    text-align: center;
+  }
+
+  .last__matchs {
+    text-align: left;
+    justify-content: center;
+  }
+
+  .mainpage__groupStage table tbody td:last-child {
+    text-align: right;
+  }
+
+  .knockoutBlock,
+  .confirmTeamInfo__scheduleBlock {
+    font-size: 2rem;
+    flex: 1;
+    width: 100%;
+  }
+
+  .stats__info {
+    width: 100%;
+  }
+
+  .confirmTeamInfo__changePlayer ul li {
+    font-size: 2.2rem;
+    padding: 1.5rem 0.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .modalAddPlayer__class{
+    margin-left:0;
+  }
+
+
+  .mainpage__aside,
+  .scheduleMatch__aside {
+    min-width: 100%;
+  }
+
+  .matchSchedule__header,
+  .resultMatch__header {
+    font-size: 2rem;
+    text-align: center;
+    background-color: var(--headerColor);
+    font-weight: 700;
+    padding: 2rem;
+    border-bottom: 1px solid gray;
+  }
+
+  .matchSchedule__team1,
+  .matchSchedule__team2 {
+    padding: 0;
+  }
+
+  .mainpage__footer {
+    padding: 2rem var(--side600px);
+  }
+
+  .confirmTeam,
+  .confirmTeamInfo,
+  .fee,
+  .signupTeam {
+    min-width: 300px;
+    width: 100vw;
+  }
+
+  .confirmTeam__status {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .confirmTeam__status button, .confirmTeam__status a,
+  .confirmTeam__status span {
+    font-size: 1.8rem;
+  }
+
+  .confirmTeam__Teams,
+  .confirmTeamInfo__players,
+  .signupTeam__players {
+    margin: 0;
+    border: none;
+  }
+
+  .confirmTeam__table thead,
+  .confirmTeamInfo__table thead,
+  .signupTeam__table thead,
+  .fee__table thead {
+    display: none;
+  }
+
+  .confirmTeam__table tr,
+  .confirmTeamInfo__table tr,
+  .signupTeam__table tr,
+  .fee__table tr {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    border: 1px solid #ccc;
+    background-color: transparent;
+  }
+
+  .confirmTeam__table a,
+  .confirmTeamInfo__table span,
+  .signupTeam__table a,
+  .fee__table a {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 50px;
+  }
+
+  .confirmTeamInfo__table--number {
+    font-size: 6rem;
+  }
+
+  .confirmTeamInfo__table--number span {
+    font-size: 3rem;
+  }
+
+  .confirmTeamInfo__table--captainIcon {
+    font-size: 2rem;
+    right: 0;
+  }
+
+  .confirmTeam__table tr td:nth-child(1) a::before {
+    content: "ID";
+  }
+  .confirmTeam__table tr td:nth-child(2) a::before {
+    content: "Đội:";
+  }
+  .confirmTeam__table tr td:nth-child(3) a::before {
+    content: "Thành viên:";
+  }
+  .confirmTeam__table tr td:nth-child(4) a::before {
+    content: "Trạng thái:";
+  }
+
+  .confirmTeam__table tr td:nth-child(5) button,
+  .confirmTeamInfo__table tr td:nth-child(6) button,
+  .signupTeam__table tr td:nth-child(7) button {
+    font-size: 2rem;
+    margin: 0 1rem;
+  }
+
+  .signupTeam__table tr td:nth-child(1) a::before {
+    content: "Số áo";
+  }
+
+  .signupTeam__table tr td:nth-child(2) a::before {
+    content: "Vai trò";
+  }
+
+  .signupTeam__table tr td:nth-child(3) a::before {
+    content: "Họ và tên:";
+  }
+
+  .signupTeam__table tr td:nth-child(4) a::before {
+    content: "MSSV:";
+  }
+
+  .signupTeam__table tr td:nth-child(5) a::before {
+    content: "Lớp:";
+  }
+
+    .signupTeam__table tr td:nth-child(6) a::before {
+      content: "Trạng thái:";
+    }
+
+  .confirmTeamInfo__table tr td:nth-child(3) span::before {
+    content: "Tên cầu thủ";
+  }
+  .confirmTeamInfo__table tr td:nth-child(4) span::before {
+    content: "MSSV";
+  }
+  .confirmTeamInfo__table tr td:nth-child(5) span::before {
+    content: "Lớp";
+  }
+  .confirmTeamInfo__table tr td:nth-child(6) span::before {
+    content: "Trạng thái";
+  }
+
+  .fee__table tr td:nth-child(1) span::before {
+    content: "No.";
+  }
+
+  .fee__table tr td:nth-child(2) span::before {
+    content: "Loại";
+  }
+  .fee__table tr td:nth-child(3) span::before {
+    content: "Thông tin";
+  }
+  .fee__table tr td:nth-child(4) span::before {
+    content: "Số tiền";
+  }
+  .fee__table tr td:nth-child(5) span::before {
+    content: "Trạng thái";
+  }
+
+  .confirmTeam__table tr td:nth-child(6),
+  .confirmTeamInfo__table tr td:nth-child(7),
+  .signupTeam__table tr td:nth-child(7) {
+    text-align: center;
+    height: 100%;
+    line-height: 40px;
+    padding: 1rem;
+  }
+
+  .confirmTeam__table tr td:nth-child(1),
+  .confirmTeamInfo__table tr td:nth-child(1),
+  .fee__table tr td:nth-child(1),
+  .signupTeam__table tr td:nth-child(1){
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .signupTeam__table tr td:nth-child(1){
+    text-align: right;
+  }
+
+  .confirmTeam__table tr td,
+  .confirmTeamInfo__table tr td,
+  .fee__table tr td,
+  .signupTeam__table tr td {
+    text-align: right;
+    position: relative;
+    height: 100%;
+  }
+
+  .confirmTeam__table tr td:not(:nth-child(1)) a::before,
+  .confirmTeamInfo__table tr td:not(:nth-child(1)) span::before,
+  .fee__table tr td:not(:nth-child(1)) span::before,
+  .signupTeam__table tr td a::before {
+    position: absolute;
+    left: 2rem;
+    font-weight: 500;
+  }
+
+  .confirmTeam__table tr td a,
+  .confirmTeamInfo__table tr td span,
+  .fee__table tr td span{
+    padding-right: 2rem;
+    width: 100%;
+    line-height: 3rem;
+    display: inline-block;
+  }
+
+  .signupTeam__table tr td a {
+    padding-right: 2rem;
+    width: 60%;
+    line-height: 3rem;
+    display: inline-block;
+  }
+
+  .fee__table tr td span {
+    width: 60%;
+  }
+
+  .fee__table tr td span,
+  .confirmTeamInfo__table tr td:nth-child(1) span {
+    padding-right: 0;
+  }
+
+  .confirmTeamInfo__table {
+    border: none;
+  }
+
+  .confirmTeamInfo__main {
+    box-shadow: none;
+  }
+
+  .confirmTeamInfo__tab {
+    border-radius: 1rem;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    overflow: hidden;
+  }
+
+  .confirmTeamInfo__achieve .stats__info {
+    width: 100%;
+  }
+
+  .confirmTeam__modal--button input,
+  .confirmTeam__modal--button button,
+  .confirmTeam__modal--endDate,
+  .changeSchedule__reson,
+  .confirmTeamInfo__modal--button button,
+  .changeSchedule__modal--button button {
+    font-size: 1.8rem;
+  }
+
+  .confirmTeamInfo__info {
+    gap: 2rem 1rem;
+    margin: auto;
+    margin-top: 3rem;
+    width: 100%;
+  }
+
+  .confirmTeamInfo__info > div {
+    width: 100%;
+    left: 0;
+  }
+
+  .confirmTeamInfo__info button {
+    font-size: 1.8rem;
+  }
+
+  .confirmTeamInfo__info > div:not(:last-child) {
+    text-align: left;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .confirmTeamInfo__info > div:not(:last-child) label {
+    width: 120px;
+  }
+
+  .confirmTeamInfo__info > div label {
+    font-size: 2rem;
+  }
+
+  .confirmTeamInfo__tab ul li {
+    font-size: 2rem;
+  }
+
+  .confirmTeamInfo__info > div:not(:last-child) button {
+    text-align: center;
+    width: 100%;
+  }
+
+  .confirmTeamInfo__info > div:last-child {
+    text-align: center;
+  }
+
+  .confirmTeamInfo__personModal {
+    width: 70vw;
+  }
+
+  .confirmTeam__search {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .confirmTeam__search > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .confirmTeam__search label {
+    width: 10rem;
+    text-align: left;
+  }
+
+  .confirmTeam__search input,
+  .confirmTeam__search select {
+    width: 20rem;
+  }
+
+  .confirmTeam__search button {
+    font-size: 2rem;
+  }
+
+  .personModal__block > div {
+    width: 100%;
+    font-size: 1.8rem;
+  }
+
+  .personModal__avatar img {
+    width: 150px;
+  }
+
+  .signupTeam__info > div {
+    width: 100%;
+  }
+
+  .signupTeam__addPlayer ul {
+    width: 250px;
+  }
+
+  .signupTeam__class button,
+  .signupTeam__class2 input{
+    font-size: 2rem;
+  }
+
+  .signupTeam__info > div > label,
+  .addClass2Btn {
+    font-size: 2rem;
+  }
+
+  .signupTeam__addPlayer ul li {
+    padding: 2rem;
+  }
+
+  .signupTeam__addPlayer ul li label {
+    font-size: 1.5rem;
+  }
+
+  .scheduleMatch {
+    width: var(--widthMain600px);
+    min-width: 300px;
+  }
+
+  .scheduleMatch__main {
+    flex-direction: column;
+  }
+
+  .scheduleMatch__aside {
+    margin: 2rem 0;
+  }
+
+  .changeSchedule__modal--body div label {
+    width: 35%;
+  }
+
+  .changeSchedule__modal--body div button,
+  .changeSchedule__modal--body div input {
+    padding: 0.5rem;
+  }
+
+  .scheduleMatch__schedule {
+    margin: 2rem 0 0 0;
+  }
+
+  .scheduleMatch__scheduleButton a {
+    padding: 1.2rem;
+    font-size: 2rem;
+  }
+
+  .result__player ul li {
+      display: flex;
+      gap: 0.5rem;
+      margin: 2rem 0;
+    }
+
+    .result__player ul li select {
+      width: calc(100% / 3 - 0.5rem);
+    }
+
+  .personalInfo__stats {
+    margin-top: 2rem;
+  }
+
+  .personalInfo__stats > div {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .matchDetail__result {
+    font-size: 5rem;
+    display: none;
+  }
+
+  .matchDetail__team {
+    position: relative;
+    padding-top: 2rem;
+    padding-bottom: 7rem;
+  }
+
+  .matchDetail__team1,
+  .matchDetail__team2 {
+    font-size: 2.2rem;
+    position: relative;
+  }
+
+  .matchDetail__team1::after,
+  .matchDetail__team2::before {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -5.5rem;
+    content: attr(data-goal);
+    font-size: 5rem;
+    vertical-align: middle;
+  }
+  .matchDetail__devide {
+    display: block;
+    font-size: 5rem;
+    position: absolute;
+    top: 4rem;
+  }
+
+  .matchDetail__button {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .matchDetail__button button {
+    margin: auto;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .matchDetail__lineup {
+    flex-wrap: wrap;
+  }
+
+  .lineup__team.team2 {
+    margin-top: 3rem;
+  }
+
+  .lineup__team--lineup ul,
+  .lineup__team--sub ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .lineup__team--lineup ul li,
+  .lineup__team--sub ul li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .lineup__team--title::after {
+    content: attr(data-team);
+    font-weight: 500;
+    font-size: 2rem;
+    float: right;
+  }
+
+  .lineup__team {
+    width: 100%;
+  }
+
+  .livescore__goal,
+  .livescore__card {
+    flex-wrap: wrap;
+  }
+
+  .livescore__icon {
+    text-align: center;
+    width: 100%;
+    position: relative;
+    padding-top: 1rem;
+  }
+
+  .livescore__icon .redCard {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-20%);
+    bottom: -0.5rem;
+  }
+
+  .livescore__goal,
+  .livescore__card {
+    padding: 0;
+  }
+
+  .livescore__player {
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  .livescore__player.team2 > div {
+    text-align: right;
+  }
+
+  .matchDetail__attendancePlayer {
+    padding: 2rem 0;
+  }
+
+  .attendancePlayer__info > div span:first-child {
+    width: 65px;
+  }
+
+  .changeSchedule__input label {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .changeSchedule__input input,
+  .changeSchedule__input select {
+    font-size: 2rem;
+  }
+
+  .login__block {
+    width: 70%;
+    transform: translateY(-50%);
+  }
+
+  .login__block--left,
+  .login__block--right {
+    width: 100%;
+  }
+
+  .login__block--left {
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  .login__block--right {
+    border-radius: 0 0 1rem 1rem;
+  }
+
+  .fee__search {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .fee__search input,
+  .fee__search select {
+    width: 80%;
+  }
+
+  .fee__search button {
+    border-radius: 1rem;
+    padding: 0.7rem;
+    width: 80%;
+  }
+
+  .modal__fee {
+    font-size: 2rem;
+  }
+  .modal__fee div > div:last-child span:last-child {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  .crateSchedule__info {
+    width: fit-content;
+    margin: auto;
+  }
+
+  .crateSchedule {
+    width: var(--widthMain600px);
+    font-size: 2rem;
+  }
+
+  .round__label {
+    padding-top: 2rem;
+  }
+
+  .round__input > div {
+    margin-top: 1.5rem;
+    flex-direction: column;
+  }
+
+  .round__input > div label {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  input[type="checkbox"] + label {
+    margin-bottom: 0;
+  }
+
+  .round__input > div label.center {
+    text-align: left;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  .round__input > div input,
+  .round__input > div select {
+    width: 100%;
+  }
+
+  .round__input > div input[type="checkbox"] {
+    width: fit-content;
+  }
+  .round__input > div label[for="firstMatch116"],
+  .round__input > div label[for="finalMatch"],
+  .round__input > div label[for="thirdMatch"] {
+    width: fit-content;
+  }
+
+  .round__input > div.round__inputCheckbox {
+    display: block;
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+
+  .scheduleRound__button input {
+    font-size: 2rem;
+  }
+
+
+  .form__addData {
+    max-width: 300px;
+  }
+
+  .form__addData span.addData__error {
+    font-size: 2rem;
+  }
+
+  .form__addData > div:not(:first-child) > div:first-child {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.8rem;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .form__addData > div span {
+    width: 100%;
+  }
+
+  .form__addData > div button {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+}

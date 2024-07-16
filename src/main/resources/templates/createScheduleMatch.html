@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head}" />
+<body>
+<header th:replace="~{fragments/header :: header}" />
+<nav th:replace="~{fragments/navbar :: nav}" />
+<main class="dataTournament">
+    <div>
+        <div th:replace="~{fragments/createScheduleSidebar :: div}" />
+
+        <div class="dataTournament_dataBlock">
+            <div class="dataTournament__title">Tạo lịch thi đấu</div>
+            <div class="dataTournament__form">
+                <form id="createScheduleForm" th:action="@{/create_schedule}" th:object="${roundSchedule}" method="post" onsubmit="return submitSchdedule()" >
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <div class="dataTournament__formBlock schedule">
+                        <div>
+                            <label>Vòng:</label>
+                            <div>
+                                <input type="hidden" th:field="*{ScheduleID}">
+                                <input type="hidden" th:field="*{roundTitle}">
+                                <input type="hidden" th:field="*{tournament.ID}">
+                                <input type="hidden" th:field="*{scheduleStatus}">
+                                <input type="hidden" th:field="*{numberMatchDone}">
+                                <input th:if="${#strings.contains(roundSchedule.roundTitle,'playoff')}"  type="text" value="Playoff" disabled/>
+                                <input th:if="${#strings.contains(roundSchedule.roundTitle,'group-stage')}" type="text" value="Vòng bảng" disabled/>
+                                <input th:if="${#strings.contains(roundSchedule.roundTitle,'round-of-16')}" type="text" value="Vòng 1/16" disabled/>
+                                <input th:if="${roundSchedule.roundTitle == 'quarterfinals'}" type="text" value="Tứ kết" disabled/>
+                                <input th:if="${roundSchedule.roundTitle == 'semi-final'}" type="text" value="Bán kết" disabled/>
+                                <input th:if="${roundSchedule.roundTitle == 'final'}" type="text" value="Chung kết" disabled/>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Số đội</label>
+                            <div>
+                                <input type="hidden" th:field="*{numberMatch}">
+                                <input type="number" th:field="*{numberMatch}" disabled />
+                            </div>
+                        </div>
+                        <div>
+                            <label>Bắt đầu</label>
+                            <div>
+                                <input type="date" th:field="*{dateStart}" id="startDate1" />
+                            </div>
+                        </div>
+                        <div>
+                            <label>Kết thúc</label>
+                            <div>
+                                <input type="date" th:field="*{dateEnd}" id="endDate1" />
+                            </div>
+                        </div>
+                        <div>
+                            <label>Thời gian 1 hiệp</label>
+                            <div>
+                                <select class="full" name="timeHalf" id="timeHalf">
+                                    <option value="">--</option>
+                                    <option value="15" th:selected="${tournament_current.timeHalf == 15}">15 phút</option>
+                                    <option value="20" th:selected="${tournament_current.timeHalf == 20}">20 phút</option>
+                                    <option value="30" th:selected="${tournament_current.timeHalf == 30}">30 phút</option>
+                                    <option value="45" th:selected="${tournament_current.timeHalf == 45}">45 phút</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="breakTime">Nghỉ giữa hiệp</label>
+                            <div>
+                                <select class="full" name="breakTime" id="breakTime">
+                                    <option value="">--</option>
+                                    <option th:selected="${tournament_current.timeBreak == 5}" value="5">5 phút</option>
+                                    <option th:selected="${tournament_current.timeBreak == 10}" value="10">10 phút</option>
+                                    <option th:selected="${tournament_current.timeBreak == 15}" value="15">15 phút</option>
+                                    <option th:selected="${tournament_current.timeBreak == 20}" value="20">20 phút</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Thời gian sáng</label>
+                            <div>
+                                <select th:field="*{timeMorningStart}" id="timeMorningStart">
+                                    <option value="">Từ</option>
+                                    <option value="07:00">7:00</option>
+                                    <option value="07:30">7:30</option>
+                                    <option value="08:00">8:00</option>
+                                    <option value="08:30">8:30</option>
+                                </select>
+                                <select th:field="*{timeMorningEnd}" id="timeMorningEnd">
+                                    <option value="">Đến</option>
+                                    <option value="09:30">9:30</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="10:30">10:30</option>
+                                    <option value="11:00">11:00</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Thời gian chiều</label>
+                            <div>
+                                <select th:field="*{timeEveningStart}" id="timeEveningStart">
+                                    <option value="">Từ</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="13:30">13:30</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="14:30">14:30</option>
+                                    <option value="15:00">15:00</option>
+                                </select>
+                                <select th:field="*{timeEveningEnd}" id="timeEveningEnd">
+                                    <option value="">Đến</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="16:30">16:30</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="17:30">17:30</option>
+                                    <option value="18:00">18:00</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Nghỉ ngơi</label>
+                            <div>
+                                <select class="full" name="breakTimeTeam" id="breakTimeTeam">
+                                    <option value="">--</option>
+                                    <option th:selected="${tournament_current.breakTimeTeam == 1}" value="1">1 ngày</option>
+                                    <option th:selected="${tournament_current.breakTimeTeam == 2}" value="2">2 ngày</option>
+                                    <option th:selected="${tournament_current.breakTimeTeam == 3}" value="3">3 ngày</option>
+                                    <option th:selected="${tournament_current.breakTimeTeam == 4}" value="4">4 ngày</option>
+                                    <option th:selected="${tournament_current.breakTimeTeam == 5}" value="5">5 ngày</option>
+                                    <option th:selected="${tournament_current.breakTimeTeam == 6}" value="6">6 ngày</option>
+                                    <option th:selected="${tournament_current.breakTimeTeam == 7}" value="7">7 ngày</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Số trận cùng lúc</label>
+                            <div>
+                                <select class="full" id="matchSameTime" name="matchSameTime">
+                                    <option value="">--</option>
+                                    <option th:selected="${tournament_current.matchSameTime == 1}" value="1">1 đội</option>
+                                    <option th:selected="${tournament_current.matchSameTime == 2}" value="2">2 đội</option>
+                                    <option th:selected="${tournament_current.matchSameTime == 3}" value="3">3 đội</option>
+                                    <option th:selected="${tournament_current.matchSameTime == 4}" value="4">4 đội</option>
+                                    <option th:selected="${tournament_current.matchSameTime == 5}" value="5">5 đội</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="btn__submit">
+                            <button
+                                class="btn btn-primary"
+                                type="button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#confirmSchedule"
+                                th:disabled="${roundSchedule.scheduleStatus != 'inprogress'}"
+                            >Tạo lịch thi đấu</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div><span class="createDrawError" th:text="${createSchedule}"></span></div>
+            <div>
+                <form method="get">
+                    <div class="createSchedule__formSearch">
+                        <div>
+                            <label>Ngày</label>
+                            <input type="date" name="matchDate" id="matchDate" />
+                        </div>
+                        <div>
+                            <label>Giờ</label>
+<!--                            <input type="time" name="matchTime" id="matchTime" />-->
+                            <select name="matchTime" id="matchTime">
+                                <option value="">--</option>
+                                <optgroup label="Sáng">
+                                    <option th:each="timeMorningMatch : ${timeMorningMatchs}" th:value="${timeMorningMatch}" th:text="${timeMorningMatch}"></option>
+                                </optgroup>
+                                <optgroup label="Chiều">
+                                    <option th:each="timeEveningMatch : ${timeEveningMatchs}" th:value="${timeEveningMatch}" th:text="${timeEveningMatch}"></option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <table class="dataTournament__table schedule table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Đội 1</th>
+                        <th>Đội 2</th>
+                        <th>Ngày</th>
+                        <th>Giờ</th>
+                        <th>Thay đổi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${matchList}" th:each="match : ${matchList}">
+                            <td th:if="${match.team1.class2 != ''}" th:text="${match.team1.class1}+' - '+${match.team1.class2}"></td>
+                            <td th:unless="${match.team1.class2 != ''}" th:text="${match.team1.class1}"></td>
+                            <td th:if="${match.team2.class2 != ''}" th:text="${match.team2.class1}+' - '+${match.team2.class2}"></td>
+                            <td th:unless="${match.team2.class2 != ''}" th:text="${match.team2.class1}"></td>
+                            <td th:text="${#temporals.format(match.date, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${#temporals.format(match.time, 'HH:mm')}"></td>
+                            <td>
+                                <input type="hidden" th:value="${match.ID}">
+                                <button
+                                        class="hidden"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#changeSchedule"
+                                >btn</button>
+                                <button class="btn btn-danger open-modal" th:if="${match.status == 'ingame'}">Đổi lịch</button>
+                                <button class="btn btn-danger" th:if="${match.status == 'playing'}" disabled>Đang diễn ra</button>
+                                <button class="btn btn-danger" th:if="${match.status == 'done'}" disabled>Kết thúc</button>
+                            </td>
+                        </tr>
+                        <tr th:if="${matchList != null and #lists.size(matchList) < 11}" th:each="tr : ${#numbers.sequence(#lists.size(matchList), 11)}">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${hasErrors}" class="dataSchedule__duplicate">
+                <div class="dataSchedule__duplicate--title">Kiểm tra lỗi lịch</div>
+                <div th:if="${errorMatchSubjects}">
+                    <span>Trùng lịch học</span>
+                    <ul >
+                        <li th:each="errorMatchSubject : ${errorMatchSubjects}"
+                            th:text="'Trận ngày ' + ${#temporals.format(errorMatchSubject.match.date, 'dd/MM/yyyy')} + ': thành viên ' + ${errorMatchSubject.scheduleStudent.student.ID} + ' đội ' + (${errorMatchSubject.match.team1.class1} + (${errorMatchSubject.match.team2 != null and !errorMatchSubject.match.team2.class1.isEmpty()} ? ' - ' + ${errorMatchSubject.match.team2.class1} : '')) + ' có lịch học'">
+                        </li>
+                    </ul>
+                </div>
+                <div  th:if="${errorMatchBreaks}">
+                    <span>Lỗi trận đấu</span>
+                    <ul>
+                        <li th:each="error : ${errorMatchBreaks}"
+                            th:if="${error.dateBetween == 0}"
+                            th:text="'Đội ' + ${error.teamID} + ': bị trùng 2 trận ngày ' + ${#temporals.format(error.match1.date, 'dd/MM/yyyy')} + ' ' + ${#temporals.format(error.match1.time, 'HH:mm')}"></li>
+                        <li th:each="error : ${errorMatchBreaks}"
+                            th:unless="${error.dateBetween == 0}"
+                            th:text="'Đội ' + ${error.teamID} + ': 2 trận ' + ${#temporals.format(error.match1.date, 'dd/MM/yyyy')} + ' ' + ${#temporals.format(error.match1.time, 'HH:mm')} + ' và ' + ${#temporals.format(error.match2.date, 'dd/MM/yyyy')} + ' ' + ${#temporals.format(error.match2.time, 'HH:mm')} + ', nghỉ ' + ${error.dateBetween} + ' ngày'"></li>
+                    </ul>
+                </div>
+                <div  th:if="${errorMatchSameTimes}">
+                    <span>Số trận diễn ra cùng lúc vượt quá yêu cầu</span>
+                    <ul>
+                        <li th:each="error : ${errorMatchSameTimes}" th:text="'Ngày ' + ${#temporals.format(error.date, 'dd/MM/yyyy')} + ' ' + ${#temporals.format(error.time, 'HH:mm')} + ' có ' + ${error.numberMatch} + ' trận đấu'"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- xác nhận xếp lịch -->
+<div
+    class="modal fade"
+    id="confirmSchedule"
+    tabindex="-1"
+    aria-labelledby="confirmSchedule__Label"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" method="post">
+                <div class="modal-header">
+                    <h5
+                            class="changeSchedule__modal--title modal-title"
+                            id="confirmSchedule__Label"
+                    >Xác nhận tạo lịch thi đấu
+                    </h5>
+                    <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-footer changeSchedule__modal--button">
+                    <button type="button" class="btn btn-primary" onclick="confirmSubmit()">Xác nhận</button>
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                    >Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- đổi lịch -->
+<div
+    class="modal fade"
+    id="changeSchedule"
+    tabindex="-1"
+    aria-labelledby="changeSchedule__Label"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5
+                    class="changeSchedule__modal--title modal-title"
+                    id="changeSchedule__Label"
+                >Đổi lịch thi đấu
+                </h5>
+                <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                ></button>
+            </div>
+            <div class="changeSchedule__modal--body modal-body">
+                <input type="hidden" id="matchID">
+                <div>
+                    <label>Đội 1</label>
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            id="matchInfo__team1"
+                    ></button>
+                </div>
+                <div>
+                    <label>Đội 2</label>
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            id="matchInfo__team2"
+                    ></button>
+                </div>
+                <div>
+                    <label>Ngày</label>
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            id="matchInfo__date"
+                    ></button>
+                </div>
+                <div>
+                    <label>Thời gian</label>
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            id="matchInfo__time"
+                    ></button>
+                </div>
+                <div>
+                    <label>Đổi ngày</label>
+                    <input type="date" name="changeDate" id="changeDate" />
+                </div>
+                <div>
+                    <label>Đổi thời gian</label>
+                    <select name="changeTime" id="changeTime">
+                        <option>--</option>
+                        <optgroup label="Sáng">
+                            <option th:each="timeMorningMatch : ${timeMorningMatchs}" th:value="${timeMorningMatch}" th:text="${timeMorningMatch}"></option>
+                        </optgroup>
+                        <optgroup label="Chiều">
+                            <option th:each="timeEveningMatch : ${timeEveningMatchs}" th:value="${timeEveningMatch}" th:text="${timeEveningMatch}"></option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="changeSchedule__modal--error">
+                    <span></span>
+                </div>
+            </div>
+            <div class="modal-footer changeSchedule__modal--button">
+                <button type="button" class="btn btn-success" onclick="changeInfoTeamCheck()">Kiểm tra</button>
+                <button type="button" class="btn btn-primary" id="submit__button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#confirmChangeSchedule"
+                        disabled>Xác nhận</button>
+                <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                >Hủy</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- xếp lịch -->
+<div
+    class="modal fade"
+    id="confirmChangeSchedule"
+    tabindex="-1"
+    aria-labelledby="confirmChangeSchedule__Label"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" method="post">
+                <div class="modal-header">
+                    <h5
+                            class="changeSchedule__modal--title modal-title"
+                            id="confirmChangeSchedule__Label"
+                    >Xác nhận đổi lịch thi đấu
+                    </h5>
+                    <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                    ></button>
+                </div>
+                <div id="confirmChangeSchedule__error" class="confirmChangeSchedule__modal--body modal-body">
+                    <span></span>
+                </div>
+                <div class="modal-footer changeSchedule__modal--button">
+                    <button type="button" class="btn btn-primary" onclick="changeInfomationMatch()">Xác nhận</button>
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                    >Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<footer th:replace="~{fragments/footer :: footer}" />
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

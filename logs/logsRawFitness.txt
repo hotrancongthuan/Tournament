@@ -1,0 +1,144 @@
+solution:1
+ADN(matchID=1190, week=29, weekday=5, time=08:35, date=2024-03-14)
+ADN(matchID=1191, week=29, weekday=6, time=07:30, date=2024-03-15)
+ADN(matchID=1192, week=29, weekday=6, time=15:00, date=2024-03-15)
+ADN(matchID=1193, week=29, weekday=6, time=09:40, date=2024-03-15)
+ADN(matchID=1194, week=29, weekday=6, time=07:30, date=2024-03-15)
+ADN(matchID=1195, week=29, weekday=5, time=16:05, date=2024-03-14)
+ADN(matchID=1196, week=29, weekday=2, time=17:10, date=2024-03-11)
+ADN(matchID=1197, week=29, weekday=2, time=17:10, date=2024-03-11)
+fitness:434000.0
+error:0.0
+-------------------------------------
+solution:2
+ADN(matchID=1190, week=29, weekday=7, time=08:35, date=2024-03-16)
+ADN(matchID=1191, week=29, weekday=5, time=15:00, date=2024-03-14)
+ADN(matchID=1192, week=29, weekday=6, time=09:40, date=2024-03-15)
+ADN(matchID=1193, week=29, weekday=5, time=15:00, date=2024-03-14)
+ADN(matchID=1194, week=29, weekday=5, time=08:35, date=2024-03-14)
+ADN(matchID=1195, week=29, weekday=4, time=09:40, date=2024-03-13)
+ADN(matchID=1196, week=29, weekday=4, time=08:35, date=2024-03-13)
+ADN(matchID=1197, week=29, weekday=6, time=17:10, date=2024-03-15)
+fitness:432000.0
+error:0.0
+-------------------------------------
+solution:3
+ADN(matchID=1190, week=29, weekday=4, time=07:30, date=2024-03-13)
+ADN(matchID=1191, week=29, weekday=7, time=16:05, date=2024-03-16)
+ADN(matchID=1192, week=29, weekday=3, time=15:00, date=2024-03-12)
+ADN(matchID=1193, week=29, weekday=6, time=08:35, date=2024-03-15)
+ADN(matchID=1194, week=29, weekday=5, time=08:35, date=2024-03-14)
+ADN(matchID=1195, week=29, weekday=6, time=09:40, date=2024-03-15)
+ADN(matchID=1196, week=29, weekday=7, time=07:30, date=2024-03-16)
+ADN(matchID=1197, week=29, weekday=7, time=09:40, date=2024-03-16)
+fitness:432000.0
+error:0.0
+-------------------------------------
+solution:4
+ADN(matchID=1190, week=29, weekday=5, time=08:35, date=2024-03-14)
+ADN(matchID=1191, week=29, weekday=6, time=07:30, date=2024-03-15)
+ADN(matchID=1192, week=29, weekday=6, time=15:00, date=2024-03-15)
+ADN(matchID=1193, week=29, weekday=6, time=09:40, date=2024-03-15)
+ADN(matchID=1194, week=29, weekday=6, time=07:30, date=2024-03-15)
+ADN(matchID=1195, week=29, weekday=5, time=16:05, date=2024-03-14)
+ADN(matchID=1196, week=29, weekday=2, time=17:10, date=2024-03-11)
+ADN(matchID=1197, week=29, weekday=2, time=17:10, date=2024-03-11)
+fitness:434000.0
+error:0.0
+-------------------------------------
+solution:5
+ADN(matchID=1190, week=29, weekday=7, time=08:35, date=2024-03-16)
+ADN(matchID=1191, week=29, weekday=5, time=15:00, date=2024-03-14)
+ADN(matchID=1192, week=29, weekday=6, time=09:40, date=2024-03-15)
+ADN(matchID=1193, week=29, weekday=5, time=15:00, date=2024-03-14)
+ADN(matchID=1194, week=29, weekday=5, time=08:35, date=2024-03-14)
+ADN(matchID=1195, week=29, weekday=4, time=09:40, date=2024-03-13)
+ADN(matchID=1196, week=29, weekday=4, time=08:35, date=2024-03-13)
+ADN(matchID=1197, week=29, weekday=6, time=17:10, date=2024-03-15)
+fitness:432000.0
+error:0.0
+-------------------------------------
+solution:6
+ADN(matchID=1190, week=29, weekday=4, time=07:30, date=2024-03-13)
+ADN(matchID=1191, week=29, weekday=7, time=16:05, date=2024-03-16)
+ADN(matchID=1192, week=29, weekday=3, time=15:00, date=2024-03-12)
+ADN(matchID=1193, week=29, weekday=6, time=08:35, date=2024-03-15)
+ADN(matchID=1194, week=29, weekday=5, time=08:35, date=2024-03-14)
+ADN(matchID=1195, week=29, weekday=6, time=09:40, date=2024-03-15)
+ADN(matchID=1196, week=29, weekday=7, time=07:30, date=2024-03-16)
+ADN(matchID=1197, week=29, weekday=7, time=09:40, date=2024-03-16)
+fitness:432000.0
+error:0.0
+-------------------------------------
+solution:7
+ADN(matchID=1190, week=29, weekday=7, time=08:35, date=2024-03-16)
+ADN(matchID=1191, week=29, weekday=5, time=15:00, date=2024-03-14)
+ADN(matchID=1192, week=29, weekday=6, time=09:40, date=2024-03-15)
+ADN(matchID=1193, week=29, weekday=5, time=15:00, date=2024-03-14)
+ADN(matchID=1194, week=29, weekday=5, time=08:35, date=2024-03-14)
+ADN(matchID=1195, week=29, weekday=4, time=09:40, date=2024-03-13)
+ADN(matchID=1196, week=29, weekday=4, time=08:35, date=2024-03-13)
+ADN(matchID=1197, week=29, weekday=6, time=17:10, date=2024-03-15)
+fitness:432000.0
+error:0.0
+-------------------------------------
+solution:8
+ADN(matchID=1190, week=29, weekday=4, time=07:30, date=2024-03-13)
+ADN(matchID=1191, week=29, weekday=7, time=16:05, date=2024-03-16)
+ADN(matchID=1192, week=29, weekday=3, time=15:00, date=2024-03-12)
+ADN(matchID=1193, week=29, weekday=6, time=08:35, date=2024-03-15)
+ADN(matchID=1194, week=29, weekday=5, time=08:35, date=2024-03-14)
+ADN(matchID=1195, week=29, weekday=6, time=09:40, date=2024-03-15)
+ADN(matchID=1196, week=29, weekday=7, time=07:30, date=2024-03-16)
+ADN(matchID=1197, week=29, weekday=7, time=09:40, date=2024-03-16)
+fitness:432000.0
+error:0.0
+-------------------------------------
+solution:9
+ADN(matchID=1190, week=29, weekday=7, time=08:35, date=2024-03-16)
+ADN(matchID=1191, week=29, weekday=5, time=15:00, date=2024-03-14)
+ADN(matchID=1192, week=29, weekday=6, time=09:40, date=2024-03-15)
+ADN(matchID=1193, week=29, weekday=5, time=15:00, date=2024-03-14)
+ADN(matchID=1194, week=29, weekday=5, time=08:35, date=2024-03-14)
+ADN(matchID=1195, week=29, weekday=4, time=09:40, date=2024-03-13)
+ADN(matchID=1196, week=29, weekday=4, time=08:35, date=2024-03-13)
+ADN(matchID=1197, week=29, weekday=6, time=17:10, date=2024-03-15)
+fitness:432000.0
+error:0.0
+-------------------------------------
+solution:10
+ADN(matchID=1190, week=29, weekday=7, time=08:35, date=2024-03-16)
+ADN(matchID=1191, week=29, weekday=5, time=15:00, date=2024-03-14)
+ADN(matchID=1192, week=29, weekday=6, time=09:40, date=2024-03-15)
+ADN(matchID=1193, week=29, weekday=5, time=15:00, date=2024-03-14)
+ADN(matchID=1194, week=29, weekday=5, time=08:35, date=2024-03-14)
+ADN(matchID=1195, week=29, weekday=4, time=09:40, date=2024-03-13)
+ADN(matchID=1196, week=29, weekday=4, time=08:35, date=2024-03-13)
+ADN(matchID=1197, week=29, weekday=6, time=17:10, date=2024-03-15)
+fitness:432000.0
+error:0.0
+-------------------------------------
+solution:11
+ADN(matchID=1190, week=29, weekday=7, time=08:35, date=2024-03-16)
+ADN(matchID=1191, week=29, weekday=5, time=15:00, date=2024-03-14)
+ADN(matchID=1192, week=29, weekday=6, time=09:40, date=2024-03-15)
+ADN(matchID=1193, week=29, weekday=5, time=15:00, date=2024-03-14)
+ADN(matchID=1194, week=29, weekday=5, time=08:35, date=2024-03-14)
+ADN(matchID=1195, week=29, weekday=4, time=09:40, date=2024-03-13)
+ADN(matchID=1196, week=29, weekday=4, time=08:35, date=2024-03-13)
+ADN(matchID=1197, week=29, weekday=6, time=17:10, date=2024-03-15)
+fitness:432000.0
+error:0.0
+-------------------------------------
+solution:12
+ADN(matchID=1190, week=29, weekday=7, time=08:35, date=2024-03-16)
+ADN(matchID=1191, week=29, weekday=5, time=15:00, date=2024-03-14)
+ADN(matchID=1192, week=29, weekday=6, time=09:40, date=2024-03-15)
+ADN(matchID=1193, week=29, weekday=5, time=15:00, date=2024-03-14)
+ADN(matchID=1194, week=29, weekday=5, time=08:35, date=2024-03-14)
+ADN(matchID=1195, week=29, weekday=4, time=09:40, date=2024-03-13)
+ADN(matchID=1196, week=29, weekday=4, time=08:35, date=2024-03-13)
+ADN(matchID=1197, week=29, weekday=2, time=17:10, date=2024-03-11)
+fitness:444000.0
+error:0.0
+-------------------------------------

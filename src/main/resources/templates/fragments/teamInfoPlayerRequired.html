@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="confirmTeamInfo__players">
+    <div class="confirmTeamInfo__info">
+        <div>
+            <label >Số thành viên</label>
+            <button type="button" class="btn btn-secondary" th:if="${team}" th:text="${team.totalPlayer}" disabled>
+            </button>
+        </div>
+        <div>
+            <label>Đội trưởng</label>
+            <button type="button" class="btn btn-secondary" th:if="${captain}" th:text="${captain.name}" disabled>
+            </button>
+        </div>
+        <div>
+            <label>Trạng thái</label>
+            <button type="button" class="btn btn-secondary" th:if="${team != null and team.status == 'top2'}" disabled>
+                Hạng 2
+            </button>
+            <button type="button" class="btn btn-secondary" th:if="${team != null and team.status == 'top3'}" disabled>
+                Hạng 3
+            </button>
+            <button type="button" class="btn btn-secondary" th:if="${team != null and team.status == 'top1'}" disabled>
+                Vô địch
+            </button>
+            <button type="button" class="btn btn-secondary" th:if="${team != null and team.status == 'join' and team.stop == 0}" disabled>
+                Dừng chân
+            </button>
+            <button type="button" class="btn btn-secondary" th:if="${team != null and team.status == 'refuse'}" disabled>
+                Không hợp lệ
+            </button>
+            <button type="button" class="btn btn-secondary" th:if="${team != null and team.status == 'cancel'}" disabled>
+                Bị loại
+            </button>
+        </div>
+        <div class="confirmTeamInfo__button">
+        </div>
+    </div>
+    <table class="confirmTeamInfo__table table table-striped table-hover">
+        <thead>
+        <th></th>
+        <th></th>
+        <th>Tên thành viên</th>
+        <th>MSSV</th>
+        <th>Lớp</th>
+        <th>Trạng thái</th>
+        <th>Thông tin</th>
+        </thead>
+        <tbody>
+        <tr th:if="${players}" th:each="player: ${players}">
+            <td>
+                <a>
+                    <span>
+                        <i class="confirmTeamInfo__table--number fas fa-tshirt">
+                            <p th:text="${player.playerNumber}"></p>
+                        </i>
+                    </span>
+                </a>
+            </td>
+            <td>
+                <span th:if="${player.captain == 1}">
+                    <i class="confirmTeamInfo__table--captainIcon bi bi-c-circle-fill"></i>
+                </span>
+            </td>
+            <td>
+                <a>
+                    <span th:text="${player.name}">
+                    </span>
+                </a>
+            </td>
+            <td>
+                <a><span th:text="${player.studentID}"></span></a>
+            </td>
+            <td>
+                <a><span th:text="${player.classID}"></span></a>
+            </td>
+            <td>
+                <a>
+                    <span th:if="${player.status == 'signup'}">Chờ duyệt</span>
+                    <span th:if="${player.status == 'play'}">Tham gia</span>
+                    <span th:if="${player.status == 'refuse'}">Không hợp lệ</span>
+                </a>
+            </td>
+            <td class="confirmTeamInfo__table--button">
+                <a th:href="@{/{year}/user/{playerID}(playerID=${player.studentID},year=${year})}" class="btn btn-primary" >Xem thông tin</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>

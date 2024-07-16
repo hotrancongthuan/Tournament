@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="confirmTeamInfo__match">
+    <div th:if="${final_done}">
+        <div class="confirmTeamInfo__match--title">Chung kết</div>
+        <div class="match__main">
+            <div class="confirmTeamInfo__scheduleBlock" th:each="matchIngame: ${final_done}">
+                <div class="confirmTeamInfo__scheduleInfo">
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:text="${matchIngame.team1.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:if="${matchIngame.team1.class2 != ''}" th:text="${matchIngame.team1.class2}"></span></a>
+                    </div>
+                    <div class="confirmTeamInfo__scheduleTime">
+                        <div th:if="${final_type}" th:text="${final_type}"></div>
+                        <div th:text="${#temporals.format(matchIngame.date, 'dd/MM/yyyy')}"></div>
+                        <div th:if="${matchIngame.status != 'done'}" th:text="${#temporals.format(matchIngame.time, 'HH:mm')}"></div>
+                        <div class="knockout__result" th:if="${matchIngame.status == 'done'}">
+                            <div>
+                                <span th:text="${matchIngame.scoreTeam1}"></span>
+                                <i class="fas fa-futbol"></i>
+                                <span th:text="${matchIngame.scoreTeam2}"></span>
+                            </div>
+                            <div th:if="${matchIngame.penaltyCheck == 1}">
+                                <span th:text="'('+${matchIngame.penaltyScoreTeam1}"></span>
+                                <span>PK</span>
+                                <span th:text="${matchIngame.penaltyScoreTeam2}+')'"></span>
+                            </div>
+                        </div>
+                        <div class="text-success">Kết thúc</div>
+                    </div>
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:text="${matchIngame.team2.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:if="${matchIngame.team2.class2 != ''}" th:text="${matchIngame.team2.class2}"></span></a>
+                    </div>
+                </div>
+                <div class="confirmTeamInfo__scheduleButton">
+                    <a class="btn btn-primary" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Thông tin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${semi_final_done}">
+        <div class="confirmTeamInfo__match--title">Bán kết</div>
+        <div class="match__main">
+            <div class="confirmTeamInfo__scheduleBlock" th:each="matchIngame: ${semi_final_done}">
+                <div class="confirmTeamInfo__scheduleInfo">
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:text="${matchIngame.team1.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:if="${matchIngame.team1.class2 != ''}" th:text="${matchIngame.team1.class2}"></span></a>
+                    </div>
+                    <div class="confirmTeamInfo__scheduleTime">
+                        <div th:text="${#temporals.format(matchIngame.date, 'dd/MM/yyyy')}"></div>
+                        <div th:if="${matchIngame.status != 'done'}" th:text="${#temporals.format(matchIngame.time, 'HH:mm')}"></div>
+                        <div class="knockout__result" th:if="${matchIngame.status == 'done'}">
+                            <div>
+                                <span th:text="${matchIngame.scoreTeam1}"></span>
+                                <i class="fas fa-futbol"></i>
+                                <span th:text="${matchIngame.scoreTeam2}"></span>
+                            </div>
+                            <div th:if="${matchIngame.penaltyCheck == 1}">
+                                <span th:text="'('+${matchIngame.penaltyScoreTeam1}"></span>
+                                <span>PK</span>
+                                <span th:text="${matchIngame.penaltyScoreTeam2}+')'"></span>
+                            </div>
+                        </div>
+                        <div class="text-success">Kết thúc</div>
+                    </div>
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:text="${matchIngame.team2.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:if="${matchIngame.team2.class2 != ''}" th:text="${matchIngame.team2.class2}"></span></a>
+                    </div>
+                </div>
+                <div class="confirmTeamInfo__scheduleButton">
+                    <a class="btn btn-primary" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Thông tin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${quarterfinals_done}">
+        <div class="confirmTeamInfo__match--title">Tứ kết</div>
+        <div class="match__main">
+            <div class="confirmTeamInfo__scheduleBlock" th:each="matchIngame: ${quarterfinals_done}">
+                <div class="confirmTeamInfo__scheduleInfo">
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:text="${matchIngame.team1.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:if="${matchIngame.team1.class2 != ''}" th:text="${matchIngame.team1.class2}"></span></a>
+                    </div>
+                    <div class="confirmTeamInfo__scheduleTime">
+                        <div th:text="${#temporals.format(matchIngame.date, 'dd/MM/yyyy')}"></div>
+                        <div th:if="${matchIngame.status != 'done'}" th:text="${#temporals.format(matchIngame.time, 'HH:mm')}"></div>
+                        <div class="knockout__result" th:if="${matchIngame.status == 'done'}">
+                            <div>
+                                <span th:text="${matchIngame.scoreTeam1}"></span>
+                                <i class="fas fa-futbol"></i>
+                                <span th:text="${matchIngame.scoreTeam2}"></span>
+                            </div>
+                            <div th:if="${matchIngame.penaltyCheck == 1}">
+                                <span th:text="'('+${matchIngame.penaltyScoreTeam1}"></span>
+                                <span>PK</span>
+                                <span th:text="${matchIngame.penaltyScoreTeam2}+')'"></span>
+                            </div>
+                        </div>
+                        <div class="text-success">Kết thúc</div>
+                    </div>
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:text="${matchIngame.team2.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:if="${matchIngame.team2.class2 != ''}" th:text="${matchIngame.team2.class2}"></span></a>
+                    </div>
+                </div>
+                <div class="confirmTeamInfo__scheduleButton">
+                    <a class="btn btn-primary" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Thông tin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${round_of_16_done}">
+        <div class="confirmTeamInfo__match--title">Vòng 1/16</div>
+        <div class="match__main">
+            <div class="confirmTeamInfo__scheduleBlock" th:each="matchIngame: ${round_of_16_done}">
+                <div class="confirmTeamInfo__scheduleInfo">
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:text="${matchIngame.team1.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:if="${matchIngame.team1.class2 != ''}" th:text="${matchIngame.team1.class2}"></span></a>
+                    </div>
+                    <div class="confirmTeamInfo__scheduleTime">
+                        <div th:text="${#temporals.format(matchIngame.date, 'dd/MM/yyyy')}"></div>
+                        <div th:if="${matchIngame.status != 'done'}" th:text="${#temporals.format(matchIngame.time, 'HH:mm')}"></div>
+                        <div class="knockout__result" th:if="${matchIngame.status == 'done'}">
+                            <div>
+                                <span th:text="${matchIngame.scoreTeam1}"></span>
+                                <i class="fas fa-futbol"></i>
+                                <span th:text="${matchIngame.scoreTeam2}"></span>
+                            </div>
+                            <div th:if="${matchIngame.penaltyCheck == 1}">
+                                <span th:text="'('+${matchIngame.penaltyScoreTeam1}"></span>
+                                <span>PK</span>
+                                <span th:text="${matchIngame.penaltyScoreTeam2}+')'"></span>
+                            </div>
+                        </div>
+                        <div class="text-success">Kết thúc</div>
+                    </div>
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:text="${matchIngame.team2.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:if="${matchIngame.team2.class2 != ''}" th:text="${matchIngame.team2.class2}"></span></a>
+                    </div>
+                </div>
+                <div class="confirmTeamInfo__scheduleButton">
+                    <a class="btn btn-primary" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Thông tin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${group_stage_done}">
+        <div class="confirmTeamInfo__match--title">Vòng bảng</div>
+        <div class="match__main">
+            <div class="confirmTeamInfo__scheduleBlock" th:each="matchIngame: ${group_stage_done}">
+                <div class="confirmTeamInfo__scheduleInfo">
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:text="${matchIngame.team1.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:if="${matchIngame.team1.class2 != ''}" th:text="${matchIngame.team1.class2}"></span></a>
+                    </div>
+                    <div class="confirmTeamInfo__scheduleTime">
+                        <div th:text="${#temporals.format(matchIngame.date, 'dd/MM/yyyy')}"></div>
+                        <div th:if="${matchIngame.status != 'done'}" th:text="${#temporals.format(matchIngame.time, 'HH:mm')}"></div>
+                        <div class="knockout__result" th:if="${matchIngame.status == 'done'}">
+                            <div>
+                                <span th:text="${matchIngame.scoreTeam1}"></span>
+                                <i class="fas fa-futbol"></i>
+                                <span th:text="${matchIngame.scoreTeam2}"></span>
+                            </div>
+                            <div th:if="${matchIngame.penaltyCheck == 1}">
+                                <span th:text="'('+${matchIngame.penaltyScoreTeam1}"></span>
+                                <span>PK</span>
+                                <span th:text="${matchIngame.penaltyScoreTeam2}+')'"></span>
+                            </div>
+                        </div>
+                        <div class="text-success">Kết thúc</div>
+                    </div>
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:text="${matchIngame.team2.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:if="${matchIngame.team2.class2 != ''}" th:text="${matchIngame.team2.class2}"></span></a>
+                    </div>
+                </div>
+                <div class="confirmTeamInfo__scheduleButton">
+                    <a class="btn btn-primary" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Thông tin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${playoff_1_done}">
+        <div class="confirmTeamInfo__match--title">Vòng playoff</div>
+        <div class="match__main">
+            <div class="confirmTeamInfo__scheduleBlock" th:each="matchIngame: ${playoff_1_done}">
+                <div class="confirmTeamInfo__scheduleInfo">
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:text="${matchIngame.team1.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:if="${matchIngame.team1.class2 != ''}" th:text="${matchIngame.team1.class2}"></span></a>
+                    </div>
+                    <div class="confirmTeamInfo__scheduleTime">
+                        <div th:text="${#temporals.format(matchIngame.date, 'dd/MM/yyyy')}"></div>
+                        <div th:if="${matchIngame.status != 'done'}" th:text="${#temporals.format(matchIngame.time, 'HH:mm')}"></div>
+                        <div class="knockout__result" th:if="${matchIngame.status == 'done'}">
+                            <div>
+                                <span th:text="${matchIngame.scoreTeam1}"></span>
+                                <i class="fas fa-futbol"></i>
+                                <span th:text="${matchIngame.scoreTeam2}"></span>
+                            </div>
+                            <div th:if="${matchIngame.penaltyCheck == 1}">
+                                <span th:text="'('+${matchIngame.penaltyScoreTeam1}"></span>
+                                <span>PK</span>
+                                <span th:text="${matchIngame.penaltyScoreTeam2}+')'"></span>
+                            </div>
+                        </div>
+                        <div class="text-success">Kết thúc</div>
+                    </div>
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:text="${matchIngame.team2.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:if="${matchIngame.team2.class2 != ''}" th:text="${matchIngame.team2.class2}"></span></a>
+                    </div>
+                </div>
+                <div class="confirmTeamInfo__scheduleButton">
+                    <a class="btn btn-primary" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Thông tin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${playoff_2_done}">
+        <div class="confirmTeamInfo__match--title">Vòng play off 1</div>
+        <div class="match__main">
+            <div class="confirmTeamInfo__scheduleBlock" th:each="matchIngame: ${quarterfinals_done}">
+                <div class="confirmTeamInfo__scheduleInfo">
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:text="${matchIngame.team1.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:if="${matchIngame.team1.class2 != ''}" th:text="${matchIngame.team1.class2}"></span></a>
+                    </div>
+                    <div class="confirmTeamInfo__scheduleTime">
+                        <div th:text="${#temporals.format(matchIngame.date, 'dd/MM/yyyy')}"></div>
+                        <div th:if="${matchIngame.status != 'done'}" th:text="${#temporals.format(matchIngame.time, 'HH:mm')}"></div>
+                        <div class="knockout__result" th:if="${matchIngame.status == 'done'}">
+                            <div>
+                                <span th:text="${matchIngame.scoreTeam1}"></span>
+                                <i class="fas fa-futbol"></i>
+                                <span th:text="${matchIngame.scoreTeam2}"></span>
+                            </div>
+                            <div th:if="${matchIngame.penaltyCheck == 1}">
+                                <span th:text="'('+${matchIngame.penaltyScoreTeam1}"></span>
+                                <span>PK</span>
+                                <span th:text="${matchIngame.penaltyScoreTeam2}+')'"></span>
+                            </div>
+                        </div>
+                        <div class="text-success">Kết thúc</div>
+                    </div>
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:text="${matchIngame.team2.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:if="${matchIngame.team2.class2 != ''}" th:text="${matchIngame.team2.class2}"></span></a>
+                    </div>
+                </div>
+                <div class="confirmTeamInfo__scheduleButton">
+                    <a class="btn btn-primary" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Thông tin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

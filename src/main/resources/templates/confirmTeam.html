@@ -1,0 +1,180 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{fragments/head :: head}" />
+<body>
+  <header th:replace="~{fragments/header :: header}" />
+  <nav th:replace="~{fragments/navbar :: nav}" />
+  <meta th:name="_csrf" th:content="${_csrf.token}"/>
+  <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <div
+      class="modal fade"
+      id="confirmTeam__open"
+      tabindex="-1"
+      aria-labelledby="confirmTeam__openLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                class="confirmTeam__modal--title modal-title"
+                id="confirmTeam__openLabel"
+              >
+                Mở đăng ký tham gia
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="confirmTeam__modal--endDate">
+                <label for="endDate">Ngày hết hạn đăng ký:</label>
+                <input type="date" name="endDate" id="endDate" />
+              </div>
+            </div>
+            <div class="modal-footer confirmTeam__modal--button">
+              <button type="button" class="btn btn-primary" onclick="tournamentOpenSignup()"/>Xác nhận</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Hủy
+              </button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  <div
+      class="modal fade"
+      id="confirmTeam__close"
+      tabindex="-1"
+      aria-labelledby="confirmTeam__closeLabel"
+      aria-hidden="true"
+    >
+      <div class="confirmTeam__dialog modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="confirmTeam__modal--title modal-title"
+              id="confirmTeam__closeLabel"
+            >
+              Đóng đăng ký tham gia
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-footer confirmTeam__modal--button">
+            <button type="submit" class="btn btn-primary" onclick="tournamentCloseSignup()">Xác nhận</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Hủy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <main id="confirmTeamPage" class="confirmTeam__main">
+    <div class="confirmTeam">
+      <div class="confirmTeam__header">
+        <div class="confirmTeam__title">Danh sách các đội</div>
+        <div sec:authorize="hasRole('ROLE_MANAGER')" class="confirmTeam__status">
+          <div>
+            <button type="button" class="btn btn-secondary" th:if="${tournament_current.status == 'open'}" th:text="'Đang mở đăng ký đến '+${#temporals.format(tournament_current.registerEndDate, 'dd/MM/yyyy')}"></span> disabled>
+            </button>
+            <button type="button" class="btn btn-secondary" th:if="${tournament_current.status == 'schedule'}" disabled>
+              Chờ bốc thăm
+            </button>
+            <button type="button" class="btn btn-secondary" th:if="${tournament_current.status == 'inprogress'}" disabled>
+              Đang diễn ra
+            </button>
+            <button type="button" class="btn btn-secondary" th:if="${tournament_current.status == 'close'}" disabled>
+              Kết thúc
+            </button>
+          </div>
+          <div>
+            <button
+              th:if="${tournament_current.status == 'schedule'}"
+              type="button"
+              class="confirmTeam__status--open btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#confirmTeam__open"
+            >Mở đăng ký
+            </button>
+            <button
+              th:if="${tournament_current.status == 'open'}"
+              type="button"
+              class="confirmTeam__status--close btn btn-danger"
+              data-bs-toggle="modal"
+              data-bs-target="#confirmTeam__close"
+            >Đóng đăng ký
+            </button>
+          </div>
+        </div>
+      </div>
+      <form action="" method="get">
+        <div class="confirmTeam__search">
+          <div>
+            <label for="teamID">Đội</label>
+            <input type="text" name="teamID" id="teamID" placeholder="Tìm kiếm đội" />
+          </div>
+          <div>
+            <label for="teamStatus">Trạng thái</label>
+            <select name="teamStatus" id="teamStatus">
+              <option value="">--</option>
+              <option value="signup">Chờ duyệt</option>
+              <option value="join" th:selected="${tournament_current.status != 'open' and param.teamStatus == null and param.teamID == null}">Hợp lệ</option>
+              <option value="refuse">Không hợp lệ</option>
+              <option value="cancel">Bị loại</option>
+            </select>
+          </div>
+          <div>
+            <button class="btn btn-primary" type="submit">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+      <div class="confirmTeam__error"></div>
+      <div class="confirmTeam__Teams">
+        <table class="confirmTeam__table table table-striped table-hover">
+          <thead>
+            <th>No.</th>
+            <th>Đội</th>
+            <th>Thành viên</th>
+            <th>Trạng thái</th>
+          </thead>
+          <tbody>
+            <tr th:if="${teams}" th:each="team,stat : ${teams}">
+              <td><a th:href="@{/team/{teamID}(teamID=${team.ID})}" th:text="${stat.count}"></a></td>
+              <td><a th:href="@{/team/{teamID}(teamID=${team.ID})}"  th:text="${team.class2 != '' ? team.class1+' - '+team.class2 : team.class1 }"></a></td>
+              <td><a th:href="@{/team/{teamID}(teamID=${team.ID})}"  th:text="${team.totalPlayer}"></a></td>
+              <td>
+                <a th:href="@{/team/{teamID}(teamID=${team.ID})}"  th:if="${team.status == 'signup'}">Chờ duyệt</a>
+                <a th:href="@{/team/{teamID}(teamID=${team.ID})}"  th:if="${team.status == 'join'}">Hợp lệ</a>
+                <a th:href="@{/team/{teamID}(teamID=${team.ID})}"  th:if="${team.status == 'refuse'}">Không hợp lệ</a>
+                <a th:href="@{/team/{teamID}(teamID=${team.ID})}"  th:if="${team.status == 'cancel'}">Bị loại</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <footer th:replace="~{fragments/footer :: footer}" />
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+
+</html>

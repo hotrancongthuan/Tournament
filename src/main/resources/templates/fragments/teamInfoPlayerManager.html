@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="confirmTeamInfo__players">
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <input type="hidden" id="teamID" name="teamID" th:value="${team.ID}" />
+    <input type="hidden" id="class1" name="class1" th:value="${team.class1}" />
+    <input type="hidden" id="class2" name="class2" th:value="${team.class2 != null ? team.class2 : ''}" />
+    <input type="hidden" name="captain" id="captainTeam"  th:value="${captain.ID}"/>
+    <div class="confirmTeamInfo__info">
+        <div>
+            <label >Số thành viên</label>
+            <button type="button" class="btn btn-secondary" th:if="${team}" th:text="${team.totalPlayer}" disabled>
+            </button>
+        </div>
+        <div>
+            <label>Đội trưởng</label>
+            <button type="button" class="btn btn-secondary" th:if="${captain}" th:text="${captain.name}" disabled>
+            </button>
+        </div>
+        <div>
+            <label>Trạng thái</label>
+            <button type="button" class="btn btn-secondary" th:if="${team != null and team.status == 'signup'}" disabled>
+                Chờ duyệt
+            </button>
+            <button type="button" class="btn btn-secondary" th:if="${team != null and tournament_current.status == 'open' and team.status == 'join'}" disabled>
+                Được duyệt
+            </button>
+            <button type="button" class="btn btn-secondary" th:if="${team != null and tournament_current.status == 'schedule' and team.status == 'join'}" disabled>
+                Đang tham gia
+            </button>
+            <button type="button" class="btn btn-secondary" th:if="${team != null and tournament_current.status == 'inprogress' and team.status == 'join' and team.stop == 1}" disabled>
+                Đang tham gia
+            </button>
+            <button type="button" class="btn btn-secondary" th:if="${team != null and tournament_current.status == 'inprogress' and team.status == 'join' and team.stop == 0}" disabled>
+                Dừng chân
+            </button>
+            <button type="button" class="btn btn-secondary" th:if="${team != null and team.status == 'refuse'}" disabled>
+                Không hợp lệ
+            </button>
+            <button type="button" class="btn btn-secondary" th:if="${team != null and team.status == 'cancel'}" disabled>
+                Bị loại
+            </button>
+        </div>
+        <div class="confirmTeamInfo__button">
+            <button
+                    th:if="${tournament_current.status == 'open' or tournament_current.status == 'schedule'}"
+                    type="button"
+                    class="confirmTeamInfo__status--acept btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#confirmTeamInfo__acept"
+            >Chấp nhận</button>
+            <button
+                    th:if="${tournament_current.status == 'open' or tournament_current.status == 'schedule'}"
+                    type="button"
+                    class="confirmTeamInfo__status--refuse btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#confirmTeamInfo__refuse"
+            >Từ chối</button>
+            <button
+                    type="button"
+                    class="confirmTeamInfo__status--refuse btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#confirmTeamInfo__outPlayers"
+                    th:if="${tournament_current.status == 'inprogress' and team.status == 'join'}"
+            >Xác nhận thành viên</button>
+            <button
+                    type="button"
+                    class="confirmTeamInfo__status--refuse btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#confirmTeamInfo__aceptTeam"
+                    th:if="${tournament_current.status == 'inprogress' and team.status == 'cancel'}"
+            >Cho phép</button>
+        </div>
+    </div>
+    <div class="confirmTeamInfo__error">
+    </div>
+    <table class="confirmTeamInfo__table table table-striped table-hover">
+        <thead>
+        <th></th>
+        <th></th>
+        <th>Tên thành viên</th>
+        <th>MSSV</th>
+        <th>Lớp</th>
+        <th>Trạng thái</th>
+        <th>Thông tin</th>
+        </thead>
+        <tbody>
+        <tr th:if="${players}" th:each="player : ${players}">
+            <td>
+                <input type="checkbox" name="inputRefusePlayers" th:id="'refuse_'+${player.studentID}" th:value="${player.studentID}" th:checked="${player.status == 'refuse' or player.status == 'cancel'}">
+                <a th:href="@{/user/{playerID}(playerID=${player.studentID})}">
+                    <span>
+                        <i class="confirmTeamInfo__table--number fas fa-tshirt">
+                            <p th:text="${player.playerNumber}"></p>
+                        </i>
+                    </span>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/user/{playerID}(playerID=${player.studentID})}">
+                    <span th:if="${player.captain == 1}">
+                        <i class="confirmTeamInfo__table--captainIcon bi bi-c-circle-fill"></i>
+                    </span>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/user/{playerID}(playerID=${player.studentID})}">
+                    <span th:text="${player.name}">
+                    </span>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/user/{playerID}(playerID=${player.studentID})}"><span th:text="${player.studentID}"></span></a>
+            </td>
+            <td>
+                <a th:href="@{/user/{playerID}(playerID=${player.studentID})}"><span th:text="${player.classID}"></span></a>
+            </td>
+            <td>
+                <a th:href="@{/user/{playerID}(playerID=${player.studentID})}">
+                    <span th:if="${player.status == 'signup' and team.status == 'signup'}">Chờ duyệt</span>
+                    <span th:if="${player.status == 'signup' and team.status == 'join'}">Duyệt</span>
+<!--                    <span th:if="${player.status == 'signup' and team.status == 'refuse'}">Không hợp lệ</span>-->
+                    <span th:if="${team.status == 'join' and player.status == 'play'}">Tham gia</span>
+                    <span th:if="${team.status == 'cancel' and player.status == 'play'}">Bị loại</span>
+                    <span th:if="${player.status == 'refuse'}">Không hợp lệ</span>
+                    <span th:if="${player.status == 'cancel'}">Bị loại</span>
+                </a>
+            </td>
+            <td class="confirmTeamInfo__table--button">
+                <button th:if="${player.status == 'signup' and tournament_current.status == 'open'}" class="btn btn-danger refuse-btn">Không hợp lệ</button>
+                <button th:if="${player.status == 'refuse' and tournament_current.status == 'open'}" class="btn btn-primary refuse-btn">Hợp lệ</button>
+                <button th:if="${player.status == 'refuse' and tournament_current.status != 'open'}" class="btn btn-primary refuse-btn" disabled>Không hợp lệ</button>
+                <button th:if="${player.status == 'play'}" class="btn btn-danger refuse-btn" th:disabled="${team.status == 'cancel'}">Loại</button>
+                <button th:if="${player.status == 'cancel'}" class="btn btn-primary refuse-btn" th:disabled="${team.status == 'cancel'}">Duyệt</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>

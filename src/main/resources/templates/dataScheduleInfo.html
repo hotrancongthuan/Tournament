@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head}" />
+<body>
+<header th:replace="~{fragments/header :: header}" />
+<main class="dataTournament">
+    <div>
+        <div th:replace="~{fragments/dataSidebar :: div}" />
+        <div class="dataTournament_dataBlock">
+            <div class="dataTournament__title">Danh sách sinh viên</div>
+            <div class="dataTournament__infoSubject">
+                <div>
+                    <span>Mã môn:</span>
+                    <span th:if="${scheduleSubject}" th:text="${scheduleSubject.subjectID}"></span>
+                </div>
+                <div>
+                    <span>Tên môn học:</span>
+                    <span th:if="${scheduleSubject}" th:text="${scheduleSubject.name}"></span>
+                </div>
+                <div>
+                    <span>Ca:</span>
+                    <span th:if="${scheduleSubject}" th:text="${scheduleSubject.shift}"></span>
+                </div>
+                <div>
+                    <span>Thứ:</span>
+                    <span th:if="${scheduleSubject}" th:text="${scheduleSubject.weekday}"></span>
+                </div>
+                <div>
+                    <span>Tuần:</span>
+                    <span th:if="${scheduleSubject}" th:text="${scheduleSubject.week}"></span>
+                </div>
+            </div>
+            <div>
+                <table
+                        class="dataTournament__table table table-striped table-hover"
+                >
+                    <thead>
+                    <tr>
+                        <th>MSSV</th>
+                        <th>Tên</th>
+                        <th>Lớp</th>
+                        <th>Khóa</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${students}" th:each="student: ${students}">
+                        <td  th:text="${student.ID}"></td>
+                        <td  th:text="${student.name}"></td>
+                        <td  th:text="${student.classID}"></td>
+                        <td  th:text="${student.takeIn.ID}"></td>
+                    </tr>
+                    <tr th:if="${students != null and #lists.size(students) < 15}" th:each="tr : ${#numbers.sequence(#lists.size(students), 15)}">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer :: footer}" />
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

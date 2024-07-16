@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/head :: head}" />
+<body>
+<header th:replace="~{fragments/header :: header}" />
+<main class="createTour__main">
+    <form class="createTour__form" action="#" th:action="@{/update_tournament}" th:object="${tournament}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="hidden" th:field="*{ID}" />
+        <div class="block_form">
+            <label>Năm học</label>
+            <input type="hidden" th:field="*{schoolYear.ID}">
+            <input type="hidden" th:field="*{schoolYear.current}">
+            <input type="number" min="2017" max="2030" placeholder="HK1" th:field="*{schoolYear.year1}" >
+            <span class="createTour__error" th:if="${#fields.hasErrors('schoolYear.year1')}" th:errors="*{schoolYear.year1}"></span>
+            <input type="number" min="2017" max="2030" placeholder="HK2" th:field="*{schoolYear.year2}" >
+            <span class="createTour__error" th:if="${#fields.hasErrors('schoolYear.year2')}" th:errors="*{schoolYear.year2}"></span>
+            <span class="createTour__error" th:if="${schoolYearError}" th:text="${schoolYearError}"></span>
+        </div>
+        <div class="form__studentYear">
+            <div>Niên khóa tham gia</div>
+            <div class="form__studentYear--checkbox" >
+                <div th:each="takeIn: ${takeIns}">
+                    <input type="checkbox" th:if="${takeInIds}" th:id="${'takeIn' + takeIn.ID}" th:value="${takeIn.ID}" name="tournamentTakeIns" th:checked="${#lists.contains(takeInIds, takeIn.ID)}"/>
+                    <input type="checkbox" th:unless="${takeInIds}" name="tournamentTakeIns"  th:id="${'takeIn' + takeIn.ID}" th:value="${takeIn.ID}"  />
+                    <label th:for="${'takeIn' + takeIn.ID}" th:text="${takeIn.ID}"></label>
+                </div>
+            </div>
+            <span class="createTour__error" th:if="${takeInsError}" th:text="${takeInsError}"></span>
+        </div>
+        <div class="block_form form_numberTeam">
+            <div class="form_numberTeam--min">
+                <label for="minPlayerPerTeam">Số thành viên tối thiểu</label>
+                <input type="number" id="minPlayerPerTeam" th:field="*{minPlayerPerTeam}" />
+                <span class="createTour__error" th:if="${#fields.hasErrors('minPlayerPerTeam')}" th:errors="*{minPlayerPerTeam}"></span>
+            </div>
+            <div class="form_numberTeam--max">
+                <label for="maxPlayerPerTeam">Số thành viên tối đa</label>
+                <input type="number" id="maxPlayerPerTeam" th:field="*{maxPlayerPerTeam}"/>
+                <span class="createTour__error" th:if="${#fields.hasErrors('maxPlayerPerTeam')}" th:errors="*{maxPlayerPerTeam}"></span>
+            </div>
+        </div>
+        <span class="createTour__error" th:if="${MinMaxError}" th:text="${MinMaxError}"></span>
+        <div class="block_form form__endDate">
+            <label for="registerEndDate">Hạn đăng ký</label>
+            <input type="date" id="registerEndDate" th:field="*{registerEndDate}"/>
+            <span class="createTour__error" th:if="${#fields.hasErrors('registerEndDate')}" th:errors="*{registerEndDate}"></span>
+        </div>
+        <div>
+            <input class="form_submit" type="submit" value="Sửa thông tin" />
+        </div>
+    </form>
+</main>
+<footer th:replace="~{fragments/footer :: footer}" />
+</body>
+</html>

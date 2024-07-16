@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phí</title>
+    <link
+      rel="shortcut icon"
+      href="https://stdportal.tdtu.edu.vn/logo.ico"
+      type="image/x-icon"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="fee">
+      <div class="fee__title">Đóng phí/Nộp phạt</div>
+      <div class="fee__search">
+        <input type="text" placeholder="Đội" />
+        <select name="" id="">
+          <option value="">Trạng thái</option>
+          <option value="">Đã thanh toán</option>
+          <option value="">Chưa thanh toán</option>
+        </select>
+        <button><i class="bi bi-search"></i></button>
+      </div>
+      <div>
+        <table class="fee__table table table-striped table-hover">
+          <thead>
+            <th>No.</th>
+            <th>Loại</th>
+            <th>Thông tin</th>
+            <th>Số tiền</th>
+            <th>Trạng thái</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <a data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <span>1</span></a
+                >
+              </td>
+              <td>
+                <a data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  ><span>Phí tham gia</span></a
+                >
+              </td>
+              <td>
+                <a data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  ><span>Phí tham gia giải đấu theo luật tổ chức</span></a
+                >
+              </td>
+              <td>
+                <a data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  ><span>200.000VNĐ</span></a
+                >
+              </td>
+              <td>
+                <a data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  ><span>Chưa thanh toán</span></a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- modal manager -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="confirmTeamInfo__modal--title modal-title"
+              id="exampleModalLabel"
+            >
+              Nộp phạt
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="modal__fee">
+              <div>
+                <div>
+                  <span>Đội</span>
+                  <span>17050303</span>
+                </div>
+                <div>
+                  <span>Lý do</span>
+                  <span>Phạm lỗi thẻ đỏ</span>
+                </div>
+                <div>
+                  <span>Số tiền</span>
+                  <span>100.000</span>
+                </div>
+                <div>
+                  <span>Tình trạng</span>
+                  <select name="" id="">
+                    <option value="">Chưa thanh toán</option>
+                    <option value="">Đã thanh toán</option>
+                  </select>
+                  <!-- <span>Chưa thanh toán</span> -->
+                </div>
+                <div>
+                  <span>Chi tiết</span>
+                  <span
+                    >Trận 12/5/2023 12:00 17050304 vs 17050303, <br />
+                    cầu thủ Hồ Trần Công Thuận- 51703194 phạm lỗi thẻ đỏ.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer confirmTeamInfo__modal--button">
+            <button type="button" class="btn btn-primary">Lưu</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Hủy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal player -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="confirmTeamInfo__modal--title modal-title"
+              id="exampleModalLabel"
+            >
+              Nộp phạt
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="modal__fee">
+              <div>
+                <div>
+                  <span>Đội</span>
+                  <span>17050303</span>
+                </div>
+                <div>
+                  <span>Lý do</span>
+                  <span>Phạm lỗi thẻ đỏ</span>
+                </div>
+                <div>
+                  <span>Số tiền</span>
+                  <span>100.000</span>
+                </div>
+                <div>
+                  <span>Tình trạng</span>
+                  <span>Chưa thanh toán</span>
+                </div>
+                <div>
+                  <span>Chi tiết</span>
+                  <span
+                    >Trận 12/5/2023 12:00 17050304 vs 17050303, <br />
+                    cầu thủ Hồ Trần Công Thuận- 51703194 phạm lỗi thẻ đỏ.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer confirmTeamInfo__modal--button">
+            <button type="button" class="btn btn-primary">Lưu</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Hủy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

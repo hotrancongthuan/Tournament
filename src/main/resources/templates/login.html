@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/fragments/head :: head}">
+  <body>
+    <div class="login__block">
+      <div class="login__block--left">
+        <div>
+          <img src="image/TDT_logo_nobg.png" alt="" height="" width="150px" />
+          <div class="login__title">
+            Quản lý <br />
+            giải bóng đá khoa CNTT
+          </div>
+        </div>
+      </div>
+      <div class="login__block--right">
+        <div class="login__form">
+          <form action="#" th:action="@{/login}" method="post">
+            <div class="login__form--id">
+              <label for="ID">Mã số sinh viên</label>
+              <input
+                id="ID"
+                name="ID"
+                type="text"
+                placeholder="Nhập MSSV"
+              />
+            </div>
+            <div class="login__form--password">
+              <label for="password">Mật khẩu</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Nhập mật khẩu"
+              />
+            </div>
+            <div class="login__form--submit">
+              <input type="submit" value="Đăng nhập" />
+            </div>
+            <div class="login__form--forgetPass">
+              <a href="">Quên mật khẩu</a>
+            </div>
+          </form>
+          <div th:if="${param.error}" class="login__error">
+            <p>MSSV hoặc mật khẩu sai</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+solution best:2
+ADN(matchID=1552, week=35, weekday=7, time=16:05, date=2024-04-27)
+ADN(matchID=1553, week=35, weekday=7, time=09:40, date=2024-04-27)
+fitness:64000.0
+error:0.0
+-------------------------------------

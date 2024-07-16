@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head}" />
+<body>
+    <header th:replace="~{fragments/header :: header}" />
+    <nav th:replace="~{fragments/navbar :: nav}" />
+    <main class="personalInfo__main">
+        <div class="personalInfo">
+            <form action="/update_personal_information" method="POST"  enctype="multipart/form-data">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <div class="personalInfo__block">
+                    <div>
+                        <div class="personalInfo__avatar">
+                            <img id="avatarShow"
+                                 th:if="${userInformation.avatar != null}"
+                                 th:src="@{/avatars/{filename}(filename=${userInformation.avatar})}"
+                                 alt="User Avatar"/>
+                            <img id="avatarShow"
+                                 th:unless="${userInformation.avatar != null}"
+                                 th:src="@{/images/avatar-normal.png}"
+                                 alt="User Avatar"/>
+                        </div>
+                        <div class="personalInfo__info">
+                            <ul>
+                                <li>
+                                    <span class="personalInfo__name" th:text="${userInformation.name}"></span>
+                                </li>
+                                <li>
+                                    <span class="personalInfo__id" th:text="'MSSV: '+${userInformation.ID}"></span>
+                                </li>
+                                <li>
+                                    <span class="personalInfo__team" th:unless="${player}" th:text="'Sinh viên lớp: '+${student.classID}"></span>
+                                    <span class="personalInfo__team" th:if="${player}" th:text="'Cầu thủ - '+${student.classID}"></span>
+                                </li>
+                                <li th:if="${player}">
+                                    <span th:text="'Mùa giải: '+${season.year1}+' - '+${season.year2}"></span>
+                                </li>
+                                <li th:if="${player}">
+                                  <span class="personalInfo__height">
+                                      <span th:text="${player.height != 0 ? player.height : '???'}"></span> cm - <span th:text="${player.weight != 0 ? player.weight : '???'}"></span> kg
+                                  </span>
+                                </li>
+                                <li class="personalInfo__infoPlayer" th:if="${player}">
+                                  <span class="personalInfo__number">
+                                    <i class="confirmTeamInfo__table--number fas fa-tshirt">
+                                      <p th:text="${player.playerNumber}"></p>
+                                    </i>
+                                  </span>
+                                    <span th:if="${player.captain == 1}" class="personalInfo__captain">
+                                        <i class="confirmTeamInfo__table--captainIcon bi bi-c-circle-fill"
+                                        ></i>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div th:if="${player}" class="personalInfo__stats">
+                        <div>
+                            <span ><i class="fas fa-futbol"></i> Bàn thắng </span>
+                            <span th:text="${player.goal}"></span>
+                        </div>
+                        <div>
+                            <span> <i class="fas fa-handshake"></i>Kiến tạo </span>
+                            <span th:text="${player.assists}"></span>
+                        </div>
+                        <div>
+                            <span><i class="yellowCard bi bi-file-fill"></i>Thẻ vàng</span>
+                            <span th:text="${player.yellowCard}"></span>
+                        </div>
+                        <div>
+                            <span><i class="redCard bi bi-file-fill"></i>Thẻ đỏ </span>
+                            <span th:text="${player.redCard}"></span>
+                        </div>
+                        <div>
+                            <span> <i class="fas fa-user-check"></i>Trạng thái</span>
+                            <span th:if="${player.status == 'signup'}">Chờ duyệt</span>
+                            <span th:if="${team.status == 'join' and player.status == 'play'}" >Tham gia</span>
+                            <span th:if="${team.status == 'cancel' and player.status == 'play'}" >Bị loại</span>
+                            <span th:if="${player.status == 'refuse'}" >Không hợp lệ</span>
+                            <span th:if="${player.status == 'cancel'}" >Bị loại</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer th:replace="~{fragments/footer :: footer}" />
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

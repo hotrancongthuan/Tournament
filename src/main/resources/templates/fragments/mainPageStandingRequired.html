@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="mainpage__standings">
+    <div th:if="${final_done}">
+        <div class="mainpage__roundTitle">Vòng chung kết</div>
+        <div class="mainpage__knockout">
+            <div class="knockoutBlock" th:each="matchIngame: ${semi_final_done}">
+                <div class="knockout__Info">
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:text="${matchIngame.team1.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:if="${matchIngame.team1.class2 != ''}" th:text="${matchIngame.team1.class2}"></span></a>
+                    </div>
+                    <div class="knockout__time">
+                        <div th:text="${#temporals.format(matchIngame.date, 'dd/MM/yyyy')}"></div>
+                        <div th:if="${matchIngame.status != 'done'}" th:text="${#temporals.format(matchIngame.time, 'HH:mm')}"></div>
+                        <div class="knockout__result" th:if="${matchIngame.status == 'done'}">
+                            <div>
+                                <span th:text="${matchIngame.scoreTeam1}"></span>
+                                <i class="fas fa-futbol"></i>
+                                <span th:text="${matchIngame.scoreTeam2}"></span>
+                            </div>
+                            <div th:if="${matchIngame.penaltyCheck == 1}">
+                                <span th:text="'('+${matchIngame.penaltyScoreTeam1}"></span>
+                                <span>PK</span>
+                                <span th:text="${matchIngame.penaltyScoreTeam2}+')'"></span>
+                            </div>
+                        </div>
+                        <div class="text-success">Kết thúc</div>
+                    </div>
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:text="${matchIngame.team2.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:if="${matchIngame.team2.class2 != ''}" th:text="${matchIngame.team2.class2}"></span></a>
+                    </div>
+                </div>
+                <div class="knockout__button">
+                    <a class="btn btn-primary" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Thông tin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${semi_final_done}">
+        <div class="mainpage__roundTitle">Vòng bán kết</div>
+        <div class="mainpage__knockout">
+            <div class="knockoutBlock" th:each="matchIngame: ${semi_final_done}">
+                <div class="knockout__Info">
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:text="${matchIngame.team1.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:if="${matchIngame.team1.class2 != ''}" th:text="${matchIngame.team1.class2}"></span></a>
+                    </div>
+                    <div class="knockout__time">
+                        <div th:text="${#temporals.format(matchIngame.date, 'dd/MM/yyyy')}"></div>
+                        <div th:if="${matchIngame.status != 'done'}" th:text="${#temporals.format(matchIngame.time, 'HH:mm')}"></div>
+                        <div class="knockout__result" th:if="${matchIngame.status == 'done'}">
+                            <div>
+                                <span th:text="${matchIngame.scoreTeam1}"></span>
+                                <i class="fas fa-futbol"></i>
+                                <span th:text="${matchIngame.scoreTeam2}"></span>
+                            </div>
+                            <div th:if="${matchIngame.penaltyCheck == 1}">
+                                <span th:text="'('+${matchIngame.penaltyScoreTeam1}"></span>
+                                <span>PK</span>
+                                <span th:text="${matchIngame.penaltyScoreTeam2}+')'"></span>
+                            </div>
+                        </div>
+                        <div class="text-success">Kết thúc</div>
+                    </div>
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:text="${matchIngame.team2.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:if="${matchIngame.team2.class2 != ''}" th:text="${matchIngame.team2.class2}"></span></a>
+                    </div>
+                </div>
+                <div class="knockout__button">
+                    <a class="btn btn-primary" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Thông tin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${quarterfinals_done}">
+        <div class="mainpage__roundTitle">Vòng tứ kết</div>
+        <div class="mainpage__knockout">
+            <div class="knockoutBlock" th:each="matchIngame: ${quarterfinals_done}">
+                <div class="knockout__Info">
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:text="${matchIngame.team1.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:if="${matchIngame.team1.class2 != ''}" th:text="${matchIngame.team1.class2}"></span></a>
+                    </div>
+                    <div class="knockout__time">
+                        <div th:text="${#temporals.format(matchIngame.date, 'dd/MM/yyyy')}"></div>
+                        <div th:if="${matchIngame.status != 'done'}" th:text="${#temporals.format(matchIngame.time, 'HH:mm')}"></div>
+                        <div class="knockout__result" th:if="${matchIngame.status == 'done'}">
+                            <div>
+                                <span th:text="${matchIngame.scoreTeam1}"></span>
+                                <i class="fas fa-futbol"></i>
+                                <span th:text="${matchIngame.scoreTeam2}"></span>
+                            </div>
+                            <div th:if="${matchIngame.penaltyCheck == 1}">
+                                <span th:text="'('+${matchIngame.penaltyScoreTeam1}"></span>
+                                <span>PK</span>
+                                <span th:text="${matchIngame.penaltyScoreTeam2}+')'"></span>
+                            </div>
+                        </div>
+                        <div class="text-success">Kết thúc</div>
+                    </div>
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:text="${matchIngame.team2.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:if="${matchIngame.team2.class2 != ''}" th:text="${matchIngame.team2.class2}"></span></a>
+                    </div>
+                </div>
+                <div class="knockout__button">
+                    <a class="btn btn-primary" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Thông tin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${round_of_16_done}">
+        <div class="mainpage__roundTitle">Vòng 1/16</div>
+        <div class="mainpage__knockout">
+            <div class="knockoutBlock" th:each="matchIngame: ${round_of_16_done}">
+                <div class="knockout__Info">
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:text="${matchIngame.team1.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:if="${matchIngame.team1.class2 != ''}" th:text="${matchIngame.team1.class2}"></span></a>
+                    </div>
+                    <div class="knockout__time">
+                        <div th:text="${#temporals.format(matchIngame.date, 'dd/MM/yyyy')}"></div>
+                        <div th:if="${matchIngame.status != 'done'}" th:text="${#temporals.format(matchIngame.time, 'HH:mm')}"></div>
+                        <div class="knockout__result" th:if="${matchIngame.status == 'done'}">
+                            <div>
+                                <span th:text="${matchIngame.scoreTeam1}"></span>
+                                <i class="fas fa-futbol"></i>
+                                <span th:text="${matchIngame.scoreTeam2}"></span>
+                            </div>
+                            <div th:if="${matchIngame.penaltyCheck == 1}">
+                                <span th:text="'('+${matchIngame.penaltyScoreTeam1}"></span>
+                                <span>PK</span>
+                                <span th:text="${matchIngame.penaltyScoreTeam2}+')'"></span>
+                            </div>
+                        </div>
+                        <div class="text-success">Kết thúc</div>
+                    </div>
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:text="${matchIngame.team2.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:if="${matchIngame.team2.class2 != ''}" th:text="${matchIngame.team2.class2}"></span></a>
+                    </div>
+                </div>
+                <div class="knockout__button">
+                    <a class="btn btn-primary" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Thông tin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${group_stage_done}">
+        <div class="mainpage__roundTitle">Vòng bảng</div>
+        <div class="mainpage__groupStage">
+            <button id="btn-prevGroup">
+                <i class="fas fa-caret-left"></i>
+            </button>
+            <button id="btn-nextGroup">
+                <i class="fas fa-caret-right"></i>
+            </button>
+            <div th:each="teamsInRound,i : ${group_stage_done}"  th:id="'group'+${i.index + 1}" th:classappend="${i.index == 0} ? 'groupInfo show' : 'groupInfo'" >
+                <div>
+                    <span class="groupName"><span th:text="'Bảng '+${teamsInRound.groupTitle}"></span></span>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Đội</th>
+                            <th>ST</th>
+                            <th>W</th>
+                            <th>L</th>
+                            <th>D</th>
+                            <th>G</th>
+                            <th>GA</th>
+                            <th>GD</th>
+                            <th>P</th>
+                            <th>Gần đây</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="teamInRound : ${teamsInRound.groupStageInfoMapList}">
+                            <td></td>
+                            <td><a th:href="@{/team/{teamID}(teamID=${teamInRound.teamID})}" th:text="${teamInRound.teamTitle}"></a></td>
+                            <td th:text="${teamInRound.totalMatch}"></td>
+                            <td th:text="${teamInRound.win}"></td>
+                            <td th:text="${teamInRound.lose}"></td>
+                            <td th:text="${teamInRound.draw}"></td>
+                            <td th:text="${teamInRound.goalsScored}"></td>
+                            <td th:text="${teamInRound.goalsAgainst}"></td>
+                            <td th:text="${teamInRound.goalsDifference}"></td>
+                            <td th:text="${teamInRound.point}"></td>
+                            <td>
+                                <div class="last__matchs">
+                                    <div th:if="${ #lists.size(teamInRound.lastMatchs)  > 0}" th:each="lastMatch,i : ${teamInRound.lastMatchs}" th:classappend="'last'+${i.index+1}">
+                                        <img
+                                                th:if="${lastMatch == 'Win'}"
+                                                class="last--win"
+                                                src="https://ssl.gstatic.com/onebox/sports/standings_table/last_five_win.svg"
+                                        />
+                                        <img
+                                                th:if="${lastMatch == 'Lose'}"
+                                                class="last--lose"
+                                                src="https://ssl.gstatic.com/onebox/sports/standings_table/last_five_loss.svg"
+                                        />
+                                        <img
+                                                th:if="${lastMatch == 'Draw'}"
+                                                class="last--draw"
+                                                src="https://ssl.gstatic.com/onebox/sports/standings_table/last_five_draw.svg"
+                                                alt=""
+                                        />
+                                    </div>
+                                    <div th:if="${#lists.size(teamInRound.lastMatchs) < 3}" th:each="i : ${#numbers.sequence(#lists.size(teamInRound.lastMatchs), 2)}">
+                                        <div class="last2">
+                                            <img />
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="groupStage__notifi">
+                    <div>
+                        <div class="groupStage__notifi--next">
+                            <div>Qua vòng bảng</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="notifi__last">
+                            <div>
+                                <img
+                                        class=""
+                                        src="https://ssl.gstatic.com/onebox/sports/standings_table/last_five_win.svg"
+                                        alt=""
+                                />
+                            </div>
+                            <span>Thắng</span>
+                        </div>
+
+                        <div class="notifi__last">
+                            <div>
+                                <img
+                                        class=""
+                                        src="https://ssl.gstatic.com/onebox/sports/standings_table/last_five_loss.svg"
+                                        alt=""
+                                />
+                            </div>
+                            <span>Thua</span>
+                        </div>
+
+                        <div class="notifi__last">
+                            <div>
+                                <img
+                                        class=""
+                                        src="https://ssl.gstatic.com/onebox/sports/standings_table/last_five_draw.svg"
+                                        alt=""
+                                />
+                            </div>
+                            <span>Hòa</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mainpage__knockout">
+                    <div class="knockoutBlock" th:each="matchIngame: ${teamsInRound.matchsInGroup}">
+                        <div class="knockout__Info">
+                            <div class="knockout__Team">
+                                <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:text="${matchIngame.team1.class1}"></span></a>
+                                <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:if="${matchIngame.team1.class2 != ''}" th:text="${matchIngame.team1.class2}"></span></a>
+                            </div>
+                            <div class="knockout__time">
+                                <div th:text="${#temporals.format(matchIngame.date, 'dd/MM/yyyy')}"></div>
+                                <div th:if="${matchIngame.status != 'done'}" th:text="${#temporals.format(matchIngame.time, 'HH:mm')}"></div>
+                                <div class="knockout__result" th:if="${matchIngame.status == 'done'}">
+                                    <div>
+                                        <span th:text="${matchIngame.scoreTeam1}"></span>
+                                        <i class="fas fa-futbol"></i>
+                                        <span th:text="${matchIngame.scoreTeam2}"></span>
+                                    </div>
+                                    <div th:if="${matchIngame.penaltyCheck == 1}">
+                                        <span th:text="'('+${matchIngame.penaltyScoreTeam1}"></span>
+                                        <span>PK</span>
+                                        <span th:text="${matchIngame.penaltyScoreTeam2}+')'"></span>
+                                    </div>
+                                </div>
+                                <div class="text-danger" th:if="${matchIngame.status == 'ingame'}">Chưa diễn ra</div>
+                                <div class="text-success" th:if="${matchIngame.status == 'playing'}">Đang diễn ra</div>
+                                <div class="text-success" th:if="${matchIngame.status == 'done'}">Kết thúc</div>
+                            </div>
+                            <div class="knockout__Team">
+                                <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:text="${matchIngame.team2.class1}"></span></a>
+                                <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:if="${matchIngame.team2.class2 != ''}" th:text="${matchIngame.team2.class2}"></span></a>
+                            </div>
+                        </div>
+                        <div class="knockout__button">
+                            <a class="btn btn-primary" sec:authorize="!hasRole('ROLE_MANAGER')" th:unless="${checkMatchAttendance == matchIngame.ID}" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Thông tin</a>
+                            <a class="btn btn-warning" sec:authorize="!hasRole('ROLE_MANAGER')" th:if="${checkMatchAttendance == matchIngame.ID}" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Điểm danh</a>
+                            <a class="btn btn-primary" sec:authorize="hasRole('ROLE_MANAGER')" th:if="${matchIngame.status == 'done'}" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Thông tin</a>
+                            <a class="btn btn-warning" sec:authorize="hasRole('ROLE_MANAGER')" th:if="${matchIngame.status != 'done'}" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Quản lý</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${playoff_1_done}">
+        <div class="mainpage__roundTitle">Vòng playoff</div>
+        <div class="mainpage__knockout">
+            <div class="knockoutBlock" th:each="matchIngame: ${playoff_1_done}">
+                <div class="knockout__Info">
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:text="${matchIngame.team1.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team1ID}(team1ID=${matchIngame.team1.ID},year=${year})}"><span th:if="${matchIngame.team1.class2 != ''}" th:text="${matchIngame.team1.class2}"></span></a>
+                    </div>
+                    <div class="knockout__time">
+                        <div th:text="${#temporals.format(matchIngame.date, 'dd/MM/yyyy')}"></div>
+                        <div th:if="${matchIngame.status != 'done'}" th:text="${#temporals.format(matchIngame.time, 'HH:mm')}"></div>
+                        <div class="knockout__result" th:if="${matchIngame.status == 'done'}">
+                            <div>
+                                <span th:text="${matchIngame.scoreTeam1}"></span>
+                                <i class="fas fa-futbol"></i>
+                                <span th:text="${matchIngame.scoreTeam2}"></span>
+                            </div>
+                            <div th:if="${matchIngame.penaltyCheck == 1}">
+                                <span th:text="'('+${matchIngame.penaltyScoreTeam1}"></span>
+                                <span>PK</span>
+                                <span th:text="${matchIngame.penaltyScoreTeam2}+')'"></span>
+                            </div>
+                        </div>
+                        <div class="text-success">Kết thúc</div>
+                    </div>
+                    <div class="knockout__Team">
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:text="${matchIngame.team2.class1}"></span></a>
+                        <a th:href="@{/{year}/team/{team2ID}(team2ID=${matchIngame.team2.ID},year=${year})}"><span th:if="${matchIngame.team2.class2 != ''}" th:text="${matchIngame.team2.class2}"></span></a>
+                    </div>
+                </div>
+                <div class="knockout__button">
+                    <a class="btn btn-primary" th:href="@{/{year}/match/{matchID}(matchID=${matchIngame.ID},year=${year})}">Thông tin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

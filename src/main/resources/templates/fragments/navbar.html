@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <nav class="mainpage__nav">
+        <div>
+            <div class="nav__name">
+                <div>
+                    Giải bóng đá khoa
+                    <h4>Công Nghệ Thông Tin</h4>
+                </div>
+                <select class="nav__year--select" id="select_tournament">
+                    <option value="">--</option>
+                    <option th:if="${schoolYears_ != null}" th:each="schoolYear: ${schoolYears_}" th:selected="${(tournament_current != null and schoolYear.ID == tournament_current.schoolYear.ID and year == null) or (year != null and year == schoolYear.year1+'-'+schoolYear.year2)}" th:value="${schoolYear.year1+'-'+schoolYear.year2}" th:text="${schoolYear.year1+' - '+schoolYear.year2}"></option>
+                </select>
+                <div class="nav__status">
+                    <div th:if="${tournament_current == null}" class="nav__status--not">
+                        <div>Chưa có giải đấu</div>
+                        <a sec:authorize="hasRole('ROLE_MANAGER')" href="/data" class="nav__status--createBtn">Thêm dữ liệu</a>
+                        <a  sec:authorize="hasRole('ROLE_MANAGER')" th:if="${studentData}" th:href="@{/create_tournament}" class="nav__status--createBtn">Tạo giải đấu</a>
+                    </div>
+                    <div th:if="${tournament_current != null and tournament_done == null and tournament_current.status == 'open'}" class="nav__status--open">
+                        <div>Mở đăng ký đến <span th:text="${#temporals.format(tournament_current.registerEndDate, 'dd/MM/yyyy')}"></span></div>
+                        <a sec:authorize="hasRole('ROLE_MANAGER')" href="/update_tournament" class="nav__status--createBtn">Thay đổi</a>
+                        <a sec:authorize="hasRole('ROLE_MANAGER')" href="/student" class="nav__status--createBtn">Dữ liệu</a>
+                        <a sec:authorize="hasRole('ROLE_STUDENT')" th:unless="${team_user}" href="/sign_up_team" class="nav__status--createBtn">Đăng ký</a>
+                        <a sec:authorize="hasRole('ROLE_STUDENT')" th:if="${team_user}" class="nav__status--createBtn" disable>Lớp đã đăng ký</a>
+                        <a sec:authorize="hasRole('ROLE_PLAYER')" class="nav__status--createBtn" disable>Đã đăng ký</a>
+                    </div>
+                    <div th:if="${tournament_current != null and tournament_done == null and tournament_current.status == 'schedule'}" class="nav__status--inprogress">Chờ bốc thăm và xếp lịch</div>
+                    <div th:if="${tournament_current != null and tournament_done == null and tournament_current.status == 'inprogress'}" class="nav__status--inprogress" th:text="${roundSchedule_inprogress_title}"></div>
+                </div>
+            </div>
+            <ul class="aside__bar">
+                <li sec:authorize="hasRole('ROLE_PLAYER')" th:if="${tournament_done == null}"  class="aside__tour">
+                    <a th:if="${player_user.captain == 1}" href="/manager_team">Quản lý đội</a>
+                    <a th:if="${player_user.captain == 0}" href="/manager_team">Thông tin đội</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_MANAGER')" th:if="${tournament_current != null and tournament_done == null and (tournament_current.status == 'schedule' or tournament_current.status == 'inprogress') }" class="aside__team">
+                    <a href="/create_draw" class="">
+                        <div class="aside__notiBlock">
+                            Bốc thăm
+                        </div>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_MANAGER')" th:if="${tournament_current != null and tournament_done == null and (roundSchedule_inprogress != null or tournament_current.status == 'inprogress')}" class="aside__team">
+                    <a href="/create_schedule" class="">
+                        <div class="aside__notiBlock">
+                            Xếp lịch
+                        </div>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_MANAGER')" th:if="${tournament_current != null  and tournament_done == null}" class="aside__team">
+                    <a href="/list_team" class="">
+                        <div class="aside__notiBlock">
+                            Quản lý các đội
+                        </div>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_PLAYER')" th:if="${tournament_current != null and tournament_done == null}" class="aside__team">
+                    <a href="/list_team" class="">
+                        <div class="aside__notiBlock">
+                            Danh sách đội
+                        </div>
+                    </a>
+                </li>
+                <li sec:authorize="!hasAnyRole('ROLE_PLAYER','ROLE_MANAGER')" th:if="${tournament_current != null and tournament_done == null}" class="aside__team">
+                    <a href="/list_team" class="">
+                        <div class="aside__notiBlock">
+                            Danh sách đội
+                        </div>
+                    </a>
+                </li>
+                <li th:if="${tournament_done}" class="aside__team">
+                    <a th:href="@{/{year}(year=${year})}" class="">
+                        <div class="aside__notiBlock">
+                            Trang chủ
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</html>

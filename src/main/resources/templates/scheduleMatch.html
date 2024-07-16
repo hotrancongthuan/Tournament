@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="shortcut icon"
+      href="https://stdportal.tdtu.edu.vn/logo.ico"
+      type="image/x-icon"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <main class="scheduleMatch">
+      <div class="scheduleMatch__title">Lịch thi đấu</div>
+      <div class="scheduleMatch__main">
+        <aside class="scheduleMatch__aside">
+          <div class="aside__round" id="scheduleMatch__round">
+            <div class="aside__round--btnPrev">
+              <i class="bi bi-chevron-left"></i>
+            </div>
+            <div class="aside__round--btnNext">
+              <i class="bi bi-chevron-right"></i>
+            </div>
+            <input
+              class="round--1"
+              type="radio"
+              name="round"
+              id="group"
+              checked
+            />
+            <input class="round--2" type="radio" name="round" id="knoutout" />
+            <input class="round--3" type="radio" name="round" id="round16" />
+            <input class="round--4" type="radio" name="round" id="quarter" />
+            <input class="round--5" type="radio" name="round" id="semi" />
+            <input class="round--6" type="radio" name="round" id="third" />
+            <input class="round--7" type="radio" name="round" id="final" />
+            <ul>
+              <li class="round--1 round--show group">Vòng bảng</li>
+              <li class="round--2 knoutout">Vòng loại</li>
+              <li class="round--3 round16">1/16</li>
+              <li class="round--4 quarter">Tứ kết</li>
+              <li class="round--5 semi">Bán kết</li>
+              <li class="round--6 third">Tranh hạng 3</li>
+              <li class="round--7 final">Chung kết</li>
+            </ul>
+          </div>
+          <div class="aside__date">
+            <input type="date" name="" id="" />
+          </div>
+        </aside>
+        <article class="scheduleMatch__schedule">
+          <div class="scheduleMatch__scheduleBlock">
+            <div class="scheduleMatch__scheduleInfo">
+              <div>17050303</div>
+              <div class="scheduleMatch__scheduleTime">
+                <div>12:00</div>
+                <div>1/2/2023</div>
+                <div>Sân 1</div>
+              </div>
+              <div>17050302</div>
+            </div>
+            <div class="scheduleMatch__scheduleButton">
+              <a
+                type="button"
+                class="scheduleMatch__status--open"
+                data-bs-toggle="modal"
+                data-bs-target="#changeSchedule"
+              >
+                Đổi lịch
+              </a>
+              <a href="">Chi tiết</a>
+            </div>
+          </div>
+          <div class="scheduleMatch__scheduleBlock">
+            <div class="scheduleMatch__scheduleInfo">
+              <div>17050303</div>
+              <div class="scheduleMatch__scheduleTime">
+                <div>12:00</div>
+                <div>1/2/2023</div>
+                <div>Sân 1</div>
+              </div>
+              <div>17050302</div>
+            </div>
+            <div class="scheduleMatch__scheduleButton">
+              <a
+                type="button"
+                class="scheduleMatch__status--open"
+                data-bs-toggle="modal"
+                data-bs-target="#changeSchedule"
+              >
+                Đổi lịch
+              </a>
+              <a href="">Chi tiết</a>
+            </div>
+          </div>
+          <div class="scheduleMatch__scheduleBlock">
+            <div class="scheduleMatch__scheduleInfo">
+              <div>17050303</div>
+              <div class="scheduleMatch__scheduleTime">
+                <div>12:00</div>
+                <div>1/2/2023</div>
+                <div>Sân 1</div>
+              </div>
+              <div>17050302</div>
+            </div>
+            <div class="scheduleMatch__scheduleButton">
+              <a
+                type="button"
+                class="scheduleMatch__status--open"
+                data-bs-toggle="modal"
+                data-bs-target="#changeSchedule"
+              >
+                Đổi lịch
+              </a>
+              <a href="">Chi tiết</a>
+            </div>
+          </div>
+          <div class="scheduleMatch__scheduleBlock">
+            <div class="scheduleMatch__scheduleInfo">
+              <div>17050303</div>
+              <div class="scheduleMatch__scheduleTime">
+                <div>12:00</div>
+                <div>1/2/2023</div>
+                <div>Sân 1</div>
+              </div>
+              <div>17050302</div>
+            </div>
+            <div class="scheduleMatch__scheduleButton">
+              <a
+                type="button"
+                class="scheduleMatch__status--open"
+                data-bs-toggle="modal"
+                data-bs-target="#changeSchedule"
+              >
+                Đổi lịch
+              </a>
+              <a href="">Chi tiết</a>
+            </div>
+          </div>
+          <div class="scheduleMatch__scheduleBlock">
+            <div class="scheduleMatch__scheduleInfo">
+              <div>17050303</div>
+              <div class="scheduleMatch__scheduleTime">
+                <div>12:00</div>
+                <div>1/2/2023</div>
+                <div>Sân 1</div>
+              </div>
+              <div>17050302</div>
+            </div>
+            <div class="scheduleMatch__scheduleButton">
+              <a
+                type="button"
+                class="scheduleMatch__status--open"
+                data-bs-toggle="modal"
+                data-bs-target="#changeSchedule"
+              >
+                Đổi lịch
+              </a>
+              <a href="">Chi tiết</a>
+            </div>
+          </div>
+          <div class="scheduleMatch__scheduleBlock">
+            <div class="scheduleMatch__scheduleInfo">
+              <div>17050303</div>
+              <div class="scheduleMatch__scheduleTime">
+                <div>12:00</div>
+                <div>1/2/2023</div>
+                <div>Sân 1</div>
+              </div>
+              <div>17050302</div>
+            </div>
+            <div class="scheduleMatch__scheduleButton">
+              <a
+                type="button"
+                class="scheduleMatch__status--open"
+                data-bs-toggle="modal"
+                data-bs-target="#changeSchedule"
+              >
+                Đổi lịch
+              </a>
+              <a href="">Chi tiết</a>
+            </div>
+          </div>
+          <div class="scheduleMatch__scheduleBlock">
+            <div class="scheduleMatch__scheduleInfo">
+              <div>17050303</div>
+              <div class="scheduleMatch__scheduleTime">
+                <div>12:00</div>
+                <div>1/2/2023</div>
+                <div>Sân 1</div>
+              </div>
+              <div>17050302</div>
+            </div>
+            <div class="scheduleMatch__scheduleButton">
+              <a
+                type="button"
+                class="scheduleMatch__status--open"
+                data-bs-toggle="modal"
+                data-bs-target="#changeSchedule"
+              >
+                Đổi lịch
+              </a>
+              <a href="">Chi tiết</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <!-- modal change schedule -->
+    <div
+      class="modal fade"
+      id="changeSchedule"
+      tabindex="-1"
+      aria-labelledby="changeSchedule__Label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form action="" method="post">
+            <div class="modal-header">
+              <h5
+                class="changeSchedule__modal--title modal-title"
+                id="changeSchedule__Label"
+              >
+                Đổi lịch thi đấu
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="changeSchedule__modal--body modal-body">
+              <div>
+                <label for="">Đội 1</label>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  17050303
+                </button>
+              </div>
+              <div>
+                <label for="">Đội 2</label>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  17050302
+                </button>
+              </div>
+              <div>
+                <label for="">Ngày</label>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  1/2/2023
+                </button>
+              </div>
+              <div>
+                <label for="">Thời gian</label>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  7:00
+                </button>
+              </div>
+              <div>
+                <label for="">Sân</label>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  1
+                </button>
+              </div>
+              <div>
+                <label for="">Đổi ngày</label>
+                <input type="date" name="" id="" />
+              </div>
+              <div>
+                <label for="">Đổi thời gian</label>
+                <input type="time" name="" id="" />
+              </div>
+              <div>
+                <label for="">Lý do</label>
+                <select name="" id="">
+                  <option value="">Thời tiết xấu</option>
+                  <option value="">Đội A bị trùng lịch học</option>
+                  <option value="">Đội B bị trùng lịch học</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer changeSchedule__modal--button">
+              <input type="submit" class="btn btn-primary" value="Xác nhận" />
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Hủy
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!--  -->
+  </body>
+  <script src="javascript/script.js"></script>
+</html>
